@@ -82,8 +82,9 @@ export function searchDirectJourneys(
     );
 
     for (const trip of matchingTrips) {
-      // Calculate remaining seats
-      const availableSeats = Math.max(0, trip.totalSeats - trip.bookedSeats);
+      // Calculate remaining seats with standard 52-seat capacity fallback
+      const capacity = trip.totalSeats > 0 ? trip.totalSeats : 52;
+      const availableSeats = Math.max(0, capacity - (trip.bookedSeats || 0));
 
       // Check if enough seats for requested passengers
       const isBookingAllowed =
@@ -130,7 +131,7 @@ export function searchDirectJourneys(
         arrivalTime: arrTime,
         estimatedDurationMinutes: directionalCheck.durationOffset,
         availableSeats,
-        totalSeats: trip.totalSeats,
+        totalSeats: capacity,
         fareAmount: route.fareAmount,
         isBookingAllowed,
         disruptions: activeDisruptions,

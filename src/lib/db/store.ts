@@ -77,11 +77,45 @@ declare global {
 
 // Scheduled routes/stops/trips come only from the official timetable. The legacy demo corridor
 // (route-101 etc.) is kept solely as a unit-test fixture and is never loaded outside tests.
+function createDefaultFleetBus(codeNum: string, seed: number): Bus {
+  const regDigits = String(Math.floor(1000 + (seed * 17)) % 8000 + 1000);
+  return {
+    id: `bus-fleet-${codeNum.toLowerCase()}`,
+    busCode: `BUS-${codeNum}`,
+    registrationNumber: `AP39TL${regDigits}`,
+    rawRegistration: `AP 39 TL ${regDigits}`,
+    vehicleType: 'Standard Campus Coach',
+    manufacturer: 'Tata Motors',
+    model: 'Starbus Ultra 1623',
+    seatingCapacity: 52,
+    standingCapacity: 15,
+    hasWheelchairAccess: false,
+    fuelType: 'diesel',
+    status: 'active',
+    assignedDepot: 'Amaravati Central Depot',
+    currentOdometer: 38400,
+    documents: [],
+  };
+}
+
 function seedTimetable(target: Pick<StoreState, 'stops' | 'routes' | 'trips' | 'buses' | 'staff'>) {
   const official = buildOfficialTransitData();
   official.stops.forEach((st) => target.stops.set(st.id, st));
   official.routes.forEach((r) => target.routes.set(r.id, r));
-  official.trips.forEach((t) => target.trips.set(t.id, t));
+  official.trips.forEach((t) => {
+    const safeTrip = {
+      ...t,
+      totalSeats: t.totalSeats > 0 ? t.totalSeats : 52,
+      bookedSeats: t.bookedSeats || 0,
+    };
+    target.trips.set(t.id, safeTrip);
+
+    // Auto-create fleet vehicle for this route if not present
+    if (t.busId && !target.buses.has(t.busId)) {
+      const codeNum = t.route?.routeNumber.replace(/[^a-zA-Z0-9]/g, '') || '01';
+      target.buses.set(t.busId, createDefaultFleetBus(codeNum, t.id.charCodeAt(5) || 50));
+    }
+  });
 
   if (process.env.NODE_ENV === 'test') {
     SEED_STOPS.forEach((st) => {
@@ -400,13 +434,19 @@ export async function getTrips(): Promise<Trip[]> {
   await ensureSeedTickets();
   return Array.from(store.trips.values())
     .filter((t) => !t.id.includes('101'))
-    .map((t) => ({
-      ...t,
-      route: store.routes.get(t.routeId),
-      bus: store.buses.get(t.busId),
-      driver: store.staff.get(t.driverId),
-      conductor: store.staff.get(t.conductorId),
-    }));
+    .map((t) => {
+      const route = store.routes.get(t.routeId);
+      const codeNum = route?.routeNumber ? route.routeNumber.replace(/[^a-zA-Z0-9]/g, '') : '01';
+      return {
+        ...t,
+        totalSeats: t.totalSeats > 0 ? t.totalSeats : 52,
+        bookedSeats: t.bookedSeats || 0,
+        route,
+        bus: store.buses.get(t.busId) || createDefaultFleetBus(codeNum, t.id.charCodeAt(5) || 50),
+        driver: store.staff.get(t.driverId) || store.staff.get('staff-drv-1'),
+        conductor: store.staff.get(t.conductorId) || store.staff.get('staff-cnd-1'),
+      };
+    });
 }
 
 export async function getTripById(id: string): Promise<Trip | undefined> {
@@ -415,12 +455,16 @@ export async function getTripById(id: string): Promise<Trip | undefined> {
     (id === 'trip-101-morning' ? store.trips.get('trip-vv-1-morning') : undefined) ||
     (id === 'trip-101-midday' ? store.trips.get('trip-vv-4-morning') : undefined);
   if (!trip) return undefined;
+  const route = store.routes.get(trip.routeId);
+  const codeNum = route?.routeNumber ? route.routeNumber.replace(/[^a-zA-Z0-9]/g, '') : '01';
   return {
     ...trip,
-    route: store.routes.get(trip.routeId),
-    bus: store.buses.get(trip.busId),
-    driver: store.staff.get(trip.driverId),
-    conductor: store.staff.get(trip.conductorId),
+    totalSeats: trip.totalSeats > 0 ? trip.totalSeats : 52,
+    bookedSeats: trip.bookedSeats || 0,
+    route,
+    bus: store.buses.get(trip.busId) || createDefaultFleetBus(codeNum, trip.id.charCodeAt(5) || 50),
+    driver: store.staff.get(trip.driverId) || store.staff.get('staff-drv-1'),
+    conductor: store.staff.get(trip.conductorId) || store.staff.get('staff-cnd-1'),
   };
 }
 
@@ -545,6 +589,11 @@ export async function createBooking(data: {
 
   if (trip.status !== 'scheduled' && trip.status !== 'boarding') {
     throw new Error(`Trip is in "${trip.status}" state and no longer accepting reservations.`);
+  }
+
+  // Ensure positive seat capacity
+  if (!trip.totalSeats || trip.totalSeats <= 0) {
+    trip.totalSeats = 52;
   }
 
   // Atomic capacity check

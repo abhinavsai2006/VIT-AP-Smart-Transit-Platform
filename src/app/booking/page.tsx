@@ -54,20 +54,35 @@ function BookingContent() {
         ]);
         const tripsData = await tripsRes.json();
         const stopsData = await stopsRes.json();
-        setTrips(tripsData.trips || []);
-        setStops(stopsData.stops || []);
+        const fetchedTrips = tripsData.trips || [];
+        const fetchedStops = stopsData.stops || [];
+        setTrips(fetchedTrips);
+        setStops(fetchedStops);
+
+        if (!tripIdParam && fetchedTrips.length > 0) {
+          setSelectedTripId(fetchedTrips[0].id);
+        }
+        if (!originStopIdParam && fetchedStops.length > 0) {
+          setOriginStopId(fetchedStops[0].id);
+        }
+        if (!destStopIdParam && fetchedStops.length > 0) {
+          const campus = fetchedStops.find((s: Stop) => s.id === 'stop-vit-ap-campus') || fetchedStops[fetchedStops.length - 1];
+          setDestinationStopId(campus.id);
+        }
       } catch (err) {
         console.error('Failed to load trips for booking', err);
       }
     }
     loadData();
-  }, []);
+  }, [tripIdParam, originStopIdParam, destStopIdParam]);
 
   const selectedTrip = trips.find((t) => t.id === selectedTripId) || trips[0];
   const originStop = stops.find((s) => s.id === originStopId) || stops[0];
   const destStop = stops.find((s) => s.id === destinationStopId) || stops[stops.length - 1];
 
-  const availableSeats = selectedTrip ? Math.max(0, selectedTrip.totalSeats - selectedTrip.bookedSeats) : 0;
+  const totalSeats = selectedTrip ? (selectedTrip.totalSeats > 0 ? selectedTrip.totalSeats : 52) : 52;
+  const bookedSeats = selectedTrip ? (selectedTrip.bookedSeats || 0) : 0;
+  const availableSeats = Math.max(0, totalSeats - bookedSeats);
   const farePerSeat = selectedTrip?.route?.fareAmount || 0;
   const totalFare = farePerSeat * seatCount;
 
@@ -251,7 +266,7 @@ function BookingContent() {
                 >
                   {trips.map((t) => (
                     <option key={t.id} value={t.id}>
-                      Route {t.route?.routeNumber} ({t.departureTime} dep) — Bus {t.bus?.busCode} ({t.totalSeats - t.bookedSeats} seats open)
+                      Route {t.route?.routeNumber} ({t.departureTime} dep) — Bus {t.bus?.busCode} ({(t.totalSeats > 0 ? t.totalSeats : 52) - (t.bookedSeats || 0)} seats open)
                     </option>
                   ))}
                 </select>
@@ -373,7 +388,7 @@ function BookingContent() {
               <button
                 type="submit"
                 className="btn btn-primary"
-                disabled={submitting || availableSeats <= 0}
+                disabled={submitting || availableSeats < seatCount}
                 style={{ width: '100%', marginTop: '8px' }}
               >
                 {submitting ? 'Confirming with Server...' : 'Confirm Reservation & Generate QR Ticket ›'}
@@ -406,7 +421,7 @@ function BookingContent() {
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '14px' }}>
                   <span style={{ color: 'var(--color-muted)' }}>Available Seats</span>
                   <span style={{ fontWeight: 700, color: availableSeats > 5 ? 'var(--color-success)' : 'var(--color-warning)' }}>
-                    {availableSeats} of {selectedTrip?.totalSeats} seats
+                    {availableSeats} of {totalSeats} seats
                   </span>
                 </div>
               </div>
