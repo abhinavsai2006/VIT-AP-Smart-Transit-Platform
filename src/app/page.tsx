@@ -192,9 +192,9 @@ export default function HomePage() {
               style={{
                 color: '#ffffff',
                 fontSize: 'clamp(2.2rem, 5vw, 3.6rem)',
-                fontWeight: 800,
+                fontWeight: 700,
                 lineHeight: 1.05,
-                letterSpacing: '-0.02em',
+                letterSpacing: 0,
                 marginBottom: '16px',
               }}
             >
@@ -222,8 +222,7 @@ export default function HomePage() {
               backgroundColor: '#ffffff',
               color: 'var(--color-ink)',
               padding: '28px',
-              border: 'none',
-              boxShadow: '0 20px 40px rgba(0,0,0,0.25)',
+              border: '1px solid var(--color-hairline)',
             }}
           >
             <div
@@ -385,7 +384,7 @@ export default function HomePage() {
           <div className="container">
             <div style={{ marginBottom: '24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
               <div>
-                <h2 style={{ fontSize: '24px', fontWeight: 800 }}>
+                <h2 style={{ fontSize: '24px', fontWeight: 700 }}>
                   Available Services ({searchResults.length})
                 </h2>
                 <p style={{ fontSize: '14px', color: 'var(--color-muted)', margin: 0 }}>
@@ -452,7 +451,7 @@ export default function HomePage() {
                             backgroundColor: 'var(--color-primary)',
                             color: '#ffffff',
                             padding: '6px 12px',
-                            fontWeight: 800,
+                            fontWeight: 700,
                             fontSize: '15px',
                           }}
                         >
@@ -471,7 +470,7 @@ export default function HomePage() {
                           {res.trip.status.toUpperCase()}
                         </span>
                         <div style={{ textAlign: 'right' }}>
-                          <div style={{ fontSize: '20px', fontWeight: 800, color: 'var(--color-ink)' }}>
+                          <div style={{ fontSize: '20px', fontWeight: 700, color: 'var(--color-ink)' }}>
                             {res.fareAmount === 0 ? 'FREE' : `₹${res.fareAmount}`}
                           </div>
                           <div style={{ fontSize: '11px', color: 'var(--color-muted)' }}>per passenger</div>
@@ -492,7 +491,7 @@ export default function HomePage() {
                         <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--color-muted)', textTransform: 'uppercase' }}>
                           Departure From Origin
                         </div>
-                        <div style={{ fontSize: '20px', fontWeight: 800, color: 'var(--color-ink)' }}>
+                        <div style={{ fontSize: '20px', fontWeight: 700, color: 'var(--color-ink)' }}>
                           {res.departureTime}
                         </div>
                         <div style={{ fontSize: '13px', color: 'var(--color-body)' }}>{res.originStop.name}</div>
@@ -521,7 +520,7 @@ export default function HomePage() {
                         <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--color-muted)', textTransform: 'uppercase' }}>
                           Estimated Arrival
                         </div>
-                        <div style={{ fontSize: '20px', fontWeight: 800, color: 'var(--color-ink)' }}>
+                        <div style={{ fontSize: '20px', fontWeight: 700, color: 'var(--color-ink)' }}>
                           {res.arrivalTime}
                         </div>
                         <div style={{ fontSize: '13px', color: 'var(--color-body)' }}>{res.destinationStop.name}</div>
@@ -595,7 +594,7 @@ export default function HomePage() {
               >
                 Real-Time Telemetry
               </div>
-              <h2 style={{ fontSize: '2rem', fontWeight: 800 }}>Campus Fleet Operations Map</h2>
+              <h2 style={{ fontSize: '2rem', fontWeight: 700 }}>Campus Fleet Operations Map</h2>
               <p style={{ fontSize: '15px', color: 'var(--color-muted)', margin: 0 }}>
                 Live GPS ingestion directly from active driver devices servicing Vijayawada, Guntur, and Amaravati corridors.
               </p>
@@ -620,7 +619,7 @@ export default function HomePage() {
       <section style={{ padding: '80px 0', backgroundColor: 'var(--color-surface-soft)', borderTop: '1px solid var(--color-hairline)' }}>
         <div className="container">
           <div style={{ textAlign: 'center', maxWidth: '640px', margin: '0 auto 48px' }}>
-            <h2 style={{ fontSize: '2rem', fontWeight: 800, marginBottom: '12px' }}>
+            <h2 style={{ fontSize: '2rem', fontWeight: 700, marginBottom: '12px' }}>
               Connected Transit Ecosystem
             </h2>
             <p style={{ fontSize: '15px', color: 'var(--color-body)' }}>
@@ -756,7 +755,7 @@ export default function HomePage() {
         }}
       >
         <div className="container" style={{ maxWidth: '720px' }}>
-          <h2 style={{ fontSize: '2.2rem', fontWeight: 800, color: '#ffffff', marginBottom: '16px' }}>
+          <h2 style={{ fontSize: '2.2rem', fontWeight: 700, color: '#ffffff', marginBottom: '16px' }}>
             Experience VIT-AP Smart Transit Operations
           </h2>
           <p style={{ color: 'var(--color-on-dark-soft)', fontSize: '16px', lineHeight: 1.6, marginBottom: '32px' }}>

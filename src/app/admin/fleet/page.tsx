@@ -155,7 +155,7 @@ export default function AdminFleetPage() {
             >
               MoRTH & AP State Compliance
             </div>
-            <h1 style={{ fontSize: '2.4rem', fontWeight: 800, marginBottom: '8px' }}>
+            <h1 style={{ fontSize: '2.4rem', fontWeight: 700, marginBottom: '8px' }}>
               Fleet Registry & Andhra Pradesh Registration
             </h1>
             <p style={{ fontSize: '15px', color: 'var(--color-muted)', maxWidth: '760px', margin: 0 }}>
@@ -262,7 +262,7 @@ export default function AdminFleetPage() {
 
                   return (
                     <tr key={bus.id}>
-                      <td style={{ fontWeight: 800, color: 'var(--color-primary)' }}>
+                      <td style={{ fontWeight: 700, color: 'var(--color-primary)' }}>
                         {bus.busCode}
                       </td>
                       <td>
@@ -343,7 +343,7 @@ export default function AdminFleetPage() {
                 backgroundColor: '#ffffff',
               }}
             >
-              <h2 style={{ fontSize: '20px', fontWeight: 800, marginBottom: '8px' }}>
+              <h2 style={{ fontSize: '20px', fontWeight: 700, marginBottom: '8px' }}>
                 Register Bus in University Fleet
               </h2>
               <p style={{ fontSize: '13px', color: 'var(--color-muted)', marginBottom: '20px' }}>

@@ -245,7 +245,7 @@ export default function DriverPage() {
                 <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '1.5px', color: '#93c5fd', fontWeight: 700 }}>
                   Assigned Operating Crew
                 </div>
-                <h1 style={{ fontSize: '24px', fontWeight: 800, marginTop: '2px' }}>
+                <h1 style={{ fontSize: '24px', fontWeight: 700, marginTop: '2px' }}>
                   {user.fullName} (Driver Cockpit)
                 </h1>
                 <div style={{ fontSize: '12px', color: 'var(--color-on-dark-soft)', marginTop: '2px' }}>
@@ -289,13 +289,13 @@ export default function DriverPage() {
                     backgroundColor: 'var(--color-primary)',
                     color: '#ffffff',
                     padding: '4px 12px',
-                    fontWeight: 800,
+                    fontWeight: 700,
                     fontSize: '14px',
                   }}
                 >
                   ROUTE {assignedTrip.route?.routeNumber}
                 </span>
-                <h2 style={{ fontSize: '20px', fontWeight: 800 }}>
+                <h2 style={{ fontSize: '20px', fontWeight: 700 }}>
                   {assignedTrip.route?.routeName}
                 </h2>
               </div>
@@ -317,7 +317,7 @@ export default function DriverPage() {
                 <div style={{ fontSize: '11px', textTransform: 'uppercase', color: 'var(--color-muted)', fontWeight: 700 }}>
                   Allocated Vehicle
                 </div>
-                <div style={{ fontSize: '16px', fontWeight: 800, marginTop: '2px' }}>
+                <div style={{ fontSize: '16px', fontWeight: 700, marginTop: '2px' }}>
                   {assignedTrip.bus?.busCode} ({assignedTrip.bus?.registrationNumber})
                 </div>
                 <div style={{ fontSize: '12px', color: 'var(--color-muted)' }}>
@@ -329,7 +329,7 @@ export default function DriverPage() {
                 <div style={{ fontSize: '11px', textTransform: 'uppercase', color: 'var(--color-muted)', fontWeight: 700 }}>
                   Departure / Arrival
                 </div>
-                <div style={{ fontSize: '16px', fontWeight: 800, marginTop: '2px' }}>
+                <div style={{ fontSize: '16px', fontWeight: 700, marginTop: '2px' }}>
                   {assignedTrip.departureTime} → {assignedTrip.arrivalTime} IST
                 </div>
                 <div style={{ fontSize: '12px', color: 'var(--color-muted)' }}>
@@ -341,7 +341,7 @@ export default function DriverPage() {
                 <div style={{ fontSize: '11px', textTransform: 'uppercase', color: 'var(--color-muted)', fontWeight: 700 }}>
                   Passenger Load
                 </div>
-                <div style={{ fontSize: '16px', fontWeight: 800, marginTop: '2px' }}>
+                <div style={{ fontSize: '16px', fontWeight: 700, marginTop: '2px' }}>
                   {assignedTrip.bookedSeats} / {assignedTrip.totalSeats} Boarded
                 </div>
                 <div style={{ fontSize: '12px', color: 'var(--color-muted)' }}>
@@ -363,7 +363,7 @@ export default function DriverPage() {
                 <div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                     <span className={isBroadcasting ? 'live-pulse' : 'stale-pulse'}></span>
-                    <h3 style={{ fontSize: '16px', fontWeight: 800 }}>
+                    <h3 style={{ fontSize: '16px', fontWeight: 700 }}>
                       Real-Time GPS Transmitter
                     </h3>
                   </div>
@@ -503,7 +503,7 @@ export default function DriverPage() {
                             alignItems: 'center',
                             justifyContent: 'center',
                             fontSize: '12px',
-                            fontWeight: 800,
+                            fontWeight: 700,
                           }}
                         >
                           {rs.stopSequence}
@@ -547,7 +547,7 @@ export default function DriverPage() {
             }}
           >
             <div className="card" style={{ maxWidth: '500px', width: '100%', padding: '24px' }}>
-              <h3 style={{ fontSize: '18px', fontWeight: 800, marginBottom: '16px' }}>
+              <h3 style={{ fontSize: '18px', fontWeight: 700, marginBottom: '16px' }}>
                 Report Vehicle Defect or Operational Delay
               </h3>
               <form onSubmit={handleDefectReport}>

@@ -183,7 +183,7 @@ export default function AdminMaintenancePage() {
             >
               Operational Expenses & Workshop
             </div>
-            <h1 style={{ fontSize: '2.4rem', fontWeight: 800, marginBottom: '8px' }}>
+            <h1 style={{ fontSize: '2.4rem', fontWeight: 700, marginBottom: '8px' }}>
               Maintenance, Fuel & Fleet Expenditure
             </h1>
             <p style={{ fontSize: '15px', color: 'var(--color-muted)', maxWidth: '760px', margin: 0 }}>
@@ -222,7 +222,7 @@ export default function AdminMaintenancePage() {
             <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--color-muted)', textTransform: 'uppercase' }}>
               Maintenance Expenditure
             </div>
-            <div style={{ fontSize: '28px', fontWeight: 800, color: 'var(--color-ink)', margin: '6px 0' }}>
+            <div style={{ fontSize: '28px', fontWeight: 700, color: 'var(--color-ink)', margin: '6px 0' }}>
               ₹{totalMaintCost.toLocaleString('en-IN')}
             </div>
             <div style={{ fontSize: '12px', color: 'var(--color-muted)' }}>
@@ -234,7 +234,7 @@ export default function AdminMaintenancePage() {
             <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--color-muted)', textTransform: 'uppercase' }}>
               Fuel Expenditure
             </div>
-            <div style={{ fontSize: '28px', fontWeight: 800, color: 'var(--color-ink)', margin: '6px 0' }}>
+            <div style={{ fontSize: '28px', fontWeight: 700, color: 'var(--color-ink)', margin: '6px 0' }}>
               ₹{totalFuelCost.toLocaleString('en-IN')}
             </div>
             <div style={{ fontSize: '12px', color: 'var(--color-muted)' }}>
@@ -246,7 +246,7 @@ export default function AdminMaintenancePage() {
             <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--color-muted)', textTransform: 'uppercase' }}>
               Vehicles in Maintenance
             </div>
-            <div style={{ fontSize: '28px', fontWeight: 800, color: 'var(--color-warning)', margin: '6px 0' }}>
+            <div style={{ fontSize: '28px', fontWeight: 700, color: 'var(--color-warning)', margin: '6px 0' }}>
               {buses.filter((b) => b.status === 'maintenance').length}
             </div>
             <div style={{ fontSize: '12px', color: 'var(--color-muted)' }}>
@@ -297,7 +297,7 @@ export default function AdminMaintenancePage() {
                     const bus = buses.find((b) => b.id === m.busId);
                     return (
                       <tr key={m.id}>
-                        <td style={{ fontWeight: 800, color: 'var(--color-primary)' }}>
+                        <td style={{ fontWeight: 700, color: 'var(--color-primary)' }}>
                           {bus?.busCode || m.busId}
                         </td>
                         <td style={{ textTransform: 'capitalize', fontWeight: 600 }}>
@@ -311,7 +311,7 @@ export default function AdminMaintenancePage() {
                         <td style={{ fontSize: '12px' }}>{m.serviceDate}</td>
                         <td>₹{m.partsCost.toLocaleString()}</td>
                         <td>₹{m.labourCost.toLocaleString()}</td>
-                        <td style={{ fontWeight: 800 }}>₹{m.totalCost.toLocaleString()}</td>
+                        <td style={{ fontWeight: 700 }}>₹{m.totalCost.toLocaleString()}</td>
                         <td>
                           {m.status === 'completed' ? (
                             <span className="badge badge-success">COMPLETED</span>
@@ -350,13 +350,13 @@ export default function AdminMaintenancePage() {
                     return (
                       <tr key={f.id}>
                         <td style={{ fontSize: '12px' }}>{f.date}</td>
-                        <td style={{ fontWeight: 800, color: 'var(--color-primary)' }}>
+                        <td style={{ fontWeight: 700, color: 'var(--color-primary)' }}>
                           {bus?.busCode || f.busId}
                         </td>
                         <td style={{ textTransform: 'uppercase', fontSize: '12px' }}>{f.fuelType}</td>
                         <td style={{ fontWeight: 700 }}>{f.quantityLiters} L</td>
                         <td>₹{f.costPerLiter}</td>
-                        <td style={{ fontWeight: 800 }}>₹{f.totalCost.toLocaleString()}</td>
+                        <td style={{ fontWeight: 700 }}>₹{f.totalCost.toLocaleString()}</td>
                         <td style={{ fontSize: '12px' }}>{f.odometerReading.toLocaleString()} km</td>
                         <td style={{ fontSize: '12px' }}>{f.fuelStation}</td>
                         <td style={{ fontSize: '12px', color: 'var(--color-muted)' }}>{f.recordedBy}</td>
@@ -384,7 +384,7 @@ export default function AdminMaintenancePage() {
             }}
           >
             <div className="card" style={{ maxWidth: '580px', width: '100%', padding: '28px', backgroundColor: '#ffffff' }}>
-              <h2 style={{ fontSize: '20px', fontWeight: 800, marginBottom: '6px' }}>
+              <h2 style={{ fontSize: '20px', fontWeight: 700, marginBottom: '6px' }}>
                 Log Maintenance Work Order
               </h2>
               <p style={{ fontSize: '13px', color: 'var(--color-muted)', marginBottom: '16px' }}>
@@ -519,7 +519,7 @@ export default function AdminMaintenancePage() {
             }}
           >
             <div className="card" style={{ maxWidth: '540px', width: '100%', padding: '28px', backgroundColor: '#ffffff' }}>
-              <h2 style={{ fontSize: '20px', fontWeight: 800, marginBottom: '6px' }}>
+              <h2 style={{ fontSize: '20px', fontWeight: 700, marginBottom: '6px' }}>
                 Log Fuel Purchase
               </h2>
               <p style={{ fontSize: '13px', color: 'var(--color-muted)', marginBottom: '16px' }}>

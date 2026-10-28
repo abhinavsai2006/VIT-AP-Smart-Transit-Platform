@@ -174,7 +174,7 @@ export default function ComplaintsPage() {
             >
               Passenger Support & Helpdesk
             </div>
-            <h1 style={{ fontSize: '2.4rem', fontWeight: 800, marginBottom: '8px' }}>
+            <h1 style={{ fontSize: '2.4rem', fontWeight: 700, marginBottom: '8px' }}>
               Complaints & Service Feedback
             </h1>
             <p style={{ fontSize: '15px', color: 'var(--color-muted)', maxWidth: '720px', margin: 0 }}>

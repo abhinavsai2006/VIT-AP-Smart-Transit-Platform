@@ -96,7 +96,7 @@ export default function ConductorPage() {
                 <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '1.5px', color: '#93c5fd', fontWeight: 700 }}>
                   Assigned Ticket Validator
                 </div>
-                <h1 style={{ fontSize: '24px', fontWeight: 800, marginTop: '2px' }}>
+                <h1 style={{ fontSize: '24px', fontWeight: 700, marginTop: '2px' }}>
                   {user.fullName} (Conductor Console)
                 </h1>
                 <div style={{ fontSize: '12px', color: 'var(--color-on-dark-soft)', marginTop: '2px' }}>
@@ -123,7 +123,7 @@ export default function ConductorPage() {
                 <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--color-muted)', textTransform: 'uppercase' }}>
                   Assigned Bus Manifest
                 </div>
-                <h2 style={{ fontSize: '20px', fontWeight: 800, marginTop: '2px' }}>
+                <h2 style={{ fontSize: '20px', fontWeight: 700, marginTop: '2px' }}>
                   Route {selectedTrip.route?.routeNumber}: {selectedTrip.route?.routeName}
                 </h2>
               </div>
@@ -159,7 +159,7 @@ export default function ConductorPage() {
                 <div style={{ fontSize: '11px', color: 'var(--color-muted)', textTransform: 'uppercase', fontWeight: 700 }}>
                   Assigned Bus & Reg
                 </div>
-                <div style={{ fontSize: '16px', fontWeight: 800, marginTop: '2px' }}>
+                <div style={{ fontSize: '16px', fontWeight: 700, marginTop: '2px' }}>
                   {selectedTrip.bus?.busCode}
                 </div>
                 <div style={{ fontSize: '12px', color: 'var(--color-muted)' }}>
@@ -171,7 +171,7 @@ export default function ConductorPage() {
                 <div style={{ fontSize: '11px', color: 'var(--color-muted)', textTransform: 'uppercase', fontWeight: 700 }}>
                   Boarded Manifest
                 </div>
-                <div style={{ fontSize: '18px', fontWeight: 800, color: 'var(--color-primary)', marginTop: '2px' }}>
+                <div style={{ fontSize: '18px', fontWeight: 700, color: 'var(--color-primary)', marginTop: '2px' }}>
                   {selectedTrip.bookedSeats} / {selectedTrip.totalSeats} Passengers
                 </div>
                 <div style={{ fontSize: '12px', color: 'var(--color-muted)' }}>
@@ -183,7 +183,7 @@ export default function ConductorPage() {
                 <div style={{ fontSize: '11px', color: 'var(--color-muted)', textTransform: 'uppercase', fontWeight: 700 }}>
                   Duplicate Scans Caught
                 </div>
-                <div style={{ fontSize: '18px', fontWeight: 800, color: 'var(--color-error)', marginTop: '2px' }}>
+                <div style={{ fontSize: '18px', fontWeight: 700, color: 'var(--color-error)', marginTop: '2px' }}>
                   {scanHistory.filter((s) => s.scanResult === 'already_used').length}
                 </div>
                 <div style={{ fontSize: '12px', color: 'var(--color-muted)' }}>

@@ -65,7 +65,7 @@ export default function EventsPage() {
             >
               Institutional Logistics
             </div>
-            <h1 style={{ fontSize: '2.4rem', fontWeight: 800, marginBottom: '8px' }}>
+            <h1 style={{ fontSize: '2.4rem', fontWeight: 700, marginBottom: '8px' }}>
               Special Events & Railway Shuttles
             </h1>
             <p style={{ fontSize: '15px', color: 'var(--color-muted)', maxWidth: '720px', margin: 0 }}>
@@ -96,7 +96,7 @@ export default function EventsPage() {
                   backgroundColor: 'var(--color-primary)',
                   color: '#ffffff',
                   padding: '6px 12px',
-                  fontWeight: 800,
+                  fontWeight: 700,
                   fontSize: '14px',
                 }}
               >

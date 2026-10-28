@@ -126,7 +126,7 @@ export default function AdminDisruptionsPage() {
             >
               Emergency & Public Advisory
             </div>
-            <h1 style={{ fontSize: '2.4rem', fontWeight: 800, marginBottom: '8px' }}>
+            <h1 style={{ fontSize: '2.4rem', fontWeight: 700, marginBottom: '8px' }}>
               Service Disruptions & Public Broadcast
             </h1>
             <p style={{ fontSize: '15px', color: 'var(--color-muted)', maxWidth: '760px', margin: 0 }}>
@@ -177,7 +177,7 @@ export default function AdminDisruptionsPage() {
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                     <AlertTriangle size={18} color={d.severity === 'critical' ? '#dc2626' : '#d97706'} />
-                    <span style={{ fontSize: '16px', fontWeight: 800 }}>{d.title}</span>
+                    <span style={{ fontSize: '16px', fontWeight: 700 }}>{d.title}</span>
                   </div>
                   <span className={d.status === 'active' ? 'badge badge-warning' : 'badge badge-neutral'}>
                     {d.status.toUpperCase()}
@@ -217,7 +217,7 @@ export default function AdminDisruptionsPage() {
             }}
           >
             <div className="card" style={{ maxWidth: '540px', width: '100%', padding: '28px', backgroundColor: '#ffffff' }}>
-              <h2 style={{ fontSize: '20px', fontWeight: 800, marginBottom: '8px' }}>
+              <h2 style={{ fontSize: '20px', fontWeight: 700, marginBottom: '8px' }}>
                 Broadcast Campus Disruption Advisory
               </h2>
               <p style={{ fontSize: '13px', color: 'var(--color-muted)', marginBottom: '20px' }}>

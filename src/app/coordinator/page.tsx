@@ -137,7 +137,7 @@ export default function CoordinatorPage() {
             >
               Academic & Conference Transport
             </div>
-            <h1 style={{ fontSize: '2.4rem', fontWeight: 800, marginBottom: '8px' }}>
+            <h1 style={{ fontSize: '2.4rem', fontWeight: 700, marginBottom: '8px' }}>
               Department Event Transportation Portal
             </h1>
             <p style={{ fontSize: '15px', color: 'var(--color-muted)', maxWidth: '720px', margin: 0 }}>

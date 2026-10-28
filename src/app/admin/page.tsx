@@ -110,7 +110,7 @@ export default function AdminOverviewPage() {
                 <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '1.5px', color: '#93c5fd', fontWeight: 700 }}>
                   Transport Administration Command Center
                 </div>
-                <h1 style={{ fontSize: '24px', fontWeight: 800, marginTop: '2px' }}>
+                <h1 style={{ fontSize: '24px', fontWeight: 700, marginTop: '2px' }}>
                   VIT-AP Fleet Operations & Governance
                 </h1>
                 <div style={{ fontSize: '12px', color: 'var(--color-on-dark-soft)', marginTop: '2px' }}>
@@ -143,7 +143,7 @@ export default function AdminOverviewPage() {
             <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--color-muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
               Fleet Availability
             </div>
-            <div style={{ fontSize: '28px', fontWeight: 800, color: 'var(--color-ink)', margin: '6px 0' }}>
+            <div style={{ fontSize: '28px', fontWeight: 700, color: 'var(--color-ink)', margin: '6px 0' }}>
               {activeBuses.length} / {buses.length}
             </div>
             <div style={{ fontSize: '12px', color: maintenanceBuses.length > 0 ? 'var(--color-warning)' : 'var(--color-success)' }}>
@@ -155,7 +155,7 @@ export default function AdminOverviewPage() {
             <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--color-muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
               Trips Scheduled Today
             </div>
-            <div style={{ fontSize: '28px', fontWeight: 800, color: 'var(--color-primary)', margin: '6px 0' }}>
+            <div style={{ fontSize: '28px', fontWeight: 700, color: 'var(--color-primary)', margin: '6px 0' }}>
               {trips.length}
             </div>
             <div style={{ fontSize: '12px', color: 'var(--color-body)' }}>
@@ -167,7 +167,7 @@ export default function AdminOverviewPage() {
             <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--color-muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
               Seat Utilization
             </div>
-            <div style={{ fontSize: '28px', fontWeight: 800, color: 'var(--color-ink)', margin: '6px 0' }}>
+            <div style={{ fontSize: '28px', fontWeight: 700, color: 'var(--color-ink)', margin: '6px 0' }}>
               {utilizationPercent}%
             </div>
             <div style={{ fontSize: '12px', color: 'var(--color-muted)' }}>
@@ -179,7 +179,7 @@ export default function AdminOverviewPage() {
             <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--color-muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
               Open Complaints
             </div>
-            <div style={{ fontSize: '28px', fontWeight: 800, color: openComplaints.length > 0 ? 'var(--color-error)' : 'var(--color-success)', margin: '6px 0' }}>
+            <div style={{ fontSize: '28px', fontWeight: 700, color: openComplaints.length > 0 ? 'var(--color-error)' : 'var(--color-success)', margin: '6px 0' }}>
               {openComplaints.length}
             </div>
             <div style={{ fontSize: '12px', color: 'var(--color-muted)' }}>
@@ -191,7 +191,7 @@ export default function AdminOverviewPage() {
             <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--color-muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
               Event Approvals
             </div>
-            <div style={{ fontSize: '28px', fontWeight: 800, color: 'var(--color-accent-amber)', margin: '6px 0' }}>
+            <div style={{ fontSize: '28px', fontWeight: 700, color: 'var(--color-accent-amber)', margin: '6px 0' }}>
               {pendingEvents.length}
             </div>
             <div style={{ fontSize: '12px', color: 'var(--color-muted)' }}>
@@ -203,7 +203,7 @@ export default function AdminOverviewPage() {
             <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--color-muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
               Service Alerts Active
             </div>
-            <div style={{ fontSize: '28px', fontWeight: 800, color: 'var(--color-ink)', margin: '6px 0' }}>
+            <div style={{ fontSize: '28px', fontWeight: 700, color: 'var(--color-ink)', margin: '6px 0' }}>
               {disruptions.filter((d) => d.status === 'active').length}
             </div>
             <div style={{ fontSize: '12px', color: 'var(--color-muted)' }}>
@@ -213,7 +213,7 @@ export default function AdminOverviewPage() {
         </div>
 
         {/* Operational Modules Navigation Grid */}
-        <h2 style={{ fontSize: '18px', fontWeight: 800, marginBottom: '16px' }}>
+        <h2 style={{ fontSize: '18px', fontWeight: 700, marginBottom: '16px' }}>
           Transportation Administration Modules
         </h2>
 

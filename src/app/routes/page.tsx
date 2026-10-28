@@ -62,7 +62,7 @@ export default function RoutesPage() {
           >
             Network Timetable
           </div>
-          <h1 style={{ fontSize: '2.4rem', fontWeight: 800, marginBottom: '8px' }}>
+          <h1 style={{ fontSize: '2.4rem', fontWeight: 700, marginBottom: '8px' }}>
             Campus Routes & Stop Sequences
           </h1>
           <p style={{ fontSize: '15px', color: 'var(--color-muted)', maxWidth: '720px', margin: 0 }}>
@@ -136,7 +136,7 @@ export default function RoutesPage() {
                           backgroundColor: isSelected ? 'var(--color-primary)' : 'var(--color-surface-dark)',
                           color: '#ffffff',
                           padding: '4px 10px',
-                          fontWeight: 800,
+                          fontWeight: 700,
                           fontSize: '13px',
                         }}
                       >

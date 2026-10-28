@@ -131,7 +131,7 @@ export default function AdminSettingsPage() {
                 <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '1.5px', color: '#93c5fd', fontWeight: 700 }}>
                   Institution Governance
                 </div>
-                <h1 style={{ fontSize: '24px', fontWeight: 800, marginTop: '2px' }}>
+                <h1 style={{ fontSize: '24px', fontWeight: 700, marginTop: '2px' }}>
                   System Settings, Integrations & Audit Logs
                 </h1>
                 <div style={{ fontSize: '12px', color: 'var(--color-on-dark-soft)', marginTop: '2px' }}>
@@ -147,7 +147,7 @@ export default function AdminSettingsPage() {
         </div>
 
         {/* Integration Status Hub */}
-        <h2 style={{ fontSize: '18px', fontWeight: 800, marginBottom: '16px' }}>
+        <h2 style={{ fontSize: '18px', fontWeight: 700, marginBottom: '16px' }}>
           Infrastructure & Integration Health
         </h2>
         <div
@@ -223,7 +223,7 @@ export default function AdminSettingsPage() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '24px', marginBottom: '36px' }}>
           {/* Institutional Settings Form */}
           <div className="card" style={{ padding: '24px', backgroundColor: '#ffffff' }}>
-            <h2 style={{ fontSize: '16px', fontWeight: 800, marginBottom: '16px' }}>
+            <h2 style={{ fontSize: '16px', fontWeight: 700, marginBottom: '16px' }}>
               Institutional Parameters
             </h2>
 
@@ -334,7 +334,7 @@ export default function AdminSettingsPage() {
 
           {/* Data Export & Reports */}
           <div className="card" style={{ padding: '24px', backgroundColor: '#ffffff' }}>
-            <h2 style={{ fontSize: '16px', fontWeight: 800, marginBottom: '6px' }}>
+            <h2 style={{ fontSize: '16px', fontWeight: 700, marginBottom: '6px' }}>
               Operational Data & Report Exports
             </h2>
             <p style={{ fontSize: '13px', color: 'var(--color-body)', marginBottom: '20px' }}>
@@ -466,7 +466,7 @@ export default function AdminSettingsPage() {
         </div>
 
         {/* Security & Administrative Audit Trail */}
-        <h2 style={{ fontSize: '18px', fontWeight: 800, marginBottom: '16px' }}>
+        <h2 style={{ fontSize: '18px', fontWeight: 700, marginBottom: '16px' }}>
           Authoritative Security & Administrative Audit Trail
         </h2>
 

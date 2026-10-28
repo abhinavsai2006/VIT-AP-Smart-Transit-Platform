@@ -1110,7 +1110,7 @@ export default function TransitMap({
                 backgroundColor: '#166534',
                 color: '#ffffff',
                 fontSize: '10px',
-                fontWeight: 800,
+                fontWeight: 700,
                 padding: '2px 8px',
                 letterSpacing: '0.5px',
                 textTransform: 'uppercase',
@@ -1142,7 +1142,7 @@ export default function TransitMap({
                 backgroundColor: '#064e3b',
                 color: '#6ee7b7',
                 fontSize: '10px',
-                fontWeight: 800,
+                fontWeight: 700,
                 padding: '2px 8px',
                 letterSpacing: '0.5px',
                 display: 'inline-flex',
@@ -1307,7 +1307,7 @@ export default function TransitMap({
                   gap: '8px',
                   padding: '8px 18px',
                   fontSize: '13px',
-                  fontWeight: 800,
+                  fontWeight: 700,
                   borderRadius: '30px',
                 }}
               >
@@ -1338,10 +1338,10 @@ export default function TransitMap({
               }}
             >
               <div>
-                <div style={{ fontSize: '10px', textTransform: 'uppercase', color: 'var(--color-primary)', fontWeight: 800 }}>
+                <div style={{ fontSize: '10px', textTransform: 'uppercase', color: 'var(--color-primary)', fontWeight: 700 }}>
                   Selected {selectedItem.type.toUpperCase()}
                 </div>
-                <h3 style={{ fontSize: '16px', fontWeight: 800, margin: '2px 0' }}>
+                <h3 style={{ fontSize: '16px', fontWeight: 700, margin: '2px 0' }}>
                   {selectedItem.title}
                 </h3>
                 <div style={{ fontSize: '12px', color: 'var(--color-body)' }}>
@@ -1406,7 +1406,7 @@ export default function TransitMap({
             }}
           >
             <div>
-              <h3 style={{ fontSize: '15px', fontWeight: 800, margin: 0 }}>
+              <h3 style={{ fontSize: '15px', fontWeight: 700, margin: 0 }}>
                 {tableFilterMode === 'selected_route' && selectedRouteObj
                   ? `Stops along ${selectedRouteObj.routeName}`
                   : 'All Transit Stops & Pickups across Corridors'}

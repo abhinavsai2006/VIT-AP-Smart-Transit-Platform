@@ -92,7 +92,7 @@ export default function DashboardPage() {
                   alignItems: 'center',
                   justifyContent: 'center',
                   fontSize: '24px',
-                  fontWeight: 800,
+                  fontWeight: 700,
                 }}
               >
                 {user.fullName.charAt(0)}
@@ -101,7 +101,7 @@ export default function DashboardPage() {
                 <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '1.5px', color: '#93c5fd', fontWeight: 700 }}>
                   Authorized Passenger Profile
                 </div>
-                <h1 style={{ fontSize: '26px', fontWeight: 800, marginTop: '2px' }}>
+                <h1 style={{ fontSize: '26px', fontWeight: 700, marginTop: '2px' }}>
                   {user.fullName}
                 </h1>
                 <div style={{ fontSize: '13px', color: 'var(--color-on-dark-soft)', marginTop: '4px' }}>
@@ -134,7 +134,7 @@ export default function DashboardPage() {
             <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--color-muted)', textTransform: 'uppercase', letterSpacing: '1px' }}>
               Active Upcoming Journeys
             </div>
-            <div style={{ fontSize: '32px', fontWeight: 800, color: 'var(--color-primary)', margin: '8px 0' }}>
+            <div style={{ fontSize: '32px', fontWeight: 700, color: 'var(--color-primary)', margin: '8px 0' }}>
               {activeBookings.length}
             </div>
             <div style={{ fontSize: '12px', color: 'var(--color-body)' }}>
@@ -146,7 +146,7 @@ export default function DashboardPage() {
             <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--color-muted)', textTransform: 'uppercase', letterSpacing: '1px' }}>
               Lifetime Journeys Completed
             </div>
-            <div style={{ fontSize: '32px', fontWeight: 800, color: 'var(--color-ink)', margin: '8px 0' }}>
+            <div style={{ fontSize: '32px', fontWeight: 700, color: 'var(--color-ink)', margin: '8px 0' }}>
               {pastBookings.filter((b) => b.status === 'used').length}
             </div>
             <div style={{ fontSize: '12px', color: 'var(--color-body)' }}>
@@ -158,7 +158,7 @@ export default function DashboardPage() {
             <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--color-muted)', textTransform: 'uppercase', letterSpacing: '1px' }}>
               Support Grievances Logged
             </div>
-            <div style={{ fontSize: '32px', fontWeight: 800, color: 'var(--color-ink)', margin: '8px 0' }}>
+            <div style={{ fontSize: '32px', fontWeight: 700, color: 'var(--color-ink)', margin: '8px 0' }}>
               {complaints.length}
             </div>
             <div style={{ fontSize: '12px', color: 'var(--color-body)' }}>
@@ -206,7 +206,7 @@ export default function DashboardPage() {
                     {busPass.passNumber}
                   </span>
                 </div>
-                <h2 style={{ fontSize: '18px', fontWeight: 800, color: 'var(--color-ink)', margin: 0 }}>
+                <h2 style={{ fontSize: '18px', fontWeight: 700, color: 'var(--color-ink)', margin: 0 }}>
                   Route {busPass.routeNumber} — {busPass.routeName}
                 </h2>
                 <div style={{ fontSize: '13px', color: 'var(--color-body)', marginTop: '4px' }}>
@@ -269,7 +269,7 @@ export default function DashboardPage() {
                     }}
                   >
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                      <span style={{ fontSize: '12px', fontWeight: 800, color: 'var(--color-primary)' }}>
+                      <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--color-primary)' }}>
                         {b.bookingReference}
                       </span>
                       <span className="badge badge-success">READY TO BOARD</span>

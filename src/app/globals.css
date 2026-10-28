@@ -1,7 +1,8 @@
 @import "leaflet/dist/leaflet.css";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap');
 
 :root {
-  /* Design Tokens from design.md */
+  /* Design Tokens from design.md (BMW Corporate Design System) */
   --color-primary: #1c69d4;
   --color-primary-active: #0653b6;
   --color-primary-disabled: #d6d6d6;
@@ -21,6 +22,9 @@
   --color-on-primary: #ffffff;
   --color-on-dark: #ffffff;
   --color-on-dark-soft: #bbbbbb;
+  --color-m-blue-light: #0066b1;
+  --color-m-blue-dark: #1c69d4;
+  --color-m-red: #e22718;
   --color-success: #22c55e;
   --color-warning: #f59e0b;
   --color-error: #dc2626;
@@ -36,14 +40,14 @@
   --spacing-xxl: 48px;
   --spacing-section: 80px;
 
-  /* Radius (Strict rectangular geometry from design.md) */
+  /* Radius (Strict rectangular geometry from design.md: 0px everywhere) */
   --radius-none: 0px;
-  --radius-sm: 2px;
+  --radius-sm: 0px;
   --radius-pill: 9999px;
 
-  /* Typography */
-  --font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", sans-serif;
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  /* Typography: Inter at 300 Light body / 700 Display (BMW Editorial Signature) */
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
   --max-content-width: 1440px;
 }
@@ -52,6 +56,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  border-radius: 0;
 }
 
 html, body {
@@ -61,27 +66,37 @@ html, body {
   font-size: 16px;
   line-height: 1.55;
   font-weight: 300;
+  letter-spacing: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
   min-height: 100vh;
 }
 
-/* Typography styles */
+/* Typography styles — 700 Display against 300 Body (Editorial Signature from design.md) */
 h1, h2, h3, h4, h5, h6 {
   color: var(--color-ink);
+  font-family: var(--font-family);
   font-weight: 700;
-  line-height: 1.2;
+  line-height: 1.15;
+  letter-spacing: 0;
 }
 
-h1 { font-size: 2.5rem; letter-spacing: -0.02em; }
-h2 { font-size: 2rem; letter-spacing: -0.01em; }
-h3 { font-size: 1.5rem; }
-h4 { font-size: 1.25rem; }
-h5 { font-size: 1.1rem; }
-h6 { font-size: 1rem; }
+h1 { font-size: 2.5rem; line-height: 1.1; }
+h2 { font-size: 2rem; line-height: 1.15; }
+h3 { font-size: 1.5rem; line-height: 1.25; }
+h4 { font-size: 1.25rem; line-height: 1.3; }
+h5 { font-size: 1.1rem; line-height: 1.35; }
+h6 { font-size: 1rem; line-height: 1.4; }
+
+p, span, div, li, td, dd, dt {
+  font-weight: 300;
+}
 
 p {
   color: var(--color-body);
+  font-size: 16px;
+  line-height: 1.55;
   margin-bottom: 0.75rem;
 }
 
@@ -95,7 +110,15 @@ a:hover {
   color: var(--color-primary-active);
 }
 
-/* Buttons */
+/* Signature BMW M-Stripe Divider */
+.m-stripe-divider {
+  height: 4px;
+  width: 100%;
+  background: linear-gradient(90deg, #0066b1 0%, #0066b1 33.33%, #1c69d4 33.33%, #1c69d4 66.66%, #e22718 66.66%, #e22718 100%);
+  display: block;
+}
+
+/* Buttons — Rectangular 0px corners, 48px height, 14px 700 uppercase/semi */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -106,9 +129,10 @@ a:hover {
   font-weight: 700;
   letter-spacing: 0.5px;
   height: 48px;
-  padding: 0 28px;
-  border-radius: var(--radius-none);
+  padding: 0 32px;
+  border-radius: 0px !important;
   border: 1px solid transparent;
+  box-shadow: none !important;
   cursor: pointer;
   text-decoration: none;
   transition: all 0.15s ease;
@@ -116,19 +140,19 @@ a:hover {
 }
 
 .btn:disabled {
-  opacity: 0.5;
+  opacity: 0.45;
   cursor: not-allowed;
 }
 
 .btn-sm {
   height: 38px;
-  padding: 0 16px;
+  padding: 0 18px;
   font-size: 13px;
 }
 
 .btn-lg {
-  height: 54px;
-  padding: 0 36px;
+  height: 52px;
+  padding: 0 40px;
   font-size: 15px;
 }
 
@@ -172,7 +196,7 @@ a:hover {
 }
 
 .btn-outline-dark:hover:not(:disabled) {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.08);
 }
 
 .btn-danger {
@@ -195,35 +219,62 @@ a:hover {
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  box-shadow: none !important;
 }
 
 .btn-text-link:hover {
   color: var(--color-primary);
 }
 
-/* Card Plates */
+/* Card Plates — Flat, no shadow, 1px hairline border */
 .card {
   background-color: var(--color-canvas);
   border: 1px solid var(--color-hairline);
-  border-radius: var(--radius-none);
+  border-radius: 0px !important;
+  box-shadow: none !important;
   padding: var(--spacing-lg);
 }
 
 .card-soft {
   background-color: var(--color-surface-card);
   border: 1px solid var(--color-hairline);
-  border-radius: var(--radius-none);
+  border-radius: 0px !important;
+  box-shadow: none !important;
   padding: var(--spacing-lg);
 }
 
 .card-dark {
   background-color: var(--color-surface-dark);
   color: var(--color-on-dark);
-  border-radius: var(--radius-none);
+  border-radius: 0px !important;
+  box-shadow: none !important;
   padding: var(--spacing-xl);
 }
 
-/* Form Controls */
+/* Filter Chips (from design.md) */
+.filter-chip {
+  background-color: var(--color-canvas);
+  color: var(--color-ink);
+  border: 1px solid var(--color-hairline-strong);
+  border-radius: 0px !important;
+  padding: 8px 14px;
+  font-size: 12px;
+  font-weight: 400;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s ease;
+}
+
+.filter-chip-active {
+  background-color: var(--color-ink);
+  color: var(--color-on-dark);
+  border-color: var(--color-ink);
+  font-weight: 700;
+}
+
+/* Form Controls — Light 300 body font, sharp 0px corners, 48px height */
 .form-group {
   margin-bottom: var(--spacing-md);
   display: flex;
@@ -232,9 +283,9 @@ a:hover {
 }
 
 .form-label {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
   color: var(--color-ink);
 }
@@ -245,11 +296,12 @@ a:hover {
   padding: 12px 16px;
   font-family: var(--font-family);
   font-size: 15px;
-  font-weight: 400;
+  font-weight: 300;
   color: var(--color-ink);
   background-color: var(--color-canvas);
-  border: 1px solid var(--color-hairline-strong);
-  border-radius: var(--radius-none);
+  border: 1px solid var(--color-hairline);
+  border-radius: 0px !important;
+  box-shadow: none !important;
   outline: none;
   transition: border-color 0.15s ease;
 }
@@ -262,16 +314,19 @@ a:hover {
 
 .form-control:focus, .form-select:focus, .form-textarea:focus {
   border-color: var(--color-ink);
+  outline: none;
+  box-shadow: none !important;
 }
 
 .form-hint {
   font-size: 12px;
+  font-weight: 300;
   color: var(--color-muted);
 }
 
 .form-error {
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--color-error);
 }
 

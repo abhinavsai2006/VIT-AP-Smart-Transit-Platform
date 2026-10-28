@@ -145,7 +145,7 @@ export default function AdminTripsPage() {
             >
               Operations Management
             </div>
-            <h1 style={{ fontSize: '2.4rem', fontWeight: 800, marginBottom: '8px' }}>
+            <h1 style={{ fontSize: '2.4rem', fontWeight: 700, marginBottom: '8px' }}>
               Trip Scheduling & Dispatch Console
             </h1>
             <p style={{ fontSize: '15px', color: 'var(--color-muted)', maxWidth: '760px', margin: 0 }}>
@@ -200,7 +200,7 @@ export default function AdminTripsPage() {
               <tbody>
                 {trips.map((t) => (
                   <tr key={t.id}>
-                    <td style={{ fontWeight: 800, color: 'var(--color-primary)' }}>{t.id}</td>
+                    <td style={{ fontWeight: 700, color: 'var(--color-primary)' }}>{t.id}</td>
                     <td>
                       <div style={{ fontWeight: 700 }}>
                         Route {t.route?.routeNumber}
@@ -279,7 +279,7 @@ export default function AdminTripsPage() {
                 backgroundColor: '#ffffff',
               }}
             >
-              <h2 style={{ fontSize: '20px', fontWeight: 800, marginBottom: '6px' }}>
+              <h2 style={{ fontSize: '20px', fontWeight: 700, marginBottom: '6px' }}>
                 Dispatch & Schedule New Service
               </h2>
               <p style={{ fontSize: '13px', color: 'var(--color-muted)', marginBottom: '20px' }}>

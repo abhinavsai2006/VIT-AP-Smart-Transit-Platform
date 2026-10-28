@@ -100,10 +100,9 @@ export default function Navbar() {
             <Link
               href="/routes"
               style={{
-                fontSize: '13px',
-                fontWeight: 700,
-                letterSpacing: '1px',
-                textTransform: 'uppercase',
+                fontSize: '14px',
+                fontWeight: isLinkActive('/routes') ? 700 : 400,
+                letterSpacing: '0.3px',
                 color: isLinkActive('/routes') ? 'var(--color-primary)' : 'var(--color-ink)',
                 borderBottom: isLinkActive('/routes') ? '2px solid var(--color-primary)' : '2px solid transparent',
                 padding: '20px 0',
@@ -115,10 +114,9 @@ export default function Navbar() {
             <Link
               href="/stops"
               style={{
-                fontSize: '13px',
-                fontWeight: 700,
-                letterSpacing: '1px',
-                textTransform: 'uppercase',
+                fontSize: '14px',
+                fontWeight: isLinkActive('/stops') ? 700 : 400,
+                letterSpacing: '0.3px',
                 color: isLinkActive('/stops') ? 'var(--color-primary)' : 'var(--color-ink)',
                 borderBottom: isLinkActive('/stops') ? '2px solid var(--color-primary)' : '2px solid transparent',
                 padding: '20px 0',
@@ -130,10 +128,9 @@ export default function Navbar() {
             <Link
               href="/tracking"
               style={{
-                fontSize: '13px',
-                fontWeight: 700,
-                letterSpacing: '1px',
-                textTransform: 'uppercase',
+                fontSize: '14px',
+                fontWeight: isLinkActive('/tracking') ? 700 : 400,
+                letterSpacing: '0.3px',
                 color: isLinkActive('/tracking') ? 'var(--color-primary)' : 'var(--color-ink)',
                 borderBottom: isLinkActive('/tracking') ? '2px solid var(--color-primary)' : '2px solid transparent',
                 padding: '20px 0',
@@ -149,10 +146,9 @@ export default function Navbar() {
             <Link
               href="/tickets"
               style={{
-                fontSize: '13px',
-                fontWeight: 700,
-                letterSpacing: '1px',
-                textTransform: 'uppercase',
+                fontSize: '14px',
+                fontWeight: isLinkActive('/tickets') ? 700 : 400,
+                letterSpacing: '0.3px',
                 color: isLinkActive('/tickets') ? 'var(--color-primary)' : 'var(--color-ink)',
                 borderBottom: isLinkActive('/tickets') ? '2px solid var(--color-primary)' : '2px solid transparent',
                 padding: '20px 0',
@@ -164,10 +160,9 @@ export default function Navbar() {
             <Link
               href="/pass"
               style={{
-                fontSize: '13px',
-                fontWeight: 700,
-                letterSpacing: '1px',
-                textTransform: 'uppercase',
+                fontSize: '14px',
+                fontWeight: isLinkActive('/pass') ? 700 : 400,
+                letterSpacing: '0.3px',
                 color: isLinkActive('/pass') ? 'var(--color-primary)' : 'var(--color-ink)',
                 borderBottom: isLinkActive('/pass') ? '2px solid var(--color-primary)' : '2px solid transparent',
                 padding: '20px 0',
@@ -179,10 +174,9 @@ export default function Navbar() {
             <Link
               href="/events"
               style={{
-                fontSize: '13px',
-                fontWeight: 700,
-                letterSpacing: '1px',
-                textTransform: 'uppercase',
+                fontSize: '14px',
+                fontWeight: isLinkActive('/events') ? 700 : 400,
+                letterSpacing: '0.3px',
                 color: isLinkActive('/events') ? 'var(--color-primary)' : 'var(--color-ink)',
                 borderBottom: isLinkActive('/events') ? '2px solid var(--color-primary)' : '2px solid transparent',
                 padding: '20px 0',
@@ -196,10 +190,9 @@ export default function Navbar() {
               <Link
                 href="/admin"
                 style={{
-                  fontSize: '13px',
-                  fontWeight: 700,
-                  letterSpacing: '1px',
-                  textTransform: 'uppercase',
+                  fontSize: '14px',
+                  fontWeight: isLinkActive('/admin') ? 700 : 400,
+                  letterSpacing: '0.3px',
                   color: isLinkActive('/admin') ? 'var(--color-primary)' : 'var(--color-ink)',
                   borderBottom: isLinkActive('/admin') ? '2px solid var(--color-primary)' : '2px solid transparent',
                   padding: '20px 0',
@@ -215,10 +208,9 @@ export default function Navbar() {
               <Link
                 href="/driver"
                 style={{
-                  fontSize: '13px',
-                  fontWeight: 700,
-                  letterSpacing: '1px',
-                  textTransform: 'uppercase',
+                  fontSize: '14px',
+                  fontWeight: isLinkActive('/driver') ? 700 : 400,
+                  letterSpacing: '0.3px',
                   color: isLinkActive('/driver') ? 'var(--color-primary)' : 'var(--color-ink)',
                   borderBottom: isLinkActive('/driver') ? '2px solid var(--color-primary)' : '2px solid transparent',
                   padding: '20px 0',
@@ -234,10 +226,9 @@ export default function Navbar() {
               <Link
                 href="/conductor"
                 style={{
-                  fontSize: '13px',
-                  fontWeight: 700,
-                  letterSpacing: '1px',
-                  textTransform: 'uppercase',
+                  fontSize: '14px',
+                  fontWeight: isLinkActive('/conductor') ? 700 : 400,
+                  letterSpacing: '0.3px',
                   color: isLinkActive('/conductor') ? 'var(--color-primary)' : 'var(--color-ink)',
                   borderBottom: isLinkActive('/conductor') ? '2px solid var(--color-primary)' : '2px solid transparent',
                   padding: '20px 0',
@@ -253,10 +244,9 @@ export default function Navbar() {
               <Link
                 href="/coordinator"
                 style={{
-                  fontSize: '13px',
-                  fontWeight: 700,
-                  letterSpacing: '1px',
-                  textTransform: 'uppercase',
+                  fontSize: '14px',
+                  fontWeight: isLinkActive('/coordinator') ? 700 : 400,
+                  letterSpacing: '0.3px',
                   color: isLinkActive('/coordinator') ? 'var(--color-primary)' : 'var(--color-ink)',
                   borderBottom: isLinkActive('/coordinator') ? '2px solid var(--color-primary)' : '2px solid transparent',
                   padding: '20px 0',
@@ -306,7 +296,6 @@ export default function Navbar() {
                     width: '300px',
                     backgroundColor: 'var(--color-canvas)',
                     border: '1px solid var(--color-hairline-strong)',
-                    boxShadow: '0 8px 24px rgba(0,0,0,0.12)',
                     zIndex: 2000,
                     padding: '8px 0',
                   }}
@@ -383,6 +372,7 @@ export default function Navbar() {
           </div>
         </div>
       </header>
+      <div className="m-stripe-divider" />
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (

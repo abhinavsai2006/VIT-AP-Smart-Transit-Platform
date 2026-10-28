@@ -131,7 +131,7 @@ export default function BusPassPage() {
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
               <AlertTriangle size={24} color="#dc2626" />
-              <h2 style={{ fontSize: '18px', fontWeight: 800 }}>Security Violation / Access Restriction</h2>
+              <h2 style={{ fontSize: '18px', fontWeight: 700 }}>Security Violation / Access Restriction</h2>
             </div>
             <p style={{ fontSize: '14px', margin: 0 }}>{error}</p>
           </div>
@@ -153,7 +153,7 @@ export default function BusPassPage() {
             >
               <BusIcon size={32} color="var(--color-muted)" />
             </div>
-            <h2 style={{ fontSize: '20px', fontWeight: 800, color: 'var(--color-ink)', marginBottom: '8px' }}>
+            <h2 style={{ fontSize: '20px', fontWeight: 700, color: 'var(--color-ink)', marginBottom: '8px' }}>
               No Active Bus Pass Found
             </h2>
             <p style={{ fontSize: '14px', color: 'var(--color-body)', maxWidth: '480px', margin: '0 auto 24px auto' }}>
@@ -179,7 +179,6 @@ export default function BusPassPage() {
             style={{
               backgroundColor: '#ffffff',
               border: '2px solid #1a2129',
-              boxShadow: '0 8px 24px rgba(0,0,0,0.08)',
               overflow: 'hidden',
               position: 'relative',
             }}
@@ -205,7 +204,7 @@ export default function BusPassPage() {
                     height: '48px',
                     backgroundColor: '#1c69d4',
                     color: '#ffffff',
-                    fontWeight: 900,
+                    fontWeight: 700,
                     fontSize: '18px',
                     display: 'flex',
                     alignItems: 'center',
@@ -219,7 +218,7 @@ export default function BusPassPage() {
                   <div style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '1.5px', color: '#93c5fd', textTransform: 'uppercase' }}>
                     Vellore Institute of Technology — Andhra Pradesh
                   </div>
-                  <h1 style={{ fontSize: '20px', fontWeight: 800, margin: '2px 0 0 0' }}>
+                  <h1 style={{ fontSize: '20px', fontWeight: 700, margin: '2px 0 0 0' }}>
                     VIT-AP UNIVERSITY
                   </h1>
                   <div style={{ fontSize: '11px', color: '#cbd5e1' }}>
@@ -236,7 +235,7 @@ export default function BusPassPage() {
                     color: '#ffffff',
                     padding: '4px 10px',
                     fontSize: '11px',
-                    fontWeight: 800,
+                    fontWeight: 700,
                     letterSpacing: '1px',
                     textTransform: 'uppercase',
                   }}
@@ -297,7 +296,7 @@ export default function BusPassPage() {
                 <div
                   style={{
                     fontSize: '13px',
-                    fontWeight: 800,
+                    fontWeight: 700,
                     fontFamily: 'monospace',
                     marginTop: '8px',
                     color: '#0f172a',
@@ -316,7 +315,7 @@ export default function BusPassPage() {
                   <div style={{ fontSize: '11px', textTransform: 'uppercase', color: '#64748b', fontWeight: 700 }}>
                     Authorized Passenger
                   </div>
-                  <div style={{ fontSize: '20px', fontWeight: 800, color: '#0f172a' }}>
+                  <div style={{ fontSize: '20px', fontWeight: 700, color: '#0f172a' }}>
                     {pass.studentName}
                   </div>
                   <div style={{ fontSize: '13px', color: '#475569', fontWeight: 600 }}>
@@ -342,7 +341,7 @@ export default function BusPassPage() {
                         style={{
                           backgroundColor: '#1c69d4',
                           color: '#ffffff',
-                          fontWeight: 900,
+                          fontWeight: 700,
                           fontSize: '13px',
                           padding: '3px 8px',
                           letterSpacing: '0.5px',
@@ -350,7 +349,7 @@ export default function BusPassPage() {
                       >
                         ROUTE {pass.routeNumber}
                       </span>
-                      <span style={{ fontSize: '13px', fontWeight: 800, color: '#1e3a8a' }}>
+                      <span style={{ fontSize: '13px', fontWeight: 700, color: '#1e3a8a' }}>
                         {pass.routeName}
                       </span>
                     </div>
@@ -361,7 +360,7 @@ export default function BusPassPage() {
                       <div style={{ fontSize: '10px', textTransform: 'uppercase', color: '#64748b', fontWeight: 700 }}>
                         Official Boarding Point
                       </div>
-                      <div style={{ fontWeight: 800, color: '#0f172a', fontSize: '13px' }}>
+                      <div style={{ fontWeight: 700, color: '#0f172a', fontSize: '13px' }}>
                         {pass.pickupStopName}
                       </div>
                       <div style={{ color: '#16a34a', fontWeight: 700 }}>
@@ -372,7 +371,7 @@ export default function BusPassPage() {
                       <div style={{ fontSize: '10px', textTransform: 'uppercase', color: '#64748b', fontWeight: 700 }}>
                         Terminal Destination
                       </div>
-                      <div style={{ fontWeight: 800, color: '#0f172a', fontSize: '13px' }}>
+                      <div style={{ fontWeight: 700, color: '#0f172a', fontSize: '13px' }}>
                         {pass.dropStopName}
                       </div>
                       <div style={{ color: '#1e3a8a', fontWeight: 700 }}>
@@ -422,7 +421,7 @@ export default function BusPassPage() {
                   <div style={{ fontSize: '10px', textTransform: 'uppercase', color: '#64748b', fontWeight: 700 }}>
                     Authorized Signatory
                   </div>
-                  <div style={{ fontSize: '11px', fontWeight: 800, color: '#0f172a', marginTop: '2px' }}>
+                  <div style={{ fontSize: '11px', fontWeight: 700, color: '#0f172a', marginTop: '2px' }}>
                     {pass.issuedBy}
                   </div>
                   <div style={{ fontSize: '9px', color: '#64748b' }}>

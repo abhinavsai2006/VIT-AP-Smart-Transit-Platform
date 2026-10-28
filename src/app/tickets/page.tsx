@@ -104,7 +104,7 @@ export default function TicketsPage() {
           >
             Passenger Boarding Credentials
           </div>
-          <h1 style={{ fontSize: '2.4rem', fontWeight: 800, marginBottom: '8px' }}>
+          <h1 style={{ fontSize: '2.4rem', fontWeight: 700, marginBottom: '8px' }}>
             QR Ticket Wallet & Passes
           </h1>
           <p style={{ fontSize: '15px', color: 'var(--color-muted)', maxWidth: '720px', margin: 0 }}>
@@ -223,9 +223,8 @@ export default function TicketsPage() {
                   className="card"
                   style={{
                     backgroundColor: '#ffffff',
-                    border: '1px solid var(--color-hairline-strong)',
+                    border: '1px solid var(--color-hairline)',
                     padding: 0,
-                    boxShadow: '0 12px 32px rgba(0,0,0,0.08)',
                   }}
                 >
                   {/* Pass Top Banner */}
@@ -243,7 +242,7 @@ export default function TicketsPage() {
                       <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '1px', color: '#93c5fd' }}>
                         Boarding Credential
                       </div>
-                      <div style={{ fontSize: '18px', fontWeight: 800 }}>
+                      <div style={{ fontSize: '18px', fontWeight: 700 }}>
                         VIT-AP UNIVERSITY TRANSIT
                       </div>
                     </div>
@@ -272,8 +271,7 @@ export default function TicketsPage() {
                         style={{
                           backgroundColor: '#ffffff',
                           padding: '16px',
-                          border: '1px solid var(--color-hairline-strong)',
-                          boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
+                          border: '1px solid var(--color-hairline)',
                           marginBottom: '16px',
                         }}
                       >
@@ -292,7 +290,7 @@ export default function TicketsPage() {
                       </div>
                     )}
 
-                    <div style={{ fontSize: '13px', fontWeight: 800, letterSpacing: '1px', color: 'var(--color-ink)' }}>
+                    <div style={{ fontSize: '13px', fontWeight: 700, letterSpacing: '1px', color: 'var(--color-ink)' }}>
                       TICKET NUMBER: {selectedBooking.ticket?.ticketNumber}
                     </div>
                     <div style={{ fontSize: '11px', color: 'var(--color-muted)', marginTop: '4px' }}>

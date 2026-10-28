@@ -310,7 +310,7 @@ export default function QrScannerModal({
             >
               <div>{getResultBadge(scanResult.scanResult).icon}</div>
               <div style={{ flex: 1 }}>
-                <div style={{ fontSize: '14px', fontWeight: 800, letterSpacing: '0.5px' }}>
+                <div style={{ fontSize: '14px', fontWeight: 700, letterSpacing: '0.5px' }}>
                   {getResultBadge(scanResult.scanResult).title}
                 </div>
                 {scanResult.passengerName && (

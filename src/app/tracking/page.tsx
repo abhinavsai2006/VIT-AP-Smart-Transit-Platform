@@ -157,7 +157,7 @@ export default function TrackingPage() {
               <span className="live-pulse"></span>
               Live Fleet Telemetry & Satellite Feed
             </div>
-            <h1 style={{ fontSize: '2.4rem', fontWeight: 800, marginBottom: '8px' }}>
+            <h1 style={{ fontSize: '2.4rem', fontWeight: 700, marginBottom: '8px' }}>
               Real-Time Fleet GPS Tracking
             </h1>
             <p style={{ fontSize: '15px', color: 'var(--color-muted)', maxWidth: '720px', margin: 0 }}>
@@ -212,7 +212,7 @@ export default function TrackingPage() {
                         color: '#ffffff',
                         padding: '4px 10px',
                         fontSize: '12px',
-                        fontWeight: 800,
+                        fontWeight: 700,
                       }}
                     >
                       ROUTE {selectedTrip.route?.routeNumber}
@@ -254,7 +254,7 @@ export default function TrackingPage() {
                     <div style={{ fontSize: '10px', textTransform: 'uppercase', color: 'var(--color-on-dark-soft)', letterSpacing: '1px' }}>
                       Assigned Bus
                     </div>
-                    <div style={{ fontSize: '16px', fontWeight: 800, color: '#ffffff', marginTop: '2px' }}>
+                    <div style={{ fontSize: '16px', fontWeight: 700, color: '#ffffff', marginTop: '2px' }}>
                       {selectedTrip.bus?.busCode || 'Not assigned'}
                     </div>
                     <div style={{ fontSize: '11px', color: '#93c5fd' }}>
@@ -266,7 +266,7 @@ export default function TrackingPage() {
                     <div style={{ fontSize: '10px', textTransform: 'uppercase', color: 'var(--color-on-dark-soft)', letterSpacing: '1px' }}>
                       Ground Speed
                     </div>
-                    <div style={{ fontSize: '16px', fontWeight: 800, color: '#ffffff', marginTop: '2px' }}>
+                    <div style={{ fontSize: '16px', fontWeight: 700, color: '#ffffff', marginTop: '2px' }}>
                       {!selectedLocation ? '—' : Number.isFinite(selectedLocation.speedKmH) && selectedLocation.speedKmH !== null ? `${selectedLocation.speedKmH} km/h` : 'Not reported'}
                     </div>
                     <div style={{ fontSize: '11px', color: 'var(--color-on-dark-soft)' }}>
@@ -391,7 +391,7 @@ export default function TrackingPage() {
                         padding: '16px',
                         border: isSelected ? '2px solid var(--color-primary)' : '1px solid var(--color-hairline)',
                         backgroundColor: isSelected ? '#f8fafd' : '#ffffff',
-                        boxShadow: isSelected ? '0 4px 12px rgba(28, 105, 212, 0.16)' : 'none',
+                        boxShadow: 'none',
                         transition: 'all 0.2s ease',
                       }}
                     >
@@ -402,7 +402,7 @@ export default function TrackingPage() {
                               backgroundColor: 'var(--color-primary)',
                               color: '#ffffff',
                               padding: '2px 8px',
-                              fontWeight: 800,
+                              fontWeight: 700,
                               fontSize: '11px',
                             }}
                           >
@@ -420,7 +420,7 @@ export default function TrackingPage() {
                                 backgroundColor: '#dbeafe',
                                 color: '#1e40af',
                                 fontSize: '10px',
-                                fontWeight: 800,
+                                fontWeight: 700,
                                 padding: '2px 6px',
                               }}
                             >

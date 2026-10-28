@@ -145,7 +145,7 @@ function BookingContent() {
             <div style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '1.5px', textTransform: 'uppercase', color: 'var(--color-success)', marginBottom: '8px' }}>
               RESERVATION AUTHORIZED & CONFIRMED
             </div>
-            <h1 style={{ fontSize: '26px', fontWeight: 800, marginBottom: '8px' }}>
+            <h1 style={{ fontSize: '26px', fontWeight: 700, marginBottom: '8px' }}>
               Booking Reference: {confirmedBooking.bookingReference}
             </h1>
             <p style={{ fontSize: '15px', color: 'var(--color-muted)', marginBottom: '24px' }}>
@@ -216,7 +216,7 @@ function BookingContent() {
           >
             Reservation Desk
           </div>
-          <h1 style={{ fontSize: '2.4rem', fontWeight: 800, marginBottom: '8px' }}>
+          <h1 style={{ fontSize: '2.4rem', fontWeight: 700, marginBottom: '8px' }}>
             Book University Transit Seat
           </h1>
           <p style={{ fontSize: '15px', color: 'var(--color-muted)', margin: 0 }}>
@@ -425,7 +425,7 @@ function BookingContent() {
                   <div style={{ fontSize: '12px', color: 'var(--color-muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                     Total Payable
                   </div>
-                  <div style={{ fontSize: '24px', fontWeight: 800, color: 'var(--color-ink)' }}>
+                  <div style={{ fontSize: '24px', fontWeight: 700, color: 'var(--color-ink)' }}>
                     {totalFare === 0 ? 'FREE (CAMPUS SHUTTLE)' : `₹${totalFare}`}
                   </div>
                 </div>

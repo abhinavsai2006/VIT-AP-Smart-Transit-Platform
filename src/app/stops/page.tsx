@@ -67,7 +67,7 @@ export default function StopsPage() {
           >
             Campus Infrastructure
           </div>
-          <h1 style={{ fontSize: '2.4rem', fontWeight: 800, marginBottom: '8px' }}>
+          <h1 style={{ fontSize: '2.4rem', fontWeight: 700, marginBottom: '8px' }}>
             Bus Stop Directory & Landmarks
           </h1>
           <p style={{ fontSize: '15px', color: 'var(--color-muted)', maxWidth: '720px', margin: 0 }}>
@@ -197,7 +197,7 @@ export default function StopsPage() {
                 <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '1px', color: '#93c5fd' }}>
                   Stop Details & Coordinates
                 </div>
-                <h2 style={{ fontSize: '20px', fontWeight: 800, marginTop: '4px' }}>
+                <h2 style={{ fontSize: '20px', fontWeight: 700, marginTop: '4px' }}>
                   {selectedStop?.name}
                 </h2>
                 <div style={{ fontSize: '12px', color: 'var(--color-on-dark-soft)', marginTop: '4px' }}>
@@ -247,7 +247,7 @@ export default function StopsPage() {
                               backgroundColor: 'var(--color-primary)',
                               color: '#ffffff',
                               padding: '2px 8px',
-                              fontWeight: 800,
+                              fontWeight: 700,
                               fontSize: '11px',
                             }}
                           >

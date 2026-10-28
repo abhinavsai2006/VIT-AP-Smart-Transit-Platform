@@ -150,7 +150,7 @@ export default function AdminRoutesPage() {
             >
               Corridor Network
             </div>
-            <h1 style={{ fontSize: '2.4rem', fontWeight: 800, marginBottom: '8px' }}>
+            <h1 style={{ fontSize: '2.4rem', fontWeight: 700, marginBottom: '8px' }}>
               Route & Corridor Governance
             </h1>
             <p style={{ fontSize: '15px', color: 'var(--color-muted)', maxWidth: '760px', margin: 0 }}>
@@ -205,7 +205,7 @@ export default function AdminRoutesPage() {
 
                   return (
                     <tr key={r.id}>
-                      <td style={{ fontWeight: 800, color: 'var(--color-primary)' }}>
+                      <td style={{ fontWeight: 700, color: 'var(--color-primary)' }}>
                         Route {r.routeNumber}
                       </td>
                       <td style={{ fontWeight: 700 }}>{r.routeName}</td>
@@ -244,7 +244,7 @@ export default function AdminRoutesPage() {
             }}
           >
             <div className="card" style={{ maxWidth: '580px', width: '100%', padding: '28px', backgroundColor: '#ffffff' }}>
-              <h2 style={{ fontSize: '20px', fontWeight: 800, marginBottom: '6px' }}>
+              <h2 style={{ fontSize: '20px', fontWeight: 700, marginBottom: '6px' }}>
                 Create Campus Bus Route
               </h2>
               <p style={{ fontSize: '13px', color: 'var(--color-muted)', marginBottom: '16px' }}>

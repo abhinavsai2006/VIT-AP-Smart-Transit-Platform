@@ -139,7 +139,7 @@ export default function AdminComplaintsPage() {
           >
             Customer Care & Resolution
           </div>
-          <h1 style={{ fontSize: '2.4rem', fontWeight: 800, marginBottom: '8px' }}>
+          <h1 style={{ fontSize: '2.4rem', fontWeight: 700, marginBottom: '8px' }}>
             Passenger Complaints Management
           </h1>
           <p style={{ fontSize: '15px', color: 'var(--color-muted)', maxWidth: '760px', margin: 0 }}>
