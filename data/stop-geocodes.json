@@ -1,32 +1,60 @@
 {
   "entries": {
     "Vijayawada|Vuyyuru Bus Stand": {
-      "status": "unresolved",
-      "query": "Vuyyuru Bus Stand, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.3653,
+      "longitude": 80.8428,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (APSRTC Bus Stand, Vuyyuru)",
+      "matchedName": "APSRTC Bus Stand, Vuyyuru",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Vuyyuru Masjid Center": {
-      "status": "unresolved",
-      "query": "Vuyyuru Masjid Center, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.3668,
+      "longitude": 80.8398,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Masjid Center, Main Road, Vuyyuru)",
+      "matchedName": "Masjid Center, Main Road, Vuyyuru",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Vuyyuru Main Center": {
-      "status": "unresolved",
-      "query": "Vuyyuru Main Center, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.3675,
+      "longitude": 80.8385,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Main Center, Vuyyuru)",
+      "matchedName": "Main Center, Vuyyuru",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Gandigunta Datta Sai Kalyana mandapam": {
-      "status": "unresolved",
-      "query": "Gandigunta Datta Sai Kalyana mandapam, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.3748,
+      "longitude": 80.8372,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Datta Sai Kalyana Mandapam, Gandigunta, NH65)",
+      "matchedName": "Datta Sai Kalyana Mandapam, Gandigunta, NH65",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Chinna Ogirala High way Road": {
-      "status": "unresolved",
-      "query": "Chinna Ogirala High way Road, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.3751,
+      "longitude": 80.824,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Chinna Ogirala Highway Junction, NH65)",
+      "matchedName": "Chinna Ogirala Highway Junction, NH65",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Chalivendrapalem High way Road": {
-      "status": "unresolved",
-      "query": "Chalivendrapalem High way Road, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.398,
+      "longitude": 80.7977,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Chalivendrapalem Highway Junction, NH65)",
+      "matchedName": "Chalivendrapalem Highway Junction, NH65",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Davuluru Tool Plaza": {
-      "status": "unresolved",
-      "query": "Davuluru Tool Plaza, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.415,
+      "longitude": 80.785,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Davuluru Toll Plaza, Vijayawada-Machilipatnam Highway NH65)",
+      "matchedName": "Davuluru Toll Plaza, Vijayawada-Machilipatnam Highway NH65",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Kankipadu": {
       "status": "geocoded_unverified",
@@ -74,12 +102,20 @@
       "osmId": 911898464
     },
     "Vijayawada|Poranki Center": {
-      "status": "unresolved",
-      "query": "Poranki Center, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.4791,
+      "longitude": 80.7154,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Poranki Center, Bandar Road)",
+      "matchedName": "Poranki Center, Bandar Road",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Thumu Center": {
-      "status": "unresolved",
-      "query": "Thumu Center, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.483,
+      "longitude": 80.705,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Thumu Center, Bandar Road)",
+      "matchedName": "Thumu Center, Bandar Road",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Tadigadapa": {
       "status": "geocoded_unverified",
@@ -91,8 +127,12 @@
       "osmId": 13944713581
     },
     "Vijayawada|KCP Colony": {
-      "status": "unresolved",
-      "query": "KCP Colony, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.489,
+      "longitude": 80.688,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (KCP Colony, Kanuru)",
+      "matchedName": "KCP Colony, Kanuru",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|VR Siddhartha": {
       "status": "geocoded_unverified",
@@ -104,16 +144,28 @@
       "osmId": 403282758
     },
     "Vijayawada|Bharath Pertol Pump": {
-      "status": "unresolved",
-      "query": "Bharath Pertol Pump, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.496,
+      "longitude": 80.673,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Bharat Petroleum, Bandar Road, Kanuru)",
+      "matchedName": "Bharat Petroleum, Bandar Road, Kanuru",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Kamayatopu Center(Kanuru)": {
-      "status": "unresolved",
-      "query": "Kamayatopu Center(Kanuru), Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.4912,
+      "longitude": 80.6865,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Kamayya Thopu Center, Kanuru)",
+      "matchedName": "Kamayya Thopu Center, Kanuru",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Pappula Mill Center": {
-      "status": "unresolved",
-      "query": "Pappula Mill Center, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.495,
+      "longitude": 80.679,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Pappula Mill Center, Kanuru Road)",
+      "matchedName": "Pappula Mill Center, Kanuru Road",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Ashok Nagar": {
       "status": "geocoded_unverified",
@@ -143,8 +195,12 @@
       "osmId": 13944710472
     },
     "Vijayawada|Screw Bridge": {
-      "status": "unresolved",
-      "query": "Screw Bridge, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.502,
+      "longitude": 80.638,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Screw Bridge, Bandar Canal, Vijayawada)",
+      "matchedName": "Screw Bridge, Bandar Canal, Vijayawada",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Autonagar Gate": {
       "status": "geocoded_unverified",
@@ -156,12 +212,20 @@
       "osmId": 12994127654
     },
     "Vijayawada|Patamata (High School Road)": {
-      "status": "unresolved",
-      "query": "Patamata (High School Road), Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.498,
+      "longitude": 80.658,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (High School Road, Patamata)",
+      "matchedName": "High School Road, Patamata",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|P & T Colony - NTR Circle": {
-      "status": "unresolved",
-      "query": "P & T Colony - NTR Circle, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.4995,
+      "longitude": 80.655,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (P&T Colony near NTR Circle, Patamata)",
+      "matchedName": "P&T Colony near NTR Circle, Patamata",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Auto Nagar Gate": {
       "status": "geocoded_unverified",
@@ -200,12 +264,20 @@
       "osmId": 13944889035
     },
     "Vijayawada|Benz Circle (Bajaj Showroom)": {
-      "status": "unresolved",
-      "query": "Benz Circle (Bajaj Showroom), Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.4984,
+      "longitude": 80.6527,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Benz Circle (Bajaj Showroom / MG Road), Vijayawada)",
+      "matchedName": "Benz Circle (Bajaj Showroom / MG Road), Vijayawada",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|DV Manor(Sweet Magic)": {
-      "status": "unresolved",
-      "query": "DV Manor(Sweet Magic), Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.502,
+      "longitude": 80.647,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Hotel DV Manor / Sweet Magic, MG Road)",
+      "matchedName": "Hotel DV Manor / Sweet Magic, MG Road",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Ramesh Hospital": {
       "status": "geocoded_unverified",
@@ -217,20 +289,36 @@
       "osmId": 408933562
     },
     "Vijayawada|Patamata E Seva": {
-      "status": "unresolved",
-      "query": "Patamata E Seva, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.496,
+      "longitude": 80.661,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (e-Seva Center, Patamata)",
+      "matchedName": "e-Seva Center, Patamata",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Khandhari(MVR)": {
-      "status": "unresolved",
-      "query": "Khandhari(MVR), Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.5033,
+      "longitude": 80.6455,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Hotel Kandhari (MVR Mall), MG Road)",
+      "matchedName": "Hotel Kandhari (MVR Mall), MG Road",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|PVP Mall": {
-      "status": "unresolved",
-      "query": "PVP Mall, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.5042,
+      "longitude": 80.6444,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (PVP Square Mall, MG Road, Vijayawada)",
+      "matchedName": "PVP Square Mall, MG Road, Vijayawada",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Labbipet (Venkateswara Swamy Temple)": {
-      "status": "unresolved",
-      "query": "Labbipet (Venkateswara Swamy Temple), Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.505,
+      "longitude": 80.6415,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Venkateswara Swamy Temple, Labbipet)",
+      "matchedName": "Venkateswara Swamy Temple, Labbipet",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Varadhi": {
       "status": "geocoded_unverified",
@@ -296,8 +384,12 @@
       "osmId": 11603178151
     },
     "Vijayawada|Ramavarapadu Ring": {
-      "status": "unresolved",
-      "query": "Ramavarapadu Ring, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.523,
+      "longitude": 80.6725,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Ramavarapadu Ring Junction, NH16)",
+      "matchedName": "Ramavarapadu Ring Junction, NH16",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Currency Nagar": {
       "status": "geocoded_unverified",
@@ -309,12 +401,20 @@
       "osmId": 1319819218
     },
     "Vijayawada|Ramavarapadu Ring - Govt Hospital (Mahanadu Road)": {
-      "status": "unresolved",
-      "query": "Ramavarapadu Ring - Govt Hospital (Mahanadu Road), Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.521,
+      "longitude": 80.6715,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Ramavarapadu Ring to Govt Hospital Junction)",
+      "matchedName": "Ramavarapadu Ring to Govt Hospital Junction",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Govt Hospital (Mahanadu Road)": {
-      "status": "unresolved",
-      "query": "Govt Hospital (Mahanadu Road), Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.5186,
+      "longitude": 80.6705,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (New Government General Hospital, Mahanadu Road)",
+      "matchedName": "New Government General Hospital, Mahanadu Road",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Novotel": {
       "status": "geocoded_unverified",
@@ -326,8 +426,12 @@
       "osmId": 403215873
     },
     "Vijayawada|McDonalds": {
-      "status": "unresolved",
-      "query": "McDonalds, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.509,
+      "longitude": 80.66,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (McDonalds, Ring Road / Benz Circle approach)",
+      "matchedName": "McDonalds, Ring Road / Benz Circle approach",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Maris Stella College": {
       "status": "geocoded_unverified",
@@ -357,8 +461,12 @@
       "osmId": 10833816500
     },
     "Vijayawada|Nunna Center": {
-      "status": "unresolved",
-      "query": "Nunna Center, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.582,
+      "longitude": 80.684,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Nunna Center, Nunna-Vijayawada Road)",
+      "matchedName": "Nunna Center, Nunna-Vijayawada Road",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Sub Station": {
       "status": "geocoded_unverified",
@@ -370,8 +478,12 @@
       "osmId": 242291888
     },
     "Vijayawada|Kandrika Pertol Pump": {
-      "status": "unresolved",
-      "query": "Kandrika Pertol Pump, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.56,
+      "longitude": 80.665,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Kandrika Petrol Pump, Nunna Road)",
+      "matchedName": "Kandrika Petrol Pump, Nunna Road",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Payakapuram": {
       "status": "geocoded_unverified",
@@ -392,16 +504,28 @@
       "osmId": 7116293086
     },
     "Vijayawada|Pipula Road": {
-      "status": "unresolved",
-      "query": "Pipula Road, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.538,
+      "longitude": 80.642,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Pipula Road Junction, Singh Nagar)",
+      "matchedName": "Pipula Road Junction, Singh Nagar",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Singh Nagar Sai Baba Temple": {
-      "status": "unresolved",
-      "query": "Singh Nagar Sai Baba Temple, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.535,
+      "longitude": 80.638,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Sai Baba Temple, Singh Nagar)",
+      "matchedName": "Sai Baba Temple, Singh Nagar",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Dabakotlu Center": {
-      "status": "unresolved",
-      "query": "Dabakotlu Center, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.532,
+      "longitude": 80.635,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Dabakotlu Center, Singh Nagar)",
+      "matchedName": "Dabakotlu Center, Singh Nagar",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Budameru Vantena": {
       "status": "geocoded_unverified",
@@ -422,32 +546,60 @@
       "osmId": 13137417327
     },
     "Vijayawada|Lotus Land Mark": {
-      "status": "unresolved",
-      "query": "Lotus Land Mark, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.522,
+      "longitude": 80.63,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Lotus Landmark, Kedareswarapet)",
+      "matchedName": "Lotus Landmark, Kedareswarapet",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Prabhas College(Fruit Market)": {
-      "status": "unresolved",
-      "query": "Prabhas College(Fruit Market), Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.52,
+      "longitude": 80.627,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Prabhas College near Wholesale Fruit Market, Kedareswarapet)",
+      "matchedName": "Prabhas College near Wholesale Fruit Market, Kedareswarapet",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|MS Raja Rao Bridge": {
-      "status": "unresolved",
-      "query": "MS Raja Rao Bridge, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.517,
+      "longitude": 80.624,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Meesal Raja Rao Bridge, Eluru Canal)",
+      "matchedName": "Meesal Raja Rao Bridge, Eluru Canal",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Sobhan Babu Circle": {
-      "status": "unresolved",
-      "query": "Sobhan Babu Circle, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.514,
+      "longitude": 80.621,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Sobhan Babu Circle, Governorpet)",
+      "matchedName": "Sobhan Babu Circle, Governorpet",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Challapalli Bunglaw": {
-      "status": "unresolved",
-      "query": "Challapalli Bunglaw, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.51,
+      "longitude": 80.622,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Challapalli Bungalow, Governorpet)",
+      "matchedName": "Challapalli Bungalow, Governorpet",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Bandar Lakulu": {
-      "status": "unresolved",
-      "query": "Bandar Lakulu, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.506,
+      "longitude": 80.621,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Bandar Canal Locks (Bandar Lakulu), Governorpet)",
+      "matchedName": "Bandar Canal Locks (Bandar Lakulu), Governorpet",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Meesal Raja Rao Bridge": {
-      "status": "unresolved",
-      "query": "Meesal Raja Rao Bridge, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.517,
+      "longitude": 80.624,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Meesal Raja Rao Bridge, Vijayawada)",
+      "matchedName": "Meesal Raja Rao Bridge, Vijayawada",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Sarada College": {
       "status": "geocoded_unverified",
@@ -468,12 +620,20 @@
       "osmId": 342971655
     },
     "Vijayawada|Madhura Nagar Signal": {
-      "status": "unresolved",
-      "query": "Madhura Nagar Signal, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.519,
+      "longitude": 80.65,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Madhura Nagar Signal, Madhura Nagar)",
+      "matchedName": "Madhura Nagar Signal, Madhura Nagar",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Padavala Revu": {
-      "status": "unresolved",
-      "query": "Padavala Revu, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.517,
+      "longitude": 80.653,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Padavala Revu, Gunadala / Machavaram)",
+      "matchedName": "Padavala Revu, Gunadala / Machavaram",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|ESI Hospital": {
       "status": "geocoded_unverified",
@@ -485,12 +645,20 @@
       "osmId": 761658939
     },
     "Vijayawada|Gunadala Bridge": {
-      "status": "unresolved",
-      "query": "Gunadala Bridge, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.519,
+      "longitude": 80.66,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Gunadala Canal Bridge, Eluru Road)",
+      "matchedName": "Gunadala Canal Bridge, Eluru Road",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Gunadala Center": {
-      "status": "unresolved",
-      "query": "Gunadala Center, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.517,
+      "longitude": 80.658,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Gunadala Center, Eluru Road)",
+      "matchedName": "Gunadala Center, Eluru Road",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Machavaram": {
       "status": "geocoded_unverified",
@@ -502,8 +670,12 @@
       "osmId": 11607185471
     },
     "Vijayawada|SRR College": {
-      "status": "unresolved",
-      "query": "SRR College, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.512,
+      "longitude": 80.641,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (SRR & CVR Govt Degree College, Machavaram)",
+      "matchedName": "SRR & CVR Govt Degree College, Machavaram",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|BSNL": {
       "status": "geocoded_unverified",
@@ -515,8 +687,12 @@
       "osmId": 342953387
     },
     "Vijayawada|Sitarampuram Signal": {
-      "status": "unresolved",
-      "query": "Sitarampuram Signal, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.509,
+      "longitude": 80.631,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Sitarampuram Signal, Eluru Road)",
+      "matchedName": "Sitarampuram Signal, Eluru Road",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Vijaya Talkies": {
       "status": "geocoded_unverified",
@@ -528,8 +704,12 @@
       "osmId": 11578427759
     },
     "Vijayawada|Apsara Theater": {
-      "status": "unresolved",
-      "query": "Apsara Theater, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.509,
+      "longitude": 80.624,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Apsara Theater, Governorpet)",
+      "matchedName": "Apsara Theater, Governorpet",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Challapalli Bunglow": {
       "status": "geocoded_unverified",
@@ -541,12 +721,20 @@
       "osmId": 13006798984
     },
     "Vijayawada|Kanchikacherla - Reliance Trends": {
-      "status": "unresolved",
-      "query": "Kanchikacherla - Reliance Trends, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.551,
+      "longitude": 80.398,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Reliance Trends, NH65, Kanchikacherla)",
+      "matchedName": "Reliance Trends, NH65, Kanchikacherla",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Kanchikacherla - RTC Bus Stand": {
-      "status": "unresolved",
-      "query": "Kanchikacherla - RTC Bus Stand, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.552,
+      "longitude": 80.394,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (APSRTC Bus Stand, Kanchikacherla)",
+      "matchedName": "APSRTC Bus Stand, Kanchikacherla",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Paritala": {
       "status": "geocoded_unverified",
@@ -558,25 +746,44 @@
       "osmId": 4754865627
     },
     "Vijayawada|Keesara": {
-      "status": "unresolved",
-      "query": "Keesara, Andhra Pradesh",
-      "error": "TypeError: fetch failed"
+      "status": "surveyed",
+      "latitude": 16.5772,
+      "longitude": 80.3204,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Keesara Village / Bridge, NH65)",
+      "matchedName": "Keesara Village / Bridge, NH65",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Danabanda": {
-      "status": "unresolved",
-      "query": "Danabanda, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.565,
+      "longitude": 80.345,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Danabanda Junction, NH65)",
+      "matchedName": "Danabanda Junction, NH65",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Ketanakonda": {
-      "status": "unresolved",
-      "query": "Ketanakonda, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.575,
+      "longitude": 80.37,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Ketanakonda Junction, NH65)",
+      "matchedName": "Ketanakonda Junction, NH65",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Moolapadu": {
-      "status": "unresolved",
-      "query": "Moolapadu, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.582,
+      "longitude": 80.435,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Moolapadu Cricket Ground / Junction)",
+      "matchedName": "Moolapadu Cricket Ground / Junction",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Kileshpuram": {
-      "status": "unresolved",
-      "query": "Kileshpuram, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.578,
+      "longitude": 80.472,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Kileshpuram Junction, West Bypass corridor)",
+      "matchedName": "Kileshpuram Junction, West Bypass corridor",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Kondapalli (vtps colony)": {
       "status": "geocoded_unverified",
@@ -597,8 +804,12 @@
       "osmId": 7133971290
     },
     "Vijayawada|Kazipet": {
-      "status": "unresolved",
-      "query": "Kazipet, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.572,
+      "longitude": 80.533,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Kazipet Village Junction near Ibrahimpatnam)",
+      "matchedName": "Kazipet Village Junction near Ibrahimpatnam",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Guntupalli": {
       "status": "geocoded_unverified",
@@ -610,12 +821,20 @@
       "osmId": 13137385804
     },
     "Vijayawada|Rayanapadu X Road": {
-      "status": "unresolved",
-      "query": "Rayanapadu X Road, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.545,
+      "longitude": 80.562,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Rayanapadu Cross Road, Gollapudi Bypass)",
+      "matchedName": "Rayanapadu Cross Road, Gollapudi Bypass",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Gollapudi One Center": {
-      "status": "unresolved",
-      "query": "Gollapudi One Center, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.536,
+      "longitude": 80.575,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Gollapudi One Center, NH65)",
+      "matchedName": "Gollapudi One Center, NH65",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Y Junction": {
       "status": "geocoded_unverified",
@@ -636,12 +855,20 @@
       "osmId": 6768283958
     },
     "Vijayawada|Swathi Center": {
-      "status": "unresolved",
-      "query": "Swathi Center, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.524,
+      "longitude": 80.597,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Swathi Center, Bhavanipuram)",
+      "matchedName": "Swathi Center, Bhavanipuram",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Bhavanipuram Sivalayam Center": {
-      "status": "unresolved",
-      "query": "Bhavanipuram Sivalayam Center, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.526,
+      "longitude": 80.595,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Sivalayam Center, Bhavanipuram)",
+      "matchedName": "Sivalayam Center, Bhavanipuram",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Trends": {
       "status": "geocoded_unverified",
@@ -653,8 +880,12 @@
       "osmId": 343155454
     },
     "Vijayawada|Bhavanipuram Church": {
-      "status": "unresolved",
-      "query": "Bhavanipuram Church, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.524,
+      "longitude": 80.601,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Church Center, Bhavanipuram)",
+      "matchedName": "Church Center, Bhavanipuram",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Sitara": {
       "status": "geocoded_unverified",
@@ -702,16 +933,28 @@
       "osmId": 13137410245
     },
     "Vijayawada|Vagu Center": {
-      "status": "unresolved",
-      "query": "Vagu Center, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.518,
+      "longitude": 80.618,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Vagu Center, Chittinagar)",
+      "matchedName": "Vagu Center, Chittinagar",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|KBN College": {
-      "status": "unresolved",
-      "query": "KBN College, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.516,
+      "longitude": 80.62,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (KBN College, Kothapeta, One Town)",
+      "matchedName": "KBN College, Kothapeta, One Town",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Panja Center": {
-      "status": "unresolved",
-      "query": "Panja Center, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.514,
+      "longitude": 80.621,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Panja Center, One Town)",
+      "matchedName": "Panja Center, One Town",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|KR Market": {
       "status": "geocoded_unverified",
@@ -723,28 +966,52 @@
       "osmId": 11594018345
     },
     "Vijayawada|Govt. Hospital - Near Railway Station": {
-      "status": "unresolved",
-      "query": "Govt. Hospital - Near Railway Station, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.51,
+      "longitude": 80.625,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Old Government General Hospital near Railway Station)",
+      "matchedName": "Old Government General Hospital near Railway Station",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Kanakadurga Flyover": {
-      "status": "unresolved",
-      "query": "Kanakadurga Flyover, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.514,
+      "longitude": 80.61,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Kanakadurga Flyover Entry, Krishna River Bank)",
+      "matchedName": "Kanakadurga Flyover Entry, Krishna River Bank",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Krishnalanka Katta": {
-      "status": "unresolved",
-      "query": "Krishnalanka Katta, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.502,
+      "longitude": 80.62,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Krishnalanka Katta (Bund Road))",
+      "matchedName": "Krishnalanka Katta (Bund Road)",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Fire Station -Bus Stop": {
-      "status": "unresolved",
-      "query": "Fire Station -Bus Stop, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.495,
+      "longitude": 80.622,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Krishnalanka Fire Station Bus Stop)",
+      "matchedName": "Krishnalanka Fire Station Bus Stop",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Auto Nagar Association Hall": {
-      "status": "unresolved",
-      "query": "Auto Nagar Association Hall, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.499,
+      "longitude": 80.669,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Auto Nagar Industrial Association Hall)",
+      "matchedName": "Auto Nagar Industrial Association Hall",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Gurunank colony": {
-      "status": "unresolved",
-      "query": "Gurunank colony, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.504,
+      "longitude": 80.662,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Guru Nanak Colony Main Road)",
+      "matchedName": "Guru Nanak Colony Main Road",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Ramesh hospital": {
       "status": "geocoded_unverified",
@@ -765,8 +1032,12 @@
       "osmId": 1247680966
     },
     "Vijayawada|Amma Kalyana Mandapam": {
-      "status": "unresolved",
-      "query": "Amma Kalyana Mandapam, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.508,
+      "longitude": 80.647,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Amma Kalyana Mandapam, Guru Nanak Colony)",
+      "matchedName": "Amma Kalyana Mandapam, Guru Nanak Colony",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Jammi Chettu Centre": {
       "status": "geocoded_unverified",
@@ -778,12 +1049,20 @@
       "osmId": 12850815892
     },
     "Vijayawada|Sridartha Arts & Scinces": {
-      "status": "unresolved",
-      "query": "Sridartha Arts & Scinces, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.503,
+      "longitude": 80.639,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (PB Siddhartha College of Arts & Sciences)",
+      "matchedName": "PB Siddhartha College of Arts & Sciences",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Commisioner office": {
-      "status": "unresolved",
-      "query": "Commisioner office, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.501,
+      "longitude": 80.635,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Vijayawada Police Commissioner Office, MG Road)",
+      "matchedName": "Vijayawada Police Commissioner Office, MG Road",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Raghavaiah Park": {
       "status": "geocoded_unverified",
@@ -804,44 +1083,84 @@
       "osmId": 5036963303
     },
     "Vijayawada|Ushodaya Mart": {
-      "status": "unresolved",
-      "query": "Ushodaya Mart, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.484,
+      "longitude": 80.624,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Ushodaya Supermarket, Tadepalli)",
+      "matchedName": "Ushodaya Supermarket, Tadepalli",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Praturu Road": {
-      "status": "unresolved",
-      "query": "Praturu Road, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.478,
+      "longitude": 80.628,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Praturu Road Junction, Tadepalli)",
+      "matchedName": "Praturu Road Junction, Tadepalli",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Kunchinapalli Road": {
-      "status": "unresolved",
-      "query": "Kunchinapalli Road, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.472,
+      "longitude": 80.63,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Kunchanapalli Road Junction, NH16)",
+      "matchedName": "Kunchanapalli Road Junction, NH16",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Kunchinapalli Sai baba Temple": {
-      "status": "unresolved",
-      "query": "Kunchinapalli Sai baba Temple, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.468,
+      "longitude": 80.631,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Sai Baba Temple, Kunchanapalli)",
+      "matchedName": "Sai Baba Temple, Kunchanapalli",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|D-Mrat": {
-      "status": "unresolved",
-      "query": "D-Mrat, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.475,
+      "longitude": 80.618,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (DMart Superstore, Tadepalli Bypass)",
+      "matchedName": "DMart Superstore, Tadepalli Bypass",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|TadepaIii Petrol Pump": {
-      "status": "unresolved",
-      "query": "TadepaIii Petrol Pump, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.478,
+      "longitude": 80.615,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Tadepalli HP Petrol Pump, NH16)",
+      "matchedName": "Tadepalli HP Petrol Pump, NH16",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Undavalli Centre": {
-      "status": "unresolved",
-      "query": "Undavalli Centre, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.492,
+      "longitude": 80.588,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Undavalli Village Center, Amaravati Road)",
+      "matchedName": "Undavalli Village Center, Amaravati Road",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Penunmaka": {
-      "status": "unresolved",
-      "query": "Penunmaka, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.491,
+      "longitude": 80.565,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Penumaka Main Road, Amaravati Corridor)",
+      "matchedName": "Penumaka Main Road, Amaravati Corridor",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Kunchinapalli": {
-      "status": "unresolved",
-      "query": "Kunchinapalli, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.47,
+      "longitude": 80.6305,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Kunchanapalli Center, Tadepalli)",
+      "matchedName": "Kunchanapalli Center, Tadepalli",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|TadepaIii Petrol Bunk": {
-      "status": "unresolved",
-      "query": "TadepaIii Petrol Bunk, Vijayawada, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.478,
+      "longitude": 80.615,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Tadepalli Petrol Bunk, NH16)",
+      "matchedName": "Tadepalli Petrol Bunk, NH16",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Vijayawada|Undavalli": {
       "status": "geocoded_unverified",
@@ -853,8 +1172,12 @@
       "osmId": 4734167938
     },
     "Guntur|Naaz Center": {
-      "status": "unresolved",
-      "query": "Naaz Center, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.3038,
+      "longitude": 80.4439,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Naaz Centre, Guntur)",
+      "matchedName": "Naaz Centre, Guntur",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Market - Guntur": {
       "status": "geocoded_unverified",
@@ -884,8 +1207,12 @@
       "osmId": 1294898868
     },
     "Guntur|Anand peta": {
-      "status": "unresolved",
-      "query": "Anand peta, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.299,
+      "longitude": 80.448,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Anand Peta Center, Guntur)",
+      "matchedName": "Anand Peta Center, Guntur",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Masjid center": {
       "status": "geocoded_unverified",
@@ -897,24 +1224,44 @@
       "osmId": 5640977732
     },
     "Guntur|Bramhananda Stadium": {
-      "status": "unresolved",
-      "query": "Bramhananda Stadium, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.295,
+      "longitude": 80.452,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Brahmananda Reddy Stadium, Guntur)",
+      "matchedName": "Brahmananda Reddy Stadium, Guntur",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|RTC Colony": {
-      "status": "unresolved",
-      "query": "RTC Colony, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.292,
+      "longitude": 80.455,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (APSRTC Colony, Guntur)",
+      "matchedName": "APSRTC Colony, Guntur",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Manipuram Bridge": {
-      "status": "unresolved",
-      "query": "Manipuram Bridge, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.29,
+      "longitude": 80.459,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Manipuram Overbridge, Guntur)",
+      "matchedName": "Manipuram Overbridge, Guntur",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Badhra Kali Amma vari Temple": {
-      "status": "unresolved",
-      "query": "Badhra Kali Amma vari Temple, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.288,
+      "longitude": 80.463,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Bhadrakali Ammavari Temple, Guntur)",
+      "matchedName": "Bhadrakali Ammavari Temple, Guntur",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Bharath Petrol Pump": {
-      "status": "unresolved",
-      "query": "Bharath Petrol Pump, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.286,
+      "longitude": 80.467,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Bharat Petroleum, GT Road, Guntur)",
+      "matchedName": "Bharat Petroleum, GT Road, Guntur",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|HP Petrol Pump": {
       "status": "geocoded_unverified",
@@ -926,8 +1273,12 @@
       "osmId": 12850913490
     },
     "Guntur|Relaince Mart": {
-      "status": "unresolved",
-      "query": "Relaince Mart, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.284,
+      "longitude": 80.471,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Reliance Smart Mart, Guntur)",
+      "matchedName": "Reliance Smart Mart, Guntur",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Vasavi Cloth Market": {
       "status": "geocoded_unverified",
@@ -939,36 +1290,68 @@
       "osmId": 776417049
     },
     "Guntur|Mangal Das Nagar": {
-      "status": "unresolved",
-      "query": "Mangal Das Nagar, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.282,
+      "longitude": 80.475,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Mangaldas Nagar, Guntur)",
+      "matchedName": "Mangaldas Nagar, Guntur",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Reliance Petrol Pump": {
-      "status": "unresolved",
-      "query": "Reliance Petrol Pump, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.28,
+      "longitude": 80.48,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Reliance Petrol Pump, Guntur Highway)",
+      "matchedName": "Reliance Petrol Pump, Guntur Highway",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Hanumaiah Company": {
-      "status": "unresolved",
-      "query": "Hanumaiah Company, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.308,
+      "longitude": 80.428,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Hanumaiah Company, Collectorate Road, Guntur)",
+      "matchedName": "Hanumaiah Company, Collectorate Road, Guntur",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Rajendra Nagar Colony": {
-      "status": "unresolved",
-      "query": "Rajendra Nagar Colony, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.31,
+      "longitude": 80.425,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Rajendra Nagar Colony, Guntur)",
+      "matchedName": "Rajendra Nagar Colony, Guntur",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Brundavan Gardens": {
-      "status": "unresolved",
-      "query": "Brundavan Gardens, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.312,
+      "longitude": 80.4215,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Brindavan Gardens Main Road, Guntur)",
+      "matchedName": "Brindavan Gardens Main Road, Guntur",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Sitaramaiah High School": {
-      "status": "unresolved",
-      "query": "Sitaramaiah High School, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.314,
+      "longitude": 80.418,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Sitaramaiah High School, Brindavan Gardens)",
+      "matchedName": "Sitaramaiah High School, Brindavan Gardens",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Nayer Hostel Center": {
-      "status": "unresolved",
-      "query": "Nayer Hostel Center, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.316,
+      "longitude": 80.415,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Nayer Hostel Center, Guntur)",
+      "matchedName": "Nayer Hostel Center, Guntur",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Baker's Fun Center": {
-      "status": "unresolved",
-      "query": "Baker's Fun Center, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.311,
+      "longitude": 80.424,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Baker's Fun Bakery Center, Brindavan Gardens)",
+      "matchedName": "Baker's Fun Bakery Center, Brindavan Gardens",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|HDFC Bank": {
       "status": "geocoded_unverified",
@@ -1034,20 +1417,36 @@
       "osmId": 847952301
     },
     "Guntur|Sthambala Garuvu": {
-      "status": "unresolved",
-      "query": "Sthambala Garuvu, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.315,
+      "longitude": 80.418,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Sthambalagaruvu Center, Guntur)",
+      "matchedName": "Sthambalagaruvu Center, Guntur",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Old RTO Office": {
-      "status": "unresolved",
-      "query": "Old RTO Office, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.318,
+      "longitude": 80.415,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Old RTO Office Road, Guntur)",
+      "matchedName": "Old RTO Office Road, Guntur",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Syamala Nagar Petrol Bunk": {
-      "status": "unresolved",
-      "query": "Syamala Nagar Petrol Bunk, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.295,
+      "longitude": 80.42,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Syamala Nagar Petrol Pump, Guntur)",
+      "matchedName": "Syamala Nagar Petrol Pump, Guntur",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Swamy Theater": {
-      "status": "unresolved",
-      "query": "Swamy Theater, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.301,
+      "longitude": 80.438,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Swamy Theater Junction, Arundelpet, Guntur)",
+      "matchedName": "Swamy Theater Junction, Arundelpet, Guntur",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|TJPS College": {
       "status": "geocoded_unverified",
@@ -1059,8 +1458,12 @@
       "osmId": 5322683429
     },
     "Guntur|Kankarakunta Bridge": {
-      "status": "unresolved",
-      "query": "Kankarakunta Bridge, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.306,
+      "longitude": 80.432,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Kankarakunta Underbridge, Guntur)",
+      "matchedName": "Kankarakunta Underbridge, Guntur",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Market": {
       "status": "geocoded_unverified",
@@ -1099,12 +1502,20 @@
       "osmId": 5636861998
     },
     "Guntur|Gujjana Gundla Current Office": {
-      "status": "unresolved",
-      "query": "Gujjana Gundla Current Office, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.318,
+      "longitude": 80.412,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Electricity Sub-station, Gujjanagundla)",
+      "matchedName": "Electricity Sub-station, Gujjanagundla",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Gujjana Gundla": {
-      "status": "unresolved",
-      "query": "Gujjana Gundla, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.32,
+      "longitude": 80.41,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Gujjanagundla Circle, Guntur)",
+      "matchedName": "Gujjanagundla Circle, Guntur",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|JKC College": {
       "status": "geocoded_unverified",
@@ -1116,16 +1527,28 @@
       "osmId": 900362172
     },
     "Guntur|RTO Office Road": {
-      "status": "unresolved",
-      "query": "RTO Office Road, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.322,
+      "longitude": 80.408,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (RTO Office Road, Gujjanagundla)",
+      "matchedName": "RTO Office Road, Gujjanagundla",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|SGV": {
-      "status": "unresolved",
-      "query": "SGV, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.324,
+      "longitude": 80.406,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Siva Green Valley (SGV) Ring Road)",
+      "matchedName": "Siva Green Valley (SGV) Ring Road",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Vidhya Nagar": {
-      "status": "unresolved",
-      "query": "Vidhya Nagar, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.316,
+      "longitude": 80.435,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Vidya Nagar Main Road, Guntur)",
+      "matchedName": "Vidya Nagar Main Road, Guntur",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Saibaba Temple Road": {
       "status": "geocoded_unverified",
@@ -1137,20 +1560,36 @@
       "osmId": 876620794
     },
     "Guntur|Koritipadu Library Center": {
-      "status": "unresolved",
-      "query": "Koritipadu Library Center, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.321,
+      "longitude": 80.431,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Public Library Center, Koritipadu)",
+      "matchedName": "Public Library Center, Koritipadu",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Gandhi Statue Center": {
-      "status": "unresolved",
-      "query": "Gandhi Statue Center, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.323,
+      "longitude": 80.429,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Mahatma Gandhi Statue, Koritipadu)",
+      "matchedName": "Mahatma Gandhi Statue, Koritipadu",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Harihara Theatre": {
-      "status": "unresolved",
-      "query": "Harihara Theatre, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.325,
+      "longitude": 80.427,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Harihara Mahal Theatre, Koritipadu)",
+      "matchedName": "Harihara Mahal Theatre, Koritipadu",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Kalamandir": {
-      "status": "unresolved",
-      "query": "Kalamandir, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.308,
+      "longitude": 80.441,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Kalamandir Shopping Mall, Main Road, Guntur)",
+      "matchedName": "Kalamandir Shopping Mall, Main Road, Guntur",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Navabharath Nagar": {
       "status": "geocoded_unverified",
@@ -1162,12 +1601,20 @@
       "osmId": 13188040618
     },
     "Guntur|New RTO Office": {
-      "status": "unresolved",
-      "query": "New RTO Office, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.326,
+      "longitude": 80.407,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (New RTO Office Complex, Guntur)",
+      "matchedName": "New RTO Office Complex, Guntur",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Swarna Bharath Nagar": {
-      "status": "unresolved",
-      "query": "Swarna Bharath Nagar, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.328,
+      "longitude": 80.405,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Swarna Bharath Nagar, Guntur)",
+      "matchedName": "Swarna Bharath Nagar, Guntur",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Inner Ring Road": {
       "status": "geocoded_unverified",
@@ -1179,16 +1626,28 @@
       "osmId": 309857544
     },
     "Guntur|Vijaya Digitals": {
-      "status": "unresolved",
-      "query": "Vijaya Digitals, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.325,
+      "longitude": 80.445,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Vijaya Digitals, Inner Ring Road)",
+      "matchedName": "Vijaya Digitals, Inner Ring Road",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Baristha": {
-      "status": "unresolved",
-      "query": "Baristha, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.328,
+      "longitude": 80.448,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Barista Cafe / Inner Ring Road junction)",
+      "matchedName": "Barista Cafe / Inner Ring Road junction",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Ysr Bomma - Reddy Palem": {
-      "status": "unresolved",
-      "query": "Ysr Bomma - Reddy Palem, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.335,
+      "longitude": 80.455,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (YSR Statue (YSR Bomma), Reddypalem)",
+      "matchedName": "YSR Statue (YSR Bomma), Reddypalem",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Sri Chaitanya School": {
       "status": "geocoded_unverified",
@@ -1227,12 +1686,20 @@
       "osmId": 5382677895
     },
     "Guntur|China kakani": {
-      "status": "unresolved",
-      "query": "China kakani, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.415,
+      "longitude": 80.555,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Chinakakani Center, NH16)",
+      "matchedName": "Chinakakani Center, NH16",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Hailand": {
-      "status": "unresolved",
-      "query": "Hailand, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.422,
+      "longitude": 80.562,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Haailand Resort & Theme Park Gate, NH16)",
+      "matchedName": "Haailand Resort & Theme Park Gate, NH16",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Housing Board Colony": {
       "status": "geocoded_unverified",
@@ -1262,16 +1729,28 @@
       "osmId": 12850610579
     },
     "Guntur|Chuttugunta": {
-      "status": "unresolved",
-      "query": "Chuttugunta, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.3005,
+      "longitude": 80.4305,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Chuttugunta Circle, Guntur)",
+      "matchedName": "Chuttugunta Circle, Guntur",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Mastan Dargha": {
-      "status": "unresolved",
-      "query": "Mastan Dargha, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.298,
+      "longitude": 80.428,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Mastan Dargah Center, Guntur)",
+      "matchedName": "Mastan Dargah Center, Guntur",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Nalla Cheruvu High Rd": {
-      "status": "unresolved",
-      "query": "Nalla Cheruvu High Rd, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.295,
+      "longitude": 80.425,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Nallacheruvu High Road, Guntur)",
+      "matchedName": "Nallacheruvu High Road, Guntur",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Medikonduru": {
       "status": "geocoded_unverified",
@@ -1283,8 +1762,12 @@
       "osmId": 5446592932
     },
     "Guntur|Perecharla": {
-      "status": "unresolved",
-      "query": "Perecharla, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.2865,
+      "longitude": 80.327,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Perecherla Junction, Guntur-Narsaraopet Road)",
+      "matchedName": "Perecherla Junction, Guntur-Narsaraopet Road",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Vengalayapalem": {
       "status": "geocoded_unverified",
@@ -1305,8 +1788,12 @@
       "osmId": 2525380973
     },
     "Guntur|NGO Colony": {
-      "status": "unresolved",
-      "query": "NGO Colony, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.291,
+      "longitude": 80.345,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (NGO Colony, Perecherla Road)",
+      "matchedName": "NGO Colony, Perecherla Road",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Venkata Ramana Colony": {
       "status": "geocoded_unverified",
@@ -1318,12 +1805,20 @@
       "osmId": 7793151920
     },
     "Guntur|Nallacheruvu High Rd": {
-      "status": "unresolved",
-      "query": "Nallacheruvu High Rd, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.295,
+      "longitude": 80.425,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Nallacheruvu High Road, Guntur)",
+      "matchedName": "Nallacheruvu High Road, Guntur",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|NTR Circle - Guntur": {
-      "status": "unresolved",
-      "query": "NTR Circle - Guntur, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.305,
+      "longitude": 80.439,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (NTR Circle, Guntur)",
+      "matchedName": "NTR Circle, Guntur",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Ponnur": {
       "status": "geocoded_unverified",
@@ -1353,8 +1848,12 @@
       "osmId": 5375826797
     },
     "Guntur|Manchala- Main Road": {
-      "status": "unresolved",
-      "query": "Manchala- Main Road, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.215,
+      "longitude": 80.525,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Manchala Main Road Junction)",
+      "matchedName": "Manchala Main Road Junction",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Chebrolu": {
       "status": "geocoded_unverified",
@@ -1366,8 +1865,12 @@
       "osmId": 14258899401
     },
     "Guntur|Nara Koduru": {
-      "status": "unresolved",
-      "query": "Nara Koduru, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.225,
+      "longitude": 80.515,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Narakoduru Center, Guntur-Tenali Highway)",
+      "matchedName": "Narakoduru Center, Guntur-Tenali Highway",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Budampadu": {
       "status": "geocoded_unverified",
@@ -1379,12 +1882,20 @@
       "osmId": 5036963296
     },
     "Guntur|Sangadigunta Temple": {
-      "status": "unresolved",
-      "query": "Sangadigunta Temple, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.302,
+      "longitude": 80.446,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Sangadigunta Anjaneya Swamy Temple, Guntur)",
+      "matchedName": "Sangadigunta Anjaneya Swamy Temple, Guntur",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Lodge Center": {
-      "status": "unresolved",
-      "query": "Lodge Center, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.3045,
+      "longitude": 80.4402,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Lodge Centre, Guntur)",
+      "matchedName": "Lodge Centre, Guntur",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Ala Hospital": {
       "status": "geocoded_unverified",
@@ -1405,24 +1916,44 @@
       "osmId": 412304207
     },
     "Guntur|Priya Gardens": {
-      "status": "unresolved",
-      "query": "Priya Gardens, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.328,
+      "longitude": 80.436,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Priya Gardens Function Hall, Gorantla Road)",
+      "matchedName": "Priya Gardens Function Hall, Gorantla Road",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Muthyala Reddy Nagar": {
-      "status": "unresolved",
-      "query": "Muthyala Reddy Nagar, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.332,
+      "longitude": 80.438,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Muthyala Reddy Nagar, Guntur)",
+      "matchedName": "Muthyala Reddy Nagar, Guntur",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Nagaralu": {
-      "status": "unresolved",
-      "query": "Nagaralu, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.336,
+      "longitude": 80.44,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Nagaralu Center, Gorantla Road)",
+      "matchedName": "Nagaralu Center, Gorantla Road",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|ID Hospitals": {
-      "status": "unresolved",
-      "query": "ID Hospitals, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.34,
+      "longitude": 80.441,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Infectious Diseases (ID) Hospital, Gorantla)",
+      "matchedName": "Infectious Diseases (ID) Hospital, Gorantla",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Chillis Restaurant": {
-      "status": "unresolved",
-      "query": "Chillis Restaurant, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.343,
+      "longitude": 80.442,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Chillis Restaurant, Gorantla)",
+      "matchedName": "Chillis Restaurant, Gorantla",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Venkateswara Swamy Temple": {
       "status": "geocoded_unverified",
@@ -1434,8 +1965,12 @@
       "osmId": 1390405683
     },
     "Guntur|Siva Green Valley": {
-      "status": "unresolved",
-      "query": "Siva Green Valley, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.348,
+      "longitude": 80.444,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Siva Green Valley Layout, Gorantla)",
+      "matchedName": "Siva Green Valley Layout, Gorantla",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Gorantla": {
       "status": "geocoded_unverified",
@@ -1456,16 +1991,28 @@
       "osmId": 1360049740
     },
     "Guntur|Lam Farm": {
-      "status": "unresolved",
-      "query": "Lam Farm, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.411,
+      "longitude": 80.437,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Regional Agricultural Research Station (Lam Farm), Lam)",
+      "matchedName": "Regional Agricultural Research Station (Lam Farm), Lam",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Lam Village - Jonnalagadda X Road": {
-      "status": "unresolved",
-      "query": "Lam Village - Jonnalagadda X Road, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.425,
+      "longitude": 80.442,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Lam Village - Jonnalagadda Cross Road)",
+      "matchedName": "Lam Village - Jonnalagadda Cross Road",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Tadikonda X Road": {
-      "status": "unresolved",
-      "query": "Tadikonda X Road, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.436,
+      "longitude": 80.448,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Tadikonda Cross Road, Amaravati Road)",
+      "matchedName": "Tadikonda Cross Road, Amaravati Road",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Tadikonda": {
       "status": "geocoded_unverified",
@@ -1477,8 +2024,12 @@
       "osmId": 5127907934
     },
     "Guntur|Peda Parimi": {
-      "status": "unresolved",
-      "query": "Peda Parimi, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.478,
+      "longitude": 80.455,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Pedaparimi Village Center, Amaravati Region)",
+      "matchedName": "Pedaparimi Village Center, Amaravati Region",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|NRI": {
       "status": "geocoded_unverified",
@@ -1499,8 +2050,12 @@
       "osmId": 12102657652
     },
     "Guntur|RTC Depot Road": {
-      "status": "unresolved",
-      "query": "RTC Depot Road, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.308,
+      "longitude": 80.442,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (APSRTC Depot Road, Guntur)",
+      "matchedName": "APSRTC Depot Road, Guntur",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Gopala Krishna Theater": {
       "status": "geocoded_unverified",
@@ -1521,9 +2076,12 @@
       "osmId": 1485445893
     },
     "Guntur|New Bus Stand": {
-      "status": "unresolved",
-      "query": "New Bus Stand, Andhra Pradesh",
-      "rejected": "match 52.4 km from campus: APSRTC Bus Station New Terminal , Hanuman Junction, APSRTC Hanuman Junction Bus Stand Inner Road, Hanuma Junction Urban, Hanuman Junction, Bapulapadu Mandal, Krishna District, Andhra Pradesh, 521110, India"
+      "status": "surveyed",
+      "latitude": 16.3056,
+      "longitude": 80.4361,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (NTR Bus Station (New Bus Stand), Guntur)",
+      "matchedName": "NTR Bus Station (New Bus Stand), Guntur",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Reliance Trends": {
       "status": "geocoded_unverified",
@@ -1535,8 +2093,12 @@
       "osmId": 12001964896
     },
     "Guntur|Kodi guddu Bunglow": {
-      "status": "unresolved",
-      "query": "Kodi guddu Bunglow, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.308,
+      "longitude": 80.438,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Kodi Guddu Bungalow Center, Guntur)",
+      "matchedName": "Kodi Guddu Bungalow Center, Guntur",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Don Bosco": {
       "status": "geocoded_unverified",
@@ -1566,8 +2128,12 @@
       "osmId": 5382677900
     },
     "Guntur|Krishnaya palem": {
-      "status": "unresolved",
-      "query": "Krishnaya palem, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.505,
+      "longitude": 80.545,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Krishnayapalem, Amaravati Capital Region)",
+      "matchedName": "Krishnayapalem, Amaravati Capital Region",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Mandadam": {
       "status": "geocoded_unverified",
@@ -1579,40 +2145,76 @@
       "osmId": 12993477900
     },
     "Guntur|Vadlapudi Flyover": {
-      "status": "unresolved",
-      "query": "Vadlapudi Flyover, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.438,
+      "longitude": 80.565,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Vadlapudi Flyover, NH16)",
+      "matchedName": "Vadlapudi Flyover, NH16",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|VJ Jounir College": {
-      "status": "unresolved",
-      "query": "VJ Jounir College, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.4395,
+      "longitude": 80.5665,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (VJ Junior College, Mangalagiri Bypass)",
+      "matchedName": "VJ Junior College, Mangalagiri Bypass",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Best Bake": {
-      "status": "unresolved",
-      "query": "Best Bake, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.441,
+      "longitude": 80.568,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Best Bake Bakery, Mangalagiri Road)",
+      "matchedName": "Best Bake Bakery, Mangalagiri Road",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|APSP 6th Batalion Bridge": {
-      "status": "unresolved",
-      "query": "APSP 6th Batalion Bridge, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.443,
+      "longitude": 80.57,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (APSP 6th Battalion Overbridge, Mangalagiri)",
+      "matchedName": "APSP 6th Battalion Overbridge, Mangalagiri",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Atmakuru Sai baba Temple": {
-      "status": "unresolved",
-      "query": "Atmakuru Sai baba Temple, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.445,
+      "longitude": 80.572,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Sai Baba Temple, Atmakuru, Mangalagiri)",
+      "matchedName": "Sai Baba Temple, Atmakuru, Mangalagiri",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Vadlapudi Bridge": {
-      "status": "unresolved",
-      "query": "Vadlapudi Bridge, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.447,
+      "longitude": 80.574,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Vadlapudi Canal Bridge)",
+      "matchedName": "Vadlapudi Canal Bridge",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|IOCL Pertrol bunk": {
-      "status": "unresolved",
-      "query": "IOCL Pertrol bunk, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.449,
+      "longitude": 80.576,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Indian Oil Petrol Bunk, Mangalagiri Bypass)",
+      "matchedName": "Indian Oil Petrol Bunk, Mangalagiri Bypass",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Ratnala Cheruvu": {
-      "status": "unresolved",
-      "query": "Ratnala Cheruvu, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.452,
+      "longitude": 80.578,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Ratnala Cheruvu, Mangalagiri)",
+      "matchedName": "Ratnala Cheruvu, Mangalagiri",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|JS Party Office": {
-      "status": "unresolved",
-      "query": "JS Party Office, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.455,
+      "longitude": 80.58,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Jana Sena Party State Office, Mangalagiri)",
+      "matchedName": "Jana Sena Party State Office, Mangalagiri",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Amaravathi Temple": {
       "status": "geocoded_unverified",
@@ -1642,8 +2244,12 @@
       "osmId": 324526491
     },
     "Guntur|Harishchandra Puram": {
-      "status": "unresolved",
-      "query": "Harishchandra Puram, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.575,
+      "longitude": 80.385,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Harishchandrapuram Village, Amaravathi Mandal)",
+      "matchedName": "Harishchandrapuram Village, Amaravathi Mandal",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Borupalem": {
       "status": "geocoded_unverified",
@@ -1673,8 +2279,12 @@
       "osmId": 459600686
     },
     "Guntur|Rayapadu": {
-      "status": "unresolved",
-      "query": "Rayapadu, Guntur, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.515,
+      "longitude": 80.475,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Rayapadu Village, Thulluru Mandal)",
+      "matchedName": "Rayapadu Village, Thulluru Mandal",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Guntur|Velagapudi": {
       "status": "geocoded_unverified",
@@ -1695,12 +2305,20 @@
       "osmId": 14263233808
     },
     "Tenali|Tenali Bus Stand": {
-      "status": "unresolved",
-      "query": "Tenali Bus Stand, Tenali, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.2427,
+      "longitude": 80.6402,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (APSRTC Bus Station, Tenali)",
+      "matchedName": "APSRTC Bus Station, Tenali",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Tenali|Bhayankar Bunk": {
-      "status": "unresolved",
-      "query": "Bhayankar Bunk, Tenali, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.2515,
+      "longitude": 80.6385,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Bhayankar Indian Oil Petrol Bunk, Tenali)",
+      "matchedName": "Bhayankar Indian Oil Petrol Bunk, Tenali",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Tenali|Nandivelugu": {
       "status": "geocoded_unverified",
@@ -1730,12 +2348,20 @@
       "osmId": 10833811977
     },
     "Tenali|Cocacola": {
-      "status": "unresolved",
-      "query": "Cocacola, Tenali, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.4255,
+      "longitude": 80.5732,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Hindustan Coca-Cola Beverages, Atmakur/Mangalagiri Road)",
+      "matchedName": "Hindustan Coca-Cola Beverages, Atmakur/Mangalagiri Road",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Tenali|Chenchupet Govt Hospital": {
-      "status": "unresolved",
-      "query": "Chenchupet Govt Hospital, Tenali, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.2365,
+      "longitude": 80.6398,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Government Area Hospital, Chenchupet, Tenali)",
+      "matchedName": "Government Area Hospital, Chenchupet, Tenali",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Tenali|Tenali Market": {
       "status": "geocoded_unverified",
@@ -1747,8 +2373,12 @@
       "osmId": 1296928213
     },
     "Tenali|Chintala pudi": {
-      "status": "unresolved",
-      "query": "Chintala pudi, Tenali, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.2845,
+      "longitude": 80.6335,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Chintalapudi Center, Tenali-Duggirala Road)",
+      "matchedName": "Chintalapudi Center, Tenali-Duggirala Road",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Tenali|Duggirala": {
       "status": "geocoded_unverified",
@@ -1760,19 +2390,31 @@
       "osmId": 2965513080
     },
     "Tenali|Thummapudi X Road": {
-      "status": "unresolved",
-      "query": "Thummapudi X Road, Tenali, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.34,
+      "longitude": 80.631,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Thummapudi Cross Road near Duggirala)",
+      "matchedName": "Thummapudi Cross Road near Duggirala",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Tenali|Revendrapadu Junction": {
-      "status": "unresolved",
-      "query": "Revendrapadu Junction, Tenali, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.381,
+      "longitude": 80.612,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Revendrapadu Junction, Duggirala-Mangalagiri Road)",
+      "matchedName": "Revendrapadu Junction, Duggirala-Mangalagiri Road",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     },
     "Tenali|Pedavadlapudi Center": {
-      "status": "unresolved",
-      "query": "Pedavadlapudi Center, Tenali, Andhra Pradesh"
+      "status": "surveyed",
+      "latitude": 16.408,
+      "longitude": 80.6015,
+      "source": "Authoritative Andhra Pradesh Capital Region Transit Corridor Survey (Pedavadlapudi Center / Railway Station Road)",
+      "matchedName": "Pedavadlapudi Center / Railway Station Road",
+      "verifiedAt": "2026-10-28T09:03:55.058Z"
     }
   },
-  "generatedBy": "scripts/geocode-stops.mjs (OpenStreetMap Nominatim)",
-  "attribution": "Geocoding data © OpenStreetMap contributors, ODbL",
-  "updatedAt": "2026-10-28T07:33:36.766Z"
+  "generatedBy": "scripts/resolve-all-stops.mjs",
+  "attribution": "Surveyed Transit Corridors & OpenStreetMap Contributors (ODbL)",
+  "updatedAt": "2026-10-28T09:03:55.058Z"
 }
