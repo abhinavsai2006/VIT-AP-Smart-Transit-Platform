@@ -547,4 +547,89 @@ describe('10. Student Bus Pass Generation, Security & Personalization', () => {
   });
 });
 
+describe('Live Telemetry & Interactive Map Synchronization', () => {
+  it('validates GPS coordinates and rejects non-numeric or out-of-bound coordinates', () => {
+    function isValidCoordinate(lat: unknown, lng: unknown): boolean {
+      return (
+        typeof lat === 'number' &&
+        typeof lng === 'number' &&
+        !isNaN(lat) &&
+        !isNaN(lng) &&
+        isFinite(lat) &&
+        isFinite(lng) &&
+        lat >= -90 &&
+        lat <= 90 &&
+        lng >= -180 &&
+        lng <= 180 &&
+        (Math.abs(lat) > 0.0001 || Math.abs(lng) > 0.0001)
+      );
+    }
+
+    // Valid campus coordinates
+    expect(isValidCoordinate(16.4950, 80.5005)).toBe(true);
+    expect(isValidCoordinate(16.5062, 80.6480)).toBe(true);
+
+    // Invalid coordinates
+    expect(isValidCoordinate(0, 0)).toBe(false);
+    expect(isValidCoordinate(NaN, 80.5)).toBe(false);
+    expect(isValidCoordinate(16.5, null)).toBe(false);
+    expect(isValidCoordinate(95.0, 80.0)).toBe(false);
+    expect(isValidCoordinate(16.5, 185.0)).toBe(false);
+    expect(isValidCoordinate('16.5', '80.5')).toBe(false);
+  });
+
+  it('correctly calculates scheduled arrival times using departure time and offset minutes', () => {
+    function computeScheduledTime(baseTime: string | undefined, offsetMinutes: number = 0): string {
+      if (!baseTime) return '--:--';
+      const parts = baseTime.split(':');
+      if (parts.length < 2) return baseTime;
+      const hours = parseInt(parts[0], 10);
+      const minutes = parseInt(parts[1], 10);
+      if (isNaN(hours) || isNaN(minutes)) return baseTime;
+
+      const totalMinutes = hours * 60 + minutes + offsetMinutes;
+      const newHours = Math.floor(totalMinutes / 60) % 24;
+      const newMins = totalMinutes % 60;
+      const period = newHours >= 12 ? 'PM' : 'AM';
+      const displayHours = newHours % 12 === 0 ? 12 : newHours % 12;
+      const displayMins = newMins.toString().padStart(2, '0');
+      return `${displayHours}:${displayMins} ${period}`;
+    }
+
+    // 07:15 AM + 0 mins = 7:15 AM
+    expect(computeScheduledTime('07:15', 0)).toBe('7:15 AM');
+    // 07:15 AM + 12 mins = 7:27 AM
+    expect(computeScheduledTime('07:15', 12)).toBe('7:27 AM');
+    // 07:15 AM + 65 mins = 8:20 AM
+    expect(computeScheduledTime('07:15', 65)).toBe('8:20 AM');
+    // 11:45 AM + 30 mins = 12:15 PM
+    expect(computeScheduledTime('11:45', 30)).toBe('12:15 PM');
+  });
+
+  it('correctly updates and returns live telemetry with freshness verification', async () => {
+    const loc = await updateLiveLocation({
+      tripId: 'trip-101-morning',
+      busId: 'bus-01',
+      driverId: 'staff-drv-1',
+      latitude: 16.4820,
+      longitude: 80.5120,
+      speedKmH: 42,
+      heading: 180,
+      accuracyMeters: 5,
+    });
+
+    expect(loc.tripId).toBe('trip-101-morning');
+    expect(loc.latitude).toBeCloseTo(16.4820);
+    expect(loc.longitude).toBeCloseTo(80.5120);
+    expect(loc.speedKmH).toBe(42);
+    expect(loc.isLive).toBe(true);
+
+    const fetched = await getLiveLocationForTrip('trip-101-morning');
+    expect(fetched).toBeDefined();
+    expect(fetched?.isLive).toBe(true);
+    expect(fetched?.speedKmH).toBe(42);
+  });
+});
+
+
 

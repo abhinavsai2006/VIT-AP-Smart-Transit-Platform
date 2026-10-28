@@ -1,49 +1,63 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Route, Stop, Trip, GPSLocation, Bus, ServiceDisruption } from '@/types/transit';
 import TransitMap from '@/components/map/TransitMap';
 import {
   Radio,
-  Bus as BusIcon,
-  Clock,
-  Gauge,
-  Navigation,
-  AlertTriangle,
   RefreshCw,
   MapPin,
-  CheckCircle2,
+  Crosshair,
+  Maximize2,
+  Calendar,
+  Clock,
+  ArrowRight,
+  ShieldCheck,
 } from 'lucide-react';
+
+function computeScheduledTime(baseTime: string | undefined, offsetMinutes: number = 0): string {
+  if (!baseTime) return '--:--';
+  const parts = baseTime.split(':');
+  if (parts.length < 2) return baseTime;
+  const hours = parseInt(parts[0], 10);
+  const minutes = parseInt(parts[1], 10);
+  if (isNaN(hours) || isNaN(minutes)) return baseTime;
+
+  const totalMinutes = hours * 60 + minutes + offsetMinutes;
+  const newHours = Math.floor(totalMinutes / 60) % 24;
+  const newMins = totalMinutes % 60;
+  const period = newHours >= 12 ? 'PM' : 'AM';
+  const displayHours = newHours % 12 === 0 ? 12 : newHours % 12;
+  const displayMins = newMins.toString().padStart(2, '0');
+  return `${displayHours}:${displayMins} ${period}`;
+}
 
 export default function TrackingPage() {
   const [routes, setRoutes] = useState<Route[]>([]);
   const [stops, setStops] = useState<Stop[]>([]);
   const [trips, setTrips] = useState<Trip[]>([]);
-  const [disruptions, setDisruptions] = useState<ServiceDisruption[]>([]);
   const [activeLocations, setActiveLocations] = useState<(GPSLocation & { bus?: Bus; routeName?: string })[]>([]);
   const [selectedTripId, setSelectedTripId] = useState<string>('trip-101-morning');
+  const [selectedStopId, setSelectedStopId] = useState<string | null>(null);
   const [refreshing, setRefreshing] = useState(false);
   const [lastFetchTime, setLastFetchTime] = useState<string>('');
 
   const loadTrackingData = async () => {
     try {
       setRefreshing(true);
-      const [routesRes, stopsRes, tripsRes, disruptRes] = await Promise.all([
+      const [routesRes, stopsRes, tripsRes] = await Promise.all([
         fetch('/api/routes'),
         fetch('/api/stops'),
         fetch('/api/trips'),
-        fetch('/api/disruptions'),
       ]);
 
       const routesData = await routesRes.json();
       const stopsData = await stopsRes.json();
       const tripsData = await tripsRes.json();
-      const disruptData = await disruptRes.json();
 
       setRoutes(routesData.routes || []);
       setStops(stopsData.stops || []);
       setTrips(tripsData.trips || []);
-      setDisruptions(disruptData.disruptions || []);
 
       // Fetch live locations for active trips
       const locPromises = (tripsData.trips || [])
@@ -73,13 +87,23 @@ export default function TrackingPage() {
 
   useEffect(() => {
     loadTrackingData();
-    // Auto-refresh every 15 seconds for live telemetry
+    // Auto-refresh telemetry every 15 seconds
     const interval = setInterval(loadTrackingData, 15000);
     return () => clearInterval(interval);
   }, []);
 
-  const selectedTrip = trips.find((t) => t.id === selectedTripId) || trips[0];
-  const selectedLocation = activeLocations.find((l) => l.tripId === selectedTripId);
+  const selectedTrip = useMemo(() => {
+    return trips.find((t) => t.id === selectedTripId) || trips[0];
+  }, [trips, selectedTripId]);
+
+  const selectedLocation = useMemo(() => {
+    return activeLocations.find((l) => l.tripId === selectedTripId);
+  }, [activeLocations, selectedTripId]);
+
+  const selectedRouteStops = useMemo(() => {
+    if (!selectedTrip?.route?.stops) return [];
+    return [...selectedTrip.route.stops].sort((a, b) => a.stopSequence - b.stopSequence);
+  }, [selectedTrip]);
 
   return (
     <div style={{ padding: '48px 0', minHeight: '80vh' }}>
@@ -116,8 +140,8 @@ export default function TrackingPage() {
               Real-Time Fleet GPS Tracking
             </h1>
             <p style={{ fontSize: '15px', color: 'var(--color-muted)', maxWidth: '720px', margin: 0 }}>
-              Live location coordinates transmitted from active driver mobile units and on-board telemetry devices.
-              Buses without updates for &gt; 2 minutes are explicitly labeled as stale.
+              Live telemetry transmitted from active driver mobile units and on-board hardware.
+              Click any active service card or map marker to automatically focus that vehicle and corridor.
             </p>
           </div>
 
@@ -236,9 +260,52 @@ export default function TrackingPage() {
                   </div>
                 </div>
 
-                <div style={{ fontSize: '12px', color: 'var(--color-on-dark-soft)', lineHeight: 1.6 }}>
-                  <strong>Operational Notes:</strong> {selectedTrip.operationalNotes || 'Standard scheduled service.'}
+                <div style={{ fontSize: '12px', color: 'var(--color-on-dark-soft)', lineHeight: 1.6, marginBottom: '16px' }}>
+                  <strong>Operational Notes:</strong> {selectedTrip.operationalNotes || 'Standard scheduled institutional transit service.'}
                 </div>
+
+                {/* Ordered Route Stops Breakdown */}
+                {selectedRouteStops.length > 0 && (
+                  <div style={{ borderTop: '1px solid #334155', paddingTop: '16px' }}>
+                    <div style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.5px', color: '#94a3b8', marginBottom: '8px' }}>
+                      Corridor Stops & Scheduled Times ({selectedRouteStops.length})
+                    </div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', maxHeight: '180px', overflowY: 'auto' }}>
+                      {selectedRouteStops.map((rs) => {
+                        const s = rs.stop || stops.find((item) => item.id === rs.stopId);
+                        if (!s) return null;
+                        const isStopActive = selectedStopId === s.id;
+                        const stopTime = computeScheduledTime(selectedTrip.departureTime, rs.arrivalOffsetMinutes);
+
+                        return (
+                          <div
+                            key={rs.id}
+                            onClick={() => setSelectedStopId(s.id)}
+                            style={{
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'space-between',
+                              padding: '6px 10px',
+                              backgroundColor: isStopActive ? '#1e293b' : 'rgba(255,255,255,0.04)',
+                              border: isStopActive ? '1px solid #3b82f6' : '1px solid transparent',
+                              cursor: 'pointer',
+                              fontSize: '12px',
+                            }}
+                          >
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                              <span style={{ fontSize: '10px', color: '#94a3b8', width: '20px' }}>#{rs.stopSequence}</span>
+                              <span style={{ fontWeight: isStopActive ? 800 : 600 }}>{s.name}</span>
+                            </div>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                              <span style={{ fontSize: '11px', color: '#60a5fa', fontWeight: 700 }}>{stopTime}</span>
+                              <MapPin size={12} color={isStopActive ? '#60a5fa' : '#64748b'} />
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
               </div>
             )}
 
@@ -257,12 +324,17 @@ export default function TrackingPage() {
                     <div
                       key={trip.id}
                       className="card"
-                      onClick={() => setSelectedTripId(trip.id)}
+                      onClick={() => {
+                        setSelectedTripId(trip.id);
+                        setSelectedStopId(null);
+                      }}
                       style={{
                         cursor: 'pointer',
                         padding: '16px',
                         border: isSelected ? '2px solid var(--color-primary)' : '1px solid var(--color-hairline)',
-                        backgroundColor: isSelected ? 'var(--color-surface-card)' : '#ffffff',
+                        backgroundColor: isSelected ? '#f8fafd' : '#ffffff',
+                        boxShadow: isSelected ? '0 4px 12px rgba(28, 105, 212, 0.16)' : 'none',
+                        transition: 'all 0.2s ease',
                       }}
                     >
                       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '6px' }}>
@@ -283,15 +355,30 @@ export default function TrackingPage() {
                           </span>
                         </div>
 
-                        {loc?.isLive ? (
-                          <span className="badge badge-success" style={{ fontSize: '10px' }}>
-                            Live GPS
-                          </span>
-                        ) : (
-                          <span className="badge badge-neutral" style={{ fontSize: '10px' }}>
-                            {trip.status}
-                          </span>
-                        )}
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                          {isSelected && (
+                            <span
+                              style={{
+                                backgroundColor: '#dbeafe',
+                                color: '#1e40af',
+                                fontSize: '10px',
+                                fontWeight: 800,
+                                padding: '2px 6px',
+                              }}
+                            >
+                              ● ACTIVE FOCUS
+                            </span>
+                          )}
+                          {loc?.isLive ? (
+                            <span className="badge badge-success" style={{ fontSize: '10px' }}>
+                              Live GPS
+                            </span>
+                          ) : (
+                            <span className="badge badge-neutral" style={{ fontSize: '10px' }}>
+                              {trip.status}
+                            </span>
+                          )}
+                        </div>
                       </div>
 
                       <div
@@ -348,8 +435,24 @@ export default function TrackingPage() {
                 stops={stops}
                 routes={routes}
                 selectedRouteId={selectedTrip?.routeId}
+                selectedTripId={selectedTrip?.id}
+                selectedStopId={selectedStopId || undefined}
                 activeLocations={activeLocations}
                 height="560px"
+                onSelectTrip={(tripId) => {
+                  setSelectedTripId(tripId);
+                  setSelectedStopId(null);
+                }}
+                onSelectStop={(stopId) => {
+                  setSelectedStopId(stopId);
+                }}
+                onSelectRoute={(routeId) => {
+                  const trip = trips.find((t) => t.routeId === routeId);
+                  if (trip) {
+                    setSelectedTripId(trip.id);
+                    setSelectedStopId(null);
+                  }
+                }}
               />
             </div>
           </div>
