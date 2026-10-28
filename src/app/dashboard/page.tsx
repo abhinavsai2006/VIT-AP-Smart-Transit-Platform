@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useAuth } from '@/lib/auth/auth-context';
-import { Booking, Complaint, Notification } from '@/types/transit';
+import { Booking, Complaint, Notification, BusPass } from '@/types/transit';
 import {
   User,
   Ticket,
@@ -20,27 +20,32 @@ import {
   Radio,
   Settings,
   LogOut,
+  Printer,
 } from 'lucide-react';
 
 export default function DashboardPage() {
   const { user } = useAuth();
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [complaints, setComplaints] = useState<Complaint[]>([]);
+  const [busPass, setBusPass] = useState<BusPass | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function loadDashboardData() {
       try {
         setLoading(true);
-        const [bookRes, compRes] = await Promise.all([
+        const [bookRes, compRes, passRes] = await Promise.all([
           fetch(`/api/bookings?userId=${user.id}`),
           fetch(`/api/complaints?userId=${user.id}`),
+          fetch(`/api/pass?userId=${user.id}`),
         ]);
         const bookData = await bookRes.json();
         const compData = await compRes.json();
+        const passData = await passRes.json();
 
         setBookings(bookData.bookings || []);
         setComplaints(compData.complaints || []);
+        setBusPass(passData.pass || null);
       } catch (err) {
         console.error('Failed to load passenger dashboard data', err);
       } finally {
@@ -161,6 +166,66 @@ export default function DashboardPage() {
             </div>
           </div>
         </div>
+
+        {/* Official Student Bus Pass Spotlight */}
+        {busPass && (
+          <div
+            className="card"
+            style={{
+              padding: '24px',
+              backgroundColor: '#ffffff',
+              border: '2px solid var(--color-primary)',
+              marginBottom: '32px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              flexWrap: 'wrap',
+              gap: '20px',
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+              <div
+                style={{
+                  width: '56px',
+                  height: '56px',
+                  backgroundColor: '#eff6ff',
+                  border: '1px solid #bfdbfe',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: 'var(--color-primary)',
+                }}
+              >
+                <Shield size={28} />
+              </div>
+
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+                  <span className="badge badge-success">Official Bus Pass</span>
+                  <span style={{ fontSize: '12px', fontFamily: 'monospace', color: 'var(--color-muted)' }}>
+                    {busPass.passNumber}
+                  </span>
+                </div>
+                <h2 style={{ fontSize: '18px', fontWeight: 800, color: 'var(--color-ink)', margin: 0 }}>
+                  Route {busPass.routeNumber} — {busPass.routeName}
+                </h2>
+                <div style={{ fontSize: '13px', color: 'var(--color-body)', marginTop: '4px' }}>
+                  Boarding Point: <strong>{busPass.pickupStopName}</strong> ({busPass.pickupTime}) • Arrival: <strong>{busPass.dropTime}</strong> at VIT-AP Campus
+                </div>
+              </div>
+            </div>
+
+            <div style={{ display: 'flex', gap: '12px' }}>
+              <Link href="/pass" className="btn btn-primary btn-sm" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <Printer size={16} />
+                View & Print Official Pass
+              </Link>
+              <Link href={`/routes?search=${encodeURIComponent(busPass.routeNumber)}`} className="btn btn-outline btn-sm">
+                View Route
+              </Link>
+            </div>
+          </div>
+        )}
 
         {/* 2-Column: Active Bookings + Complaints / Quick Actions */}
         <div

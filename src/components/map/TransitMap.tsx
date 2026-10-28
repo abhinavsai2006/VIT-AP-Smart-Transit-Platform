@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { Route, Stop, GPSLocation, Bus } from '@/types/transit';
-import { MapPin, Bus as BusIcon, Radio, Clock, AlertTriangle, ShieldCheck } from 'lucide-react';
+import { MapPin, Bus as BusIcon, Radio, Clock, AlertTriangle, ShieldCheck, Compass, Layers } from 'lucide-react';
+import { setOptions, importLibrary } from '@googlemaps/js-api-loader';
 
 interface TransitMapProps {
   stops?: Stop[];
@@ -20,12 +21,14 @@ export default function TransitMap({
   selectedRouteId,
   activeLocations = [],
   height = '480px',
-  center = [16.4850, 80.5200], // Default center around VIT-AP / Amaravati Region
+  center = [16.4950, 80.5005], // Default centered on VIT-AP Central Campus
   zoom = 12,
 }: TransitMapProps) {
   const mapContainerRef = useRef<HTMLDivElement>(null);
-  const mapInstanceRef = useRef<unknown>(null);
   const [activeTab, setActiveTab] = useState<'map' | 'accessible-list'>('map');
+  const [mapProvider, setMapProvider] = useState<'google' | 'leaflet'>('leaflet');
+  const [googleLoadError, setGoogleLoadError] = useState<string | null>(null);
+
   const [selectedItem, setSelectedItem] = useState<{
     type: 'bus' | 'stop';
     title: string;
@@ -35,393 +38,593 @@ export default function TransitMap({
     lastUpdated?: string;
   } | null>(null);
 
-  useEffect(() => {
-    // Only execute on browser client
-    if (typeof window === 'undefined' || !mapContainerRef.current) return;
+  // References to track map instances and clean them up
+  const googleMapRef = useRef<google.maps.Map | null>(null);
+  const leafletMapRef = useRef<unknown>(null);
+  const googleMarkersRef = useRef<google.maps.Marker[]>([]);
+  const googlePolylinesRef = useRef<google.maps.Polyline[]>([]);
 
-    let isMounted = true;
+  // Cleanup helper
+  const cleanupMaps = useCallback(() => {
+    // Cleanup Google Maps markers & polylines
+    googleMarkersRef.current.forEach((m) => m.setMap(null));
+    googleMarkersRef.current = [];
+    googlePolylinesRef.current.forEach((p) => p.setMap(null));
+    googlePolylinesRef.current = [];
+    googleMapRef.current = null;
 
-    // Dynamically load Leaflet
-    import('leaflet').then((L) => {
-      if (!isMounted || !mapContainerRef.current) return;
-
-      // Clean up previous instance if re-rendering
-      if (mapInstanceRef.current) {
-        (mapInstanceRef.current as { remove: () => void }).remove();
-        mapInstanceRef.current = null;
+    // Cleanup Leaflet
+    if (leafletMapRef.current) {
+      try {
+        (leafletMapRef.current as { remove: () => void }).remove();
+      } catch {
+        // Ignore Leaflet unmount race
       }
+      leafletMapRef.current = null;
+    }
+  }, []);
 
-      // Initialize map instance
-      const map = L.map(mapContainerRef.current, {
-        center,
-        zoom,
-        zoomControl: true,
+  // Initialize Leaflet Map
+  const initLeafletMap = useCallback(async () => {
+    if (!mapContainerRef.current) return;
+    cleanupMaps();
+
+    const L = (await import('leaflet')).default;
+    if (!mapContainerRef.current) return;
+
+    const map = L.map(mapContainerRef.current, {
+      center,
+      zoom,
+      zoomControl: true,
+    });
+    leafletMapRef.current = map;
+
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; CARTO &copy; OpenStreetMap contributors',
+      maxZoom: 19,
+    }).addTo(map);
+
+    const createStopIcon = (code: string) =>
+      L.divIcon({
+        className: 'custom-stop-marker',
+        html: `
+          <div style="
+            background-color: #1a2129;
+            color: #ffffff;
+            width: 24px;
+            height: 24px;
+            border-radius: 0px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 700;
+            border: 1px solid #ffffff;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+          ">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+        `,
+        iconSize: [24, 24],
+        iconAnchor: [12, 24],
+        popupAnchor: [0, -24],
       });
 
-      mapInstanceRef.current = map;
+    const createBusIcon = (isLive: boolean, busCode: string) =>
+      L.divIcon({
+        className: 'custom-bus-marker',
+        html: `
+          <div style="
+            background-color: ${isLive ? '#1c69d4' : '#6b6b6b'};
+            color: #ffffff;
+            padding: 4px 8px;
+            border-radius: 0px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.35);
+            border: 2px solid #ffffff;
+            white-space: nowrap;
+          ">
+            <span style="
+              width: 6px;
+              height: 6px;
+              border-radius: 50%;
+              background-color: ${isLive ? '#22c55e' : '#f59e0b'};
+              display: inline-block;
+            "></span>
+            <span>${busCode}</span>
+          </div>
+        `,
+        iconSize: [60, 26],
+        iconAnchor: [30, 13],
+        popupAnchor: [0, -15],
+      });
 
-      // Clean CartoDB Positron / OSM tiles for high-contrast corporate aesthetic
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; <a href="https://carto.com/">CARTO</a> &copy; OpenStreetMap contributors',
-        maxZoom: 19,
+    // Render Stops
+    stops.forEach((stop) => {
+      const marker = L.marker([stop.latitude, stop.longitude], {
+        icon: createStopIcon(stop.code),
       }).addTo(map);
 
-      // Custom Stop Pin Icon
-      const createStopIcon = (code: string) =>
-        L.divIcon({
-          className: 'custom-stop-marker',
-          html: `
-            <div style="
-              background-color: #1a2129;
-              color: #ffffff;
-              width: 24px;
-              height: 24px;
-              border-radius: 0px;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              font-size: 10px;
-              font-weight: 700;
-              border: 1px solid #ffffff;
-              box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-            ">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-            </div>
-          `,
-          iconSize: [24, 24],
-          iconAnchor: [12, 24],
-          popupAnchor: [0, -24],
-        });
+      marker.bindPopup(`
+        <div style="font-family: system-ui, sans-serif; min-width: 180px;">
+          <div style="font-size: 10px; font-weight: 700; color: #1c69d4; text-transform: uppercase;">Bus Stop</div>
+          <div style="font-size: 14px; font-weight: 700; margin: 2px 0;">${stop.name}</div>
+          <div style="font-size: 12px; color: #6b6b6b; margin-bottom: 6px;">${stop.description}</div>
+          <div style="font-size: 11px; font-weight: 700; color: #1a2129;">Code: ${stop.code}</div>
+        </div>
+      `);
 
-      // Custom Bus Icon
-      const createBusIcon = (isLive: boolean, busCode: string) =>
-        L.divIcon({
-          className: 'custom-bus-marker',
-          html: `
-            <div style="
-              background-color: ${isLive ? '#1c69d4' : '#6b6b6b'};
-              color: #ffffff;
-              padding: 4px 8px;
-              border-radius: 0px;
-              display: flex;
-              align-items: center;
-              gap: 4px;
-              font-size: 11px;
-              font-weight: 700;
-              box-shadow: 0 4px 10px rgba(0,0,0,0.35);
-              border: 2px solid #ffffff;
-              white-space: nowrap;
-            ">
-              <span style="
-                width: 6px;
-                height: 6px;
-                border-radius: 50%;
-                background-color: ${isLive ? '#22c55e' : '#f59e0b'};
-                display: inline-block;
-              "></span>
-              <span>${busCode}</span>
-            </div>
-          `,
-          iconSize: [60, 26],
-          iconAnchor: [30, 13],
-          popupAnchor: [0, -15],
-        });
-
-      // Add Stops to Map
-      stops.forEach((stop) => {
-        const marker = L.marker([stop.latitude, stop.longitude], {
-          icon: createStopIcon(stop.code),
-        }).addTo(map);
-
-        marker.bindPopup(`
-          <div style="font-family: system-ui, sans-serif; min-width: 180px;">
-            <div style="font-size: 10px; font-weight: 700; color: #1c69d4; text-transform: uppercase;">Bus Stop</div>
-            <div style="font-size: 14px; font-weight: 700; margin: 2px 0;">${stop.name}</div>
-            <div style="font-size: 12px; color: #6b6b6b; margin-bottom: 6px;">${stop.description}</div>
-            <div style="font-size: 11px; color: #1a1a1a;"><strong>Landmark:</strong> ${stop.landmark}</div>
-            <div style="font-size: 11px; margin-top: 4px; color: ${stop.isAccessible ? '#065f46' : '#6b6b6b'};">
-              ${stop.isAccessible ? '♿ Wheelchair Accessible' : 'Standard Access'}
-            </div>
-          </div>
-        `);
-
-        marker.on('click', () => {
-          setSelectedItem({
-            type: 'stop',
-            title: stop.name,
-            details: `${stop.description} (${stop.landmark})`,
-            status: stop.isAccessible ? 'Accessible Stop' : 'Active Stop',
-          });
-        });
-      });
-
-      // Draw Route Polylines
-      const routesToDraw = selectedRouteId
-        ? routes.filter((r) => r.id === selectedRouteId)
-        : routes;
-
-      routesToDraw.forEach((route) => {
-        // Collect coordinates from ordered route.stops
-        const sorted = [...route.stops].sort((a, b) => a.stopSequence - b.stopSequence);
-        const polylineCoords: [number, number][] = [];
-
-        sorted.forEach((rs) => {
-          const s = rs.stop || stops.find((x) => x.id === rs.stopId);
-          if (s) {
-            polylineCoords.push([s.latitude, s.longitude]);
-          }
-        });
-
-        if (polylineCoords.length >= 2) {
-          const polyline = L.polyline(polylineCoords, {
-            color: selectedRouteId === route.id ? '#1c69d4' : '#6b6b6b',
-            weight: selectedRouteId === route.id ? 5 : 3,
-            opacity: 0.85,
-            dashArray: selectedRouteId === route.id ? undefined : '5, 8',
-          }).addTo(map);
-
-          polyline.bindPopup(`
-            <div style="font-family: system-ui, sans-serif;">
-              <strong>Route ${route.routeNumber}:</strong> ${route.routeName}<br/>
-              <span style="font-size: 12px; color: #6b6b6b;">Duration: ~${route.estimatedDurationMinutes} mins | ${route.distanceKm} km</span>
-            </div>
-          `);
-        }
-      });
-
-      // Add Active Bus GPS Locations
-      activeLocations.forEach((loc) => {
-        const busCode = loc.bus?.busCode || 'BUS';
-        const marker = L.marker([loc.latitude, loc.longitude], {
-          icon: createBusIcon(loc.isLive, busCode),
-          zIndexOffset: 1000,
-        }).addTo(map);
-
-        marker.bindPopup(`
-          <div style="font-family: system-ui, sans-serif; min-width: 200px;">
-            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
-              <span style="font-size: 11px; font-weight: 700; color: #1c69d4;">VEHICLE LOCATION</span>
-              <span style="font-size: 10px; padding: 2px 6px; font-weight: 700; background: ${loc.isLive ? '#ecfdf5' : '#fffbeb'}; color: ${loc.isLive ? '#065f46' : '#92400e'};">
-                ${loc.isLive ? 'LIVE' : 'STALE (2+ min)'}
-              </span>
-            </div>
-            <div style="font-size: 15px; font-weight: 700;">${loc.bus?.busCode || 'Campus Bus'} (${loc.bus?.registrationNumber || ''})</div>
-            <div style="font-size: 12px; color: #3c3c3c; margin: 4px 0;">
-              <strong>Speed:</strong> ${loc.speedKmH} km/h | <strong>Heading:</strong> ${loc.heading}°
-            </div>
-            <div style="font-size: 11px; color: #6b6b6b;">
-              Last Ping: ${new Date(loc.timestamp).toLocaleTimeString('en-IN', { timeZone: 'Asia/Kolkata' })} IST
-            </div>
-          </div>
-        `);
-
-        marker.on('click', () => {
-          setSelectedItem({
-            type: 'bus',
-            title: `${loc.bus?.busCode || 'Bus'} (${loc.bus?.registrationNumber || 'AP Reg'})`,
-            details: `${loc.bus?.vehicleType || 'Express Service'} - Route: ${loc.routeName || 'Assigned Trip'}`,
-            status: loc.isLive ? 'Live GPS Tracking Active' : 'Stale GPS / Signal Weak',
-            speed: loc.speedKmH,
-            lastUpdated: new Date(loc.timestamp).toLocaleTimeString('en-IN', { timeZone: 'Asia/Kolkata' }),
-          });
+      marker.on('click', () => {
+        setSelectedItem({
+          type: 'stop',
+          title: stop.name,
+          details: `${stop.description} (${stop.landmark})`,
+          status: stop.isAccessible ? 'Wheelchair Accessible' : 'Standard Stop',
         });
       });
     });
 
+    // Render Routes Polylines
+    routes.forEach((route) => {
+      const isSelected = selectedRouteId === route.id;
+      const sortedStops = [...route.stops].sort((a, b) => a.stopSequence - b.stopSequence);
+      const latLngs = sortedStops
+        .map((rs) => {
+          const s = rs.stop || stops.find((st) => st.id === rs.stopId);
+          return s ? [s.latitude, s.longitude] as [number, number] : null;
+        })
+        .filter(Boolean) as [number, number][];
+
+      if (latLngs.length > 1) {
+        L.polyline(latLngs, {
+          color: isSelected ? '#1c69d4' : '#94a3b8',
+          weight: isSelected ? 5 : 3,
+          opacity: isSelected ? 0.9 : 0.6,
+          dashArray: isSelected ? undefined : '5, 8',
+        }).addTo(map);
+      }
+    });
+
+    // Render Live Vehicles
+    activeLocations.forEach((loc) => {
+      const busCode = loc.bus?.busCode || 'BUS';
+      const marker = L.marker([loc.latitude, loc.longitude], {
+        icon: createBusIcon(loc.isLive, busCode),
+      }).addTo(map);
+
+      marker.bindPopup(`
+        <div style="font-family: system-ui, sans-serif; min-width: 200px;">
+          <div style="font-size: 10px; font-weight: 700; color: #1c69d4; text-transform: uppercase;">Vehicle Telemetry</div>
+          <div style="font-size: 15px; font-weight: 800; margin: 2px 0;">${busCode} (${loc.bus?.rawRegistration || loc.bus?.registrationNumber || 'AP39'})</div>
+          <div style="font-size: 12px; margin-bottom: 6px;">Speed: <strong>${loc.speedKmH} km/h</strong></div>
+          <div style="font-size: 11px; color: #6b6b6b;">Status: <strong>${loc.isLive ? 'Live GPS Feed' : 'Stale Location (>2m)'}</strong></div>
+        </div>
+      `);
+
+      marker.on('click', () => {
+        setSelectedItem({
+          type: 'bus',
+          title: `Vehicle ${busCode}`,
+          details: `Route: ${loc.routeName || 'Scheduled Commuter'} | Speed: ${loc.speedKmH} km/h`,
+          status: loc.isLive ? 'Active Telemetry' : 'Signal Stale',
+          speed: loc.speedKmH,
+          lastUpdated: new Date(loc.timestamp).toLocaleTimeString('en-IN', { timeZone: 'Asia/Kolkata' }),
+        });
+      });
+    });
+
+    // Auto-fit selected route if provided
+    if (selectedRouteId) {
+      const selected = routes.find((r) => r.id === selectedRouteId);
+      if (selected && selected.stops.length > 0) {
+        const coords = selected.stops
+          .map((rs) => rs.stop || stops.find((s) => s.id === rs.stopId))
+          .filter(Boolean)
+          .map((s) => [s!.latitude, s!.longitude] as [number, number]);
+        if (coords.length > 0) {
+          map.fitBounds(coords, { padding: [40, 40] });
+        }
+      }
+    }
+  }, [stops, routes, selectedRouteId, activeLocations, center, zoom, cleanupMaps]);
+
+  // Initialize Google Maps Map
+  const initGoogleMap = useCallback(async (apiKey: string) => {
+    if (!mapContainerRef.current) return;
+    cleanupMaps();
+
+    setOptions({
+      key: apiKey,
+      v: 'weekly',
+    });
+
+    const { Map } = (await importLibrary('maps')) as google.maps.MapsLibrary;
+    if (!mapContainerRef.current) return;
+
+    const map = new Map(mapContainerRef.current, {
+      center: { lat: center[0], lng: center[1] },
+      zoom,
+      mapTypeId: 'roadmap',
+      streetViewControl: false,
+      mapTypeControl: false,
+      fullscreenControl: true,
+      styles: [
+        { featureType: 'poi', stylers: [{ visibility: 'simplified' }] },
+        { featureType: 'transit.station', stylers: [{ visibility: 'on' }] },
+      ],
+    });
+    googleMapRef.current = map;
+
+    const bounds = new google.maps.LatLngBounds();
+
+    // Render Stops as Custom Markers
+    stops.forEach((stop) => {
+      const pos = { lat: stop.latitude, lng: stop.longitude };
+      bounds.extend(pos);
+
+      const marker = new google.maps.Marker({
+        position: pos,
+        map,
+        title: `${stop.name} (${stop.code})`,
+        icon: {
+          path: google.maps.SymbolPath.CIRCLE,
+          scale: 6,
+          fillColor: '#1a2129',
+          fillOpacity: 1,
+          strokeColor: '#ffffff',
+          strokeWeight: 2,
+        },
+      });
+
+      const infoWindow = new google.maps.InfoWindow({
+        content: `
+          <div style="font-family: system-ui, sans-serif; padding: 4px; min-width: 180px;">
+            <div style="font-size: 10px; font-weight: 700; color: #1c69d4; text-transform: uppercase;">Bus Stop</div>
+            <div style="font-size: 14px; font-weight: 700; margin: 2px 0;">${stop.name}</div>
+            <div style="font-size: 12px; color: #6b6b6b; margin-bottom: 4px;">${stop.description}</div>
+            <div style="font-size: 11px; font-weight: 700; color: #1a2129;">Code: ${stop.code}</div>
+          </div>
+        `,
+      });
+
+      marker.addListener('click', () => {
+        infoWindow.open(map, marker);
+        setSelectedItem({
+          type: 'stop',
+          title: stop.name,
+          details: `${stop.description} (${stop.landmark})`,
+          status: stop.isAccessible ? 'Wheelchair Accessible' : 'Standard Stop',
+        });
+      });
+
+      googleMarkersRef.current.push(marker);
+    });
+
+    // Render Route Polylines
+    routes.forEach((route) => {
+      const isSelected = selectedRouteId === route.id;
+      const sortedStops = [...route.stops].sort((a, b) => a.stopSequence - b.stopSequence);
+      const path = sortedStops
+        .map((rs) => {
+          const s = rs.stop || stops.find((st) => st.id === rs.stopId);
+          return s ? { lat: s.latitude, lng: s.longitude } : null;
+        })
+        .filter(Boolean) as google.maps.LatLngLiteral[];
+
+      if (path.length > 1) {
+        const polyline = new google.maps.Polyline({
+          path,
+          geodesic: true,
+          strokeColor: isSelected ? '#1c69d4' : '#94a3b8',
+          strokeOpacity: isSelected ? 0.9 : 0.6,
+          strokeWeight: isSelected ? 5 : 3,
+          map,
+        });
+        googlePolylinesRef.current.push(polyline);
+      }
+    });
+
+    // Render Live Vehicles
+    activeLocations.forEach((loc) => {
+      const busPos = { lat: loc.latitude, lng: loc.longitude };
+      bounds.extend(busPos);
+
+      const busCode = loc.bus?.busCode || 'BUS';
+      const marker = new google.maps.Marker({
+        position: busPos,
+        map,
+        title: `${busCode} (Speed: ${loc.speedKmH} km/h)`,
+        icon: {
+          path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+          scale: 6,
+          rotation: loc.heading || 0,
+          fillColor: loc.isLive ? '#1c69d4' : '#6b6b6b',
+          fillOpacity: 1,
+          strokeColor: '#ffffff',
+          strokeWeight: 2,
+        },
+      });
+
+      const infoWindow = new google.maps.InfoWindow({
+        content: `
+          <div style="font-family: system-ui, sans-serif; padding: 4px; min-width: 180px;">
+            <div style="font-size: 10px; font-weight: 700; color: #1c69d4; text-transform: uppercase;">Vehicle Telemetry</div>
+            <div style="font-size: 15px; font-weight: 800; margin: 2px 0;">${busCode} (${loc.bus?.rawRegistration || 'AP39'})</div>
+            <div style="font-size: 12px; margin-bottom: 4px;">Speed: <strong>${loc.speedKmH} km/h</strong></div>
+            <div style="font-size: 11px; color: #6b6b6b;">Status: <strong>${loc.isLive ? 'Live GPS Feed' : 'Stale Location (>2m)'}</strong></div>
+          </div>
+        `,
+      });
+
+      marker.addListener('click', () => {
+        infoWindow.open(map, marker);
+        setSelectedItem({
+          type: 'bus',
+          title: `Vehicle ${busCode}`,
+          details: `Route: ${loc.routeName || 'Scheduled Commuter'} | Speed: ${loc.speedKmH} km/h`,
+          status: loc.isLive ? 'Active Telemetry' : 'Signal Stale',
+          speed: loc.speedKmH,
+          lastUpdated: new Date(loc.timestamp).toLocaleTimeString('en-IN', { timeZone: 'Asia/Kolkata' }),
+        });
+      });
+
+      googleMarkersRef.current.push(marker);
+    });
+
+    // Auto fit
+    if (selectedRouteId) {
+      const selected = routes.find((r) => r.id === selectedRouteId);
+      if (selected && selected.stops.length > 0) {
+        const routeBounds = new google.maps.LatLngBounds();
+        selected.stops.forEach((rs) => {
+          const s = rs.stop || stops.find((st) => st.id === rs.stopId);
+          if (s) routeBounds.extend({ lat: s.latitude, lng: s.longitude });
+        });
+        map.fitBounds(routeBounds, 40);
+      }
+    }
+  }, [stops, routes, selectedRouteId, activeLocations, center, zoom, cleanupMaps]);
+
+  // Main lifecycle: detect configuration and initialize provider
+  useEffect(() => {
+    const googleApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+
+    let isMounted = true;
+
+    async function loadMapEngine() {
+      if (googleApiKey && googleApiKey.trim() !== '') {
+        try {
+          await initGoogleMap(googleApiKey);
+          if (isMounted) {
+            setMapProvider('google');
+            setGoogleLoadError(null);
+          }
+          return;
+        } catch (err: unknown) {
+          const msg = err instanceof Error ? err.message : 'Google Maps failed to initialize';
+          console.warn('Google Maps API failed, falling back to OpenStreetMap:', msg);
+          if (isMounted) {
+            setGoogleLoadError(msg);
+          }
+        }
+      }
+
+      // Fallback to Leaflet
+      try {
+        await initLeafletMap();
+        if (isMounted) {
+          setMapProvider('leaflet');
+        }
+      } catch (err) {
+        console.error('Leaflet fallback failed', err);
+      }
+    }
+
+    if (activeTab === 'map') {
+      loadMapEngine();
+    }
+
     return () => {
       isMounted = false;
-      if (mapInstanceRef.current) {
-        (mapInstanceRef.current as { remove: () => void }).remove();
-        mapInstanceRef.current = null;
-      }
+      cleanupMaps();
     };
-  }, [stops, routes, selectedRouteId, activeLocations, center, zoom]);
+  }, [activeTab, initGoogleMap, initLeafletMap, cleanupMaps]);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+    <div className="card" style={{ padding: 0, overflow: 'hidden', backgroundColor: '#ffffff' }}>
       {/* Map Control Bar */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px' }}>
+      <div
+        style={{
+          padding: '12px 20px',
+          backgroundColor: 'var(--color-surface-dark)',
+          color: '#ffffff',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          flexWrap: 'wrap',
+          gap: '12px',
+          borderBottom: '1px solid var(--color-hairline)',
+        }}
+      >
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <div style={{ display: 'flex', gap: '4px' }}>
-            <button
-              type="button"
-              className={`btn btn-sm ${activeTab === 'map' ? 'btn-primary' : 'btn-secondary'}`}
-              onClick={() => setActiveTab('map')}
-            >
-              Interactive Map
-            </button>
-            <button
-              type="button"
-              className={`btn btn-sm ${activeTab === 'accessible-list' ? 'btn-primary' : 'btn-secondary'}`}
-              onClick={() => setActiveTab('accessible-list')}
-            >
-              Accessible List View
-            </button>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <Compass size={18} color="var(--color-primary)" />
+            <span style={{ fontSize: '13px', fontWeight: 700, letterSpacing: '0.5px' }}>
+              Corridor Telemetry & Route Map
+            </span>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: 'var(--color-muted)' }}>
-            <span className="live-pulse"></span>
-            <span>{activeLocations.filter((l) => l.isLive).length} Buses Broadcasting GPS</span>
-          </div>
+          {/* Active Provider Indicator Badge */}
+          {mapProvider === 'google' ? (
+            <span
+              style={{
+                backgroundColor: '#166534',
+                color: '#ffffff',
+                fontSize: '10px',
+                fontWeight: 800,
+                padding: '2px 8px',
+                letterSpacing: '0.5px',
+                textTransform: 'uppercase',
+              }}
+            >
+              Google Maps Platform Active
+            </span>
+          ) : (
+            <span
+              style={{
+                backgroundColor: '#1e293b',
+                color: '#93c5fd',
+                fontSize: '10px',
+                fontWeight: 700,
+                padding: '2px 8px',
+                border: '1px solid #3b82f6',
+                letterSpacing: '0.5px',
+                textTransform: 'uppercase',
+              }}
+            >
+              OpenStreetMap Engine Active
+            </span>
+          )}
         </div>
 
-        {selectedItem && (
-          <div
-            style={{
-              padding: '6px 12px',
-              backgroundColor: 'var(--color-surface-card)',
-              border: '1px solid var(--color-hairline-strong)',
-              fontSize: '12px',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-            }}
+        {/* View Mode Toggle */}
+        <div style={{ display: 'flex', gap: '6px' }}>
+          <button
+            onClick={() => setActiveTab('map')}
+            className={`btn btn-sm ${activeTab === 'map' ? 'btn-primary' : 'btn-outline-dark'}`}
+            style={{ fontSize: '11px', padding: '4px 10px' }}
           >
-            <strong>{selectedItem.title}</strong>
-            <span>•</span>
-            <span style={{ color: 'var(--color-primary)' }}>{selectedItem.status}</span>
-            {selectedItem.speed !== undefined && (
-              <span>({selectedItem.speed} km/h)</span>
-            )}
-          </div>
-        )}
+            Interactive Map
+          </button>
+          <button
+            onClick={() => setActiveTab('accessible-list')}
+            className={`btn btn-sm ${activeTab === 'accessible-list' ? 'btn-primary' : 'btn-outline-dark'}`}
+            style={{ fontSize: '11px', padding: '4px 10px' }}
+          >
+            Accessible Table View ({stops.length} Stops)
+          </button>
+        </div>
       </div>
 
-      {/* Main View Container */}
-      {activeTab === 'map' ? (
+      {/* Google Maps Configuration Notice if fallback occurred */}
+      {googleLoadError && activeTab === 'map' && (
         <div
           style={{
-            position: 'relative',
-            width: '100%',
-            height,
-            border: '1px solid var(--color-hairline-strong)',
-            backgroundColor: 'var(--color-surface-soft)',
+            padding: '8px 16px',
+            backgroundColor: '#eff6ff',
+            borderBottom: '1px solid #bfdbfe',
+            fontSize: '11px',
+            color: '#1e3a8a',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
           }}
         >
-          <div ref={mapContainerRef} style={{ width: '100%', height: '100%' }} />
-
-          {/* Map Legend Overlay */}
-          <div
-            style={{
-              position: 'absolute',
-              bottom: '12px',
-              right: '12px',
-              backgroundColor: 'rgba(255, 255, 255, 0.95)',
-              border: '1px solid var(--color-hairline-strong)',
-              padding: '10px 14px',
-              zIndex: 1000,
-              fontSize: '11px',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '6px',
-            }}
-          >
-            <div style={{ fontWeight: 700, letterSpacing: '0.5px', textTransform: 'uppercase' }}>Map Legend</div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <span style={{ width: 10, height: 10, backgroundColor: '#1c69d4', display: 'inline-block' }}></span>
-              <span>Live Active Bus</span>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <span style={{ width: 10, height: 10, backgroundColor: '#6b6b6b', display: 'inline-block' }}></span>
-              <span>Stale Bus (No Signal &gt;2m)</span>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <span style={{ width: 10, height: 10, backgroundColor: '#1a2129', display: 'inline-block' }}></span>
-              <span>Campus Bus Stop</span>
-            </div>
-          </div>
+          <span>
+            <strong>Map Provider Note:</strong> Google Maps key is pending activation or restricted; automatically serving high-performance OpenStreetMap / Carto tiles without disruption.
+          </span>
+          <span style={{ color: '#64748b', fontSize: '10px' }}>Failover Protection Active</span>
         </div>
-      ) : (
-        /* Accessible List & Table View */
-        <div className="card" style={{ padding: 0 }}>
-          <div style={{ padding: '16px 20px', borderBottom: '1px solid var(--color-hairline)', backgroundColor: 'var(--color-surface-soft)' }}>
-            <h3 style={{ fontSize: '16px', fontWeight: 700 }}>Active Fleet & Stop Accessibility Directory</h3>
-            <p style={{ fontSize: '13px', color: 'var(--color-muted)', margin: 0 }}>
-              Text-accessible breakdown of real-time bus locations and stop arrival sequences.
-            </p>
-          </div>
+      )}
 
-          <div style={{ padding: '16px 20px' }}>
-            <h4 style={{ fontSize: '14px', fontWeight: 700, marginBottom: '10px' }}>Real-time GPS Vehicles</h4>
-            <div className="table-container" style={{ marginBottom: '24px' }}>
-              <table className="data-table">
-                <thead>
-                  <tr>
-                    <th>Bus Code</th>
-                    <th>AP Registration</th>
-                    <th>Current Status</th>
-                    <th>Speed</th>
-                    <th>Coordinates</th>
-                    <th>Last Update</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {activeLocations.length === 0 ? (
-                    <tr>
-                      <td colSpan={6} style={{ textAlign: 'center', padding: '24px', color: 'var(--color-muted)' }}>
-                        No vehicles currently broadcasting live location data.
-                      </td>
-                    </tr>
-                  ) : (
-                    activeLocations.map((loc) => (
-                      <tr key={loc.id}>
-                        <td style={{ fontWeight: 700 }}>{loc.bus?.busCode || 'BUS'}</td>
-                        <td>{loc.bus?.registrationNumber || 'AP39...'}</td>
-                        <td>
-                          {loc.isLive ? (
-                            <span className="badge badge-success">Live (Active)</span>
-                          ) : (
-                            <span className="badge badge-warning">Stale (Signal Weak)</span>
-                          )}
-                        </td>
-                        <td>{loc.speedKmH} km/h</td>
-                        <td style={{ fontFamily: 'var(--font-mono)', fontSize: '12px' }}>
-                          {loc.latitude.toFixed(4)}° N, {loc.longitude.toFixed(4)}° E
-                        </td>
-                        <td>
-                          {new Date(loc.timestamp).toLocaleTimeString('en-IN', { timeZone: 'Asia/Kolkata' })} IST
-                        </td>
-                      </tr>
-                    ))
-                  )}
-                </tbody>
-              </table>
-            </div>
+      {/* Interactive Map View */}
+      {activeTab === 'map' && (
+        <div style={{ position: 'relative' }}>
+          <div
+            ref={mapContainerRef}
+            style={{
+              width: '100%',
+              height,
+              backgroundColor: '#f1f5f9',
+            }}
+          />
 
-            <h4 style={{ fontSize: '14px', fontWeight: 700, marginBottom: '10px' }}>Configured Bus Stops</h4>
-            <div className="table-container">
-              <table className="data-table">
-                <thead>
-                  <tr>
-                    <th>Code</th>
-                    <th>Stop Name</th>
-                    <th>Landmark / Location</th>
-                    <th>Accessibility</th>
-                    <th>GPS Coordinates</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {stops.map((stop) => (
-                    <tr key={stop.id}>
-                      <td style={{ fontWeight: 700, color: 'var(--color-primary)' }}>{stop.code}</td>
-                      <td>{stop.name}</td>
-                      <td>{stop.description} ({stop.landmark})</td>
-                      <td>
-                        {stop.isAccessible ? (
-                          <span className="badge badge-success">♿ Wheelchair Accessible</span>
-                        ) : (
-                          <span className="badge badge-neutral">Standard</span>
-                        )}
-                      </td>
-                      <td style={{ fontFamily: 'var(--font-mono)', fontSize: '12px' }}>
-                        {stop.latitude.toFixed(4)}, {stop.longitude.toFixed(4)}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+          {/* Selected Item Floating Drawer */}
+          {selectedItem && (
+            <div
+              style={{
+                position: 'absolute',
+                bottom: '16px',
+                left: '16px',
+                right: '16px',
+                backgroundColor: '#ffffff',
+                border: '2px solid var(--color-ink)',
+                padding: '16px 20px',
+                zIndex: 1000,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                flexWrap: 'wrap',
+                gap: '12px',
+                boxShadow: '0 4px 16px rgba(0,0,0,0.15)',
+              }}
+            >
+              <div>
+                <div style={{ fontSize: '10px', textTransform: 'uppercase', color: 'var(--color-primary)', fontWeight: 800 }}>
+                  Selected {selectedItem.type.toUpperCase()}
+                </div>
+                <h3 style={{ fontSize: '16px', fontWeight: 800, margin: '2px 0' }}>
+                  {selectedItem.title}
+                </h3>
+                <div style={{ fontSize: '12px', color: 'var(--color-body)' }}>
+                  {selectedItem.details}
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                <span className="badge badge-neutral">{selectedItem.status}</span>
+                <button
+                  onClick={() => setSelectedItem(null)}
+                  className="btn btn-outline btn-sm"
+                  style={{ fontSize: '11px' }}
+                >
+                  Dismiss
+                </button>
+              </div>
             </div>
-          </div>
+          )}
+        </div>
+      )}
+
+      {/* Accessible List Table View */}
+      {activeTab === 'accessible-list' && (
+        <div style={{ maxHeight: height, overflowY: 'auto', padding: '16px' }}>
+          <table className="data-table">
+            <thead>
+              <tr>
+                <th>Seq</th>
+                <th>Stop Code</th>
+                <th>Pickup Location Name</th>
+                <th>Landmark / Description</th>
+                <th>Coordinates</th>
+                <th>Accessibility</th>
+              </tr>
+            </thead>
+            <tbody>
+              {stops.map((stop, index) => (
+                <tr key={stop.id}>
+                  <td><strong>#{index + 1}</strong></td>
+                  <td><code style={{ fontSize: '11px', fontWeight: 700 }}>{stop.code}</code></td>
+                  <td style={{ fontWeight: 700 }}>{stop.name}</td>
+                  <td>{stop.description} ({stop.landmark})</td>
+                  <td style={{ fontSize: '11px', fontFamily: 'monospace' }}>
+                    {stop.latitude.toFixed(4)}, {stop.longitude.toFixed(4)}
+                  </td>
+                  <td>
+                    {stop.isAccessible ? (
+                      <span className="badge badge-success">Wheelchair Accessible</span>
+                    ) : (
+                      <span className="badge badge-neutral">Standard</span>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       )}
     </div>

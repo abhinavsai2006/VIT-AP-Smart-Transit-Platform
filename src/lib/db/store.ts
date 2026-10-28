@@ -18,6 +18,7 @@ import {
   Notification,
   AuditLog,
   UserProfile,
+  BusPass,
 } from '@/types/transit';
 
 import {
@@ -35,8 +36,10 @@ import {
   SEED_COMPLAINTS,
   SEED_NOTIFICATIONS,
   SEED_USERS,
+  SEED_BUS_PASSES,
 } from '@/lib/seed-data';
 
+import { buildOfficialTransitData } from '@/lib/official-schedules';
 import { generateTicketToken, generateQrCodeDataUrl, verifyTicketToken } from '@/lib/qr-crypto';
 import { normalizeApRegistration, validateApRegistration } from '@/lib/ap-registration';
 
@@ -50,6 +53,7 @@ interface StoreState {
   trips: Map<string, Trip>;
   bookings: Map<string, Booking>;
   tickets: Map<string, Ticket>;
+  passes: Map<string, BusPass>;
   scans: BoardingScan[];
   locations: Map<string, GPSLocation>; // keyed by tripId
   disruptions: Map<string, ServiceDisruption>;
@@ -83,6 +87,7 @@ function getInitialStore(): StoreState {
     trips: new Map(),
     bookings: new Map(),
     tickets: new Map(),
+    passes: new Map(),
     scans: [],
     locations: new Map(),
     disruptions: new Map(),
@@ -126,6 +131,21 @@ function getInitialStore(): StoreState {
     const conductor = store.staff.get(t.conductorId);
     store.trips.set(t.id, { ...t, route, bus, driver, conductor });
   });
+
+  // Seed Official 44 Schedules (Vijayawada VV-1 to VV-21, Guntur GV-1 to GV-20, Tenali TV-1 to TV-3)
+  const officialData = buildOfficialTransitData();
+  officialData.stops.forEach((s) => {
+    if (!store.stops.has(s.id)) store.stops.set(s.id, s);
+  });
+  officialData.routes.forEach((r) => {
+    if (!store.routes.has(r.id)) store.routes.set(r.id, r);
+  });
+  officialData.trips.forEach((t) => {
+    if (!store.trips.has(t.id)) store.trips.set(t.id, t);
+  });
+
+  // Seed Bus Passes
+  SEED_BUS_PASSES.forEach((p) => store.passes.set(p.id, p));
 
   // Seed Disruptions
   SEED_DISRUPTIONS.forEach((d) => store.disruptions.set(d.id, d));
@@ -1065,4 +1085,96 @@ export async function addAuditLog(entry: Omit<AuditLog, 'id' | 'timestamp'>): Pr
   store.auditLogs.unshift(log);
   return log;
 }
+
+// ----------------- Student Bus Passes -----------------
+
+export async function getBusPassForUser(userId: string): Promise<BusPass | undefined> {
+  await ensureSeedTickets();
+  const passes = Array.from(store.passes.values());
+  const pass = passes.find((p) => p.userId === userId && p.status === 'active');
+  if (pass && !pass.qrCodeDataUrl) {
+    try {
+      const token = generateTicketToken({
+        tId: pass.id,
+        bId: pass.passNumber,
+        trId: pass.routeId,
+        rId: pass.routeNumber,
+        exp: new Date(pass.validUntil).getTime(),
+        nonce: Math.random().toString(36).substring(2, 10),
+      });
+      pass.qrCodeDataUrl = await generateQrCodeDataUrl(token);
+    } catch {
+      // Fallback
+    }
+  }
+  return pass;
+}
+
+export async function getBusPassById(id: string): Promise<BusPass | undefined> {
+  await ensureSeedTickets();
+  const pass = store.passes.get(id);
+  if (pass && !pass.qrCodeDataUrl) {
+    try {
+      const token = generateTicketToken({
+        tId: pass.id,
+        bId: pass.passNumber,
+        trId: pass.routeId,
+        rId: pass.routeNumber,
+        exp: new Date(pass.validUntil).getTime(),
+        nonce: Math.random().toString(36).substring(2, 10),
+      });
+      pass.qrCodeDataUrl = await generateQrCodeDataUrl(token);
+    } catch {
+      // Fallback
+    }
+  }
+  return pass;
+}
+
+export async function getAllBusPasses(): Promise<BusPass[]> {
+  await ensureSeedTickets();
+  return Array.from(store.passes.values());
+}
+
+export async function createBusPass(data: Omit<BusPass, 'id' | 'passNumber' | 'issuedAt'>): Promise<BusPass> {
+  await ensureSeedTickets();
+  const id = `pass-${Date.now()}`;
+  const passNumber = `VITAP/BP/2026/${Math.floor(1000 + Math.random() * 9000)}`;
+  const pass: BusPass = {
+    ...data,
+    id,
+    passNumber,
+    issuedAt: new Date().toISOString(),
+  };
+
+  try {
+    const token = generateTicketToken({
+      tId: pass.id,
+      bId: pass.passNumber,
+      trId: pass.routeId,
+      rId: pass.routeNumber,
+      exp: new Date(pass.validUntil).getTime(),
+      nonce: Math.random().toString(36).substring(2, 10),
+    });
+    pass.qrCodeDataUrl = await generateQrCodeDataUrl(token);
+  } catch {
+    // QR generation fallback
+  }
+
+  store.passes.set(id, pass);
+  return pass;
+}
+
+export async function updateUserPreferences(
+  userId: string,
+  data: { preferredRouteId?: string; preferredStopId?: string }
+): Promise<UserProfile> {
+  const user = store.users.get(userId);
+  if (!user) throw new Error('User not found');
+  if (data.preferredRouteId !== undefined) user.preferredRouteId = data.preferredRouteId;
+  if (data.preferredStopId !== undefined) user.preferredStopId = data.preferredStopId;
+  store.users.set(userId, user);
+  return user;
+}
+
 

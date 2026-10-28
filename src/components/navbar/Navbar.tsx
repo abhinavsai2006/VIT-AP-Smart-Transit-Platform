@@ -162,6 +162,21 @@ export default function Navbar() {
             </Link>
 
             <Link
+              href="/pass"
+              style={{
+                fontSize: '13px',
+                fontWeight: 700,
+                letterSpacing: '1px',
+                textTransform: 'uppercase',
+                color: isLinkActive('/pass') ? 'var(--color-primary)' : 'var(--color-ink)',
+                borderBottom: isLinkActive('/pass') ? '2px solid var(--color-primary)' : '2px solid transparent',
+                padding: '20px 0',
+              }}
+            >
+              Bus Pass
+            </Link>
+
+            <Link
               href="/events"
               style={{
                 fontSize: '13px',
@@ -432,6 +447,13 @@ export default function Navbar() {
             style={{ fontSize: '15px', fontWeight: 700, padding: '8px 0', color: 'var(--color-ink)' }}
           >
             My QR Tickets & Passes
+          </Link>
+          <Link
+            href="/pass"
+            onClick={() => setMobileMenuOpen(false)}
+            style={{ fontSize: '15px', fontWeight: 700, padding: '8px 0', color: 'var(--color-primary)' }}
+          >
+            Official Student Bus Pass
           </Link>
           <Link
             href="/events"

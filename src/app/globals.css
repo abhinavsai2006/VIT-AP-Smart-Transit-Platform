@@ -427,3 +427,59 @@ a:hover {
   border-radius: 50%;
   background-color: var(--color-warning);
 }
+
+/* ==========================================================================
+   Dedicated Print Stylesheet for Official Student Bus Pass & Documents
+   ========================================================================== */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 12mm 15mm;
+  }
+
+  body {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    font-size: 11pt !important;
+  }
+
+  /* Exclude all navigational and action controls */
+  header,
+  footer,
+  nav,
+  aside,
+  .no-print,
+  button,
+  .btn,
+  .role-switcher-banner,
+  .toast,
+  .alert-banner {
+    display: none !important;
+    visibility: hidden !important;
+  }
+
+  /* Force display of background fills, borders, and QR codes */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .print-container {
+    padding: 0 !important;
+    margin: 0 auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .printable-bus-pass {
+    border: 2px solid #000000 !important;
+    box-shadow: none !important;
+    page-break-inside: avoid !important;
+    margin: 0 auto 20px auto !important;
+    width: 100% !important;
+    background-color: #ffffff !important;
+  }
+}
+

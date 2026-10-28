@@ -403,3 +403,62 @@ CREATE POLICY "Transport admins have full access on bookings" ON bookings
       WHERE profiles.id = auth.uid() AND profiles.role IN ('transport_admin', 'super_admin')
     )
   );
+
+-- 24. Student & Faculty Bus Passes
+CREATE TABLE bus_passes (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  pass_number VARCHAR(50) UNIQUE NOT NULL,
+  user_id UUID REFERENCES profiles(id) ON DELETE CASCADE,
+  student_name VARCHAR(150) NOT NULL,
+  reg_number VARCHAR(50) NOT NULL,
+  program VARCHAR(150),
+  department VARCHAR(150),
+  academic_year VARCHAR(50) NOT NULL,
+  semester VARCHAR(50) NOT NULL,
+  route_id UUID REFERENCES routes(id),
+  route_number VARCHAR(20) NOT NULL,
+  route_name VARCHAR(150) NOT NULL,
+  pickup_stop_id UUID REFERENCES stops(id),
+  pickup_stop_name VARCHAR(150) NOT NULL,
+  pickup_time VARCHAR(20) NOT NULL,
+  drop_stop_name VARCHAR(150) DEFAULT 'VIT-AP Central Campus',
+  drop_time VARCHAR(20) DEFAULT '08:45 AM',
+  valid_from DATE NOT NULL,
+  valid_until DATE NOT NULL,
+  status VARCHAR(30) DEFAULT 'active',
+  photo_url TEXT,
+  qr_code_data_url TEXT,
+  issued_at TIMESTAMPTZ DEFAULT NOW(),
+  issued_by VARCHAR(150),
+  emergency_contact VARCHAR(50)
+);
+
+CREATE INDEX idx_bus_passes_user ON bus_passes(user_id, status);
+CREATE INDEX idx_bus_passes_reg ON bus_passes(reg_number);
+
+ALTER TABLE bus_passes ENABLE ROW LEVEL SECURITY;
+
+-- Passengers can view their own bus passes
+CREATE POLICY "Users can read own bus passes" ON bus_passes
+  FOR SELECT USING (auth.uid() = user_id);
+
+-- Transport Admins have full access on bus passes
+CREATE POLICY "Admins have full access on bus passes" ON bus_passes
+  FOR ALL USING (
+    EXISTS (
+      SELECT 1 FROM profiles
+      WHERE profiles.id = auth.uid() AND profiles.role IN ('transport_admin', 'super_admin')
+    )
+  );
+
+-- 25. Enable Supabase Realtime for Telemetry & Pass Synchronization
+-- Run these on Supabase instances where realtime publication is active
+DO $$
+BEGIN
+  IF EXISTS (SELECT 1 FROM pg_publication WHERE pubname = 'supabase_realtime') THEN
+    ALTER PUBLICATION supabase_realtime ADD TABLE gps_locations;
+    ALTER PUBLICATION supabase_realtime ADD TABLE trips;
+    ALTER PUBLICATION supabase_realtime ADD TABLE bus_passes;
+  END IF;
+END $$;
+

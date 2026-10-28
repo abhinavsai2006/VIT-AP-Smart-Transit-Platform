@@ -22,9 +22,14 @@ import {
   getAuditLogs,
   addAuditLog,
   getAllScans,
+  getBusPassForUser,
+  getBusPassById,
+  createBusPass,
+  updateUserPreferences,
   store,
 } from '@/lib/db/store';
 import { Route, Stop } from '@/types/transit';
+import { OFFICIAL_SCHEDULES_DATA, normalizeTime, timeToMinutes, findScheduleAmbiguities } from '@/lib/official-schedules';
 
 describe('1. Andhra Pradesh Vehicle Registration Normalization & Validation', () => {
   it('normalizes AP registration numbers with spaces, hyphens, and lowercase into canonical uppercase', () => {
@@ -427,4 +432,119 @@ describe('8. Administrative Audit Logs & Reporting', () => {
     expect(allScans[0]).toHaveProperty('scanResult');
   });
 });
+
+describe('9. Official Commuter Schedule Validation (All 44 Routes)', () => {
+  it('contains exactly 44 official commuter routes across Vijayawada, Guntur, and Tenali', () => {
+    expect(OFFICIAL_SCHEDULES_DATA.length).toBe(44);
+
+    const vjaRoutes = OFFICIAL_SCHEDULES_DATA.filter((r) => r.region === 'Vijayawada');
+    const gntRoutes = OFFICIAL_SCHEDULES_DATA.filter((r) => r.region === 'Guntur');
+    const tnlRoutes = OFFICIAL_SCHEDULES_DATA.filter((r) => r.region === 'Tenali');
+
+    expect(vjaRoutes.length).toBe(21); // VV-1 through VV-21
+    expect(gntRoutes.length).toBe(20); // GV-1 through GV-20
+    expect(tnlRoutes.length).toBe(3);  // TV-1 through TV-3
+  });
+
+  it('normalizes pickup times consistently to 12-hour format with AM/PM', () => {
+    expect(normalizeTime('7.00 AM')).toBe('07:00 AM');
+    expect(normalizeTime('7:30AM')).toBe('07:30 AM');
+    expect(normalizeTime('7.40 AM')).toBe('07:40 AM');
+    expect(normalizeTime('8:45 AM')).toBe('08:45 AM');
+  });
+
+  it('ensures all 44 routes have their terminal destination at VIT-AP Campus scheduled at 8:45 AM', () => {
+    OFFICIAL_SCHEDULES_DATA.forEach((route) => {
+      const lastPoint = route.points[route.points.length - 1];
+      expect(lastPoint.name.toLowerCase()).toContain('vit');
+      expect(normalizeTime(lastPoint.time)).toBe('08:45 AM');
+    });
+  });
+
+  it('scans and accurately reports raw source schedule ambiguities and time regressions', () => {
+    const ambiguities = findScheduleAmbiguities();
+    expect(ambiguities.length).toBeGreaterThan(0);
+    // Specifically flags GV-3 anomaly where Rajendra Nagar Colony is listed as 7:30 AM before Brundavan Gardens at 7:22 AM
+    const gv3Anomaly = ambiguities.find((a) => a.routeNumber === 'GV-3');
+    expect(gv3Anomaly).toBeDefined();
+    expect(gv3Anomaly?.description).toContain('GV-3');
+  });
+
+  it('populates all 44 routes and their stops into the transit database store', () => {
+    const allRoutes = Array.from(store.routes.values());
+    expect(allRoutes.some((r) => r.routeNumber === 'VV-1')).toBe(true);
+    expect(allRoutes.some((r) => r.routeNumber === 'VV-21')).toBe(true);
+    expect(allRoutes.some((r) => r.routeNumber === 'GV-1')).toBe(true);
+    expect(allRoutes.some((r) => r.routeNumber === 'GV-20')).toBe(true);
+    expect(allRoutes.some((r) => r.routeNumber === 'TV-1')).toBe(true);
+    expect(allRoutes.some((r) => r.routeNumber === 'TV-3')).toBe(true);
+  });
+});
+
+describe('10. Student Bus Pass Generation, Security & Personalization', () => {
+  it('retrieves the active official bus pass for authenticated student Arjun Reddy', async () => {
+    const pass = await getBusPassForUser('usr-student-1');
+    expect(pass).toBeDefined();
+    expect(pass?.studentName).toBe('Arjun Reddy');
+    expect(pass?.regNumber).toBe('22BCE1245');
+    expect(pass?.routeNumber).toBe('VV-4');
+    expect(pass?.pickupStopName).toBe('Autonagar Gate');
+    expect(pass?.status).toBe('active');
+    expect(pass?.passNumber).toMatch(/^VITAP\/BP\//);
+  });
+
+  it('ensures the bus pass contains a verified HMAC-SHA256 QR code data URL', async () => {
+    const pass = await getBusPassForUser('usr-student-1');
+    expect(pass?.qrCodeDataUrl).toBeDefined();
+    expect(pass?.qrCodeDataUrl).toMatch(/^data:image\/png;base64,/);
+  });
+
+  it('retrieves bus pass by unique pass ID', async () => {
+    const pass = await getBusPassById('pass-22bce1245');
+    expect(pass).toBeDefined();
+    expect(pass?.regNumber).toBe('22BCE1245');
+  });
+
+  it('issues a new official student bus pass with unique numbering and validity period', async () => {
+    const newPass = await createBusPass({
+      userId: 'usr-student-new',
+      studentName: 'Kavya Madhavan',
+      regNumber: '23BCE2001',
+      program: 'B.Tech AI & Data Science',
+      department: 'School of Advanced Computing',
+      academicYear: '2026-2027',
+      semester: 'Fall Semester 2026',
+      routeId: 'route-gv-1',
+      routeNumber: 'GV-1',
+      routeName: 'GV-1 — Naaz Center to VIT-AP Campus',
+      pickupStopId: 'stop-gv-1-1',
+      pickupStopName: 'Naaz Center',
+      pickupTime: '07:35 AM',
+      dropStopName: 'VIT-AP Central Campus',
+      dropTime: '08:45 AM',
+      validFrom: '2026-07-01',
+      validUntil: '2027-06-30',
+      status: 'active',
+      issuedBy: 'Mr. K. Narayana (Chief Transport Officer)',
+      emergencyContact: '+91 863 2370 444',
+    });
+
+    expect(newPass.id).toBeDefined();
+    expect(newPass.passNumber).toMatch(/^VITAP\/BP\/2026\/\d{4}$/);
+
+    const fetched = await getBusPassById(newPass.id);
+    expect(fetched?.studentName).toBe('Kavya Madhavan');
+  });
+
+  it('updates passenger preferences for personalized route and stop views', async () => {
+    const updated = await updateUserPreferences('usr-student-1', {
+      preferredRouteId: 'route-vv-1',
+      preferredStopId: 'stop-vv-1-1',
+    });
+
+    expect(updated.preferredRouteId).toBe('route-vv-1');
+    expect(updated.preferredStopId).toBe('stop-vv-1-1');
+  });
+});
+
 

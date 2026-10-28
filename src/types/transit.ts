@@ -18,8 +18,40 @@ export interface UserProfile {
   employeeId?: string; // Faculty / Employee ID (e.g., EMP501)
   phone?: string;
   department?: string;
+  program?: string;
+  preferredRouteId?: string;
+  preferredStopId?: string;
   createdAt: string;
 }
+
+export interface BusPass {
+  id: string;
+  passNumber: string; // e.g. "VITAP/BP/2026/0842"
+  userId: string;
+  studentName: string;
+  regNumber: string; // e.g. "21BCE1001"
+  program: string;
+  department: string;
+  academicYear: string;
+  semester: string;
+  routeId: string;
+  routeNumber: string; // e.g. "VV-01", "GV-05"
+  routeName: string;
+  pickupStopId: string;
+  pickupStopName: string;
+  pickupTime: string; // e.g. "07:25 AM"
+  dropStopName: string; // "VIT-AP Central Campus"
+  dropTime: string; // "08:45 AM"
+  validFrom: string; // YYYY-MM-DD
+  validUntil: string; // YYYY-MM-DD
+  status: 'active' | 'expired' | 'suspended' | 'pending_approval';
+  photoUrl?: string;
+  qrCodeDataUrl?: string;
+  issuedAt: string;
+  issuedBy: string;
+  emergencyContact: string;
+}
+
 
 export interface Stop {
   id: string;
