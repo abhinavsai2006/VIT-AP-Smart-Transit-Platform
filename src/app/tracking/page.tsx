@@ -1,18 +1,17 @@
 'use client';
 
 import React, { useState, useEffect, useMemo } from 'react';
-import { Route, Stop, Trip, GPSLocation, Bus, ServiceDisruption } from '@/types/transit';
+import { Route, Stop, Trip, GPSLocation, Bus } from '@/types/transit';
 import TransitMap from '@/components/map/TransitMap';
+import { createClient } from '@/lib/supabase/client';
 import {
-  Radio,
   RefreshCw,
   MapPin,
   Crosshair,
   Maximize2,
-  Calendar,
+  Radio,
   Clock,
-  ArrowRight,
-  ShieldCheck,
+  Compass,
 } from 'lucide-react';
 
 function computeScheduledTime(baseTime: string | undefined, offsetMinutes: number = 0): string {
@@ -59,18 +58,22 @@ export default function TrackingPage() {
       setStops(stopsData.stops || []);
       setTrips(tripsData.trips || []);
 
-      // Fetch live locations for active trips
+      // Fetch live locations for all active trips
       const locPromises = (tripsData.trips || [])
         .filter((t: Trip) => t.status === 'in_progress' || t.status === 'scheduled')
         .map(async (t: Trip) => {
-          const res = await fetch(`/api/trips/${t.id}/location`);
-          const data = await res.json();
-          if (data.location) {
-            return {
-              ...data.location,
-              bus: t.bus,
-              routeName: t.route?.routeName,
-            };
+          try {
+            const res = await fetch(`/api/trips/${t.id}/location`);
+            const data = await res.json();
+            if (data.location) {
+              return {
+                ...data.location,
+                bus: t.bus,
+                routeName: t.route?.routeName,
+              };
+            }
+          } catch {
+            // Ignore telemetry fetch race
           }
           return null;
         });
@@ -87,9 +90,32 @@ export default function TrackingPage() {
 
   useEffect(() => {
     loadTrackingData();
-    // Auto-refresh telemetry every 15 seconds
-    const interval = setInterval(loadTrackingData, 15000);
-    return () => clearInterval(interval);
+
+    // 3.5s real-time polling cadence for smooth continuous vehicle tracking
+    const interval = setInterval(loadTrackingData, 3500);
+
+    // Optional Supabase Realtime subscription when live cloud credentials exist
+    const supabase = createClient();
+    let channel: ReturnType<NonNullable<typeof supabase>['channel']> | null = null;
+    if (supabase) {
+      channel = supabase
+        .channel('realtime:gps_locations')
+        .on(
+          'postgres_changes',
+          { event: '*', schema: 'public', table: 'gps_locations' },
+          () => {
+            loadTrackingData();
+          }
+        )
+        .subscribe();
+    }
+
+    return () => {
+      clearInterval(interval);
+      if (channel && supabase) {
+        supabase.removeChannel(channel);
+      }
+    };
   }, []);
 
   const selectedTrip = useMemo(() => {
@@ -134,21 +160,20 @@ export default function TrackingPage() {
               }}
             >
               <span className="live-pulse"></span>
-              Live Satellite & Telemetry Feed
+              Live Fleet Telemetry & Satellite Feed
             </div>
             <h1 style={{ fontSize: '2.4rem', fontWeight: 800, marginBottom: '8px' }}>
               Real-Time Fleet GPS Tracking
             </h1>
             <p style={{ fontSize: '15px', color: 'var(--color-muted)', maxWidth: '720px', margin: 0 }}>
-              Live telemetry transmitted from active driver mobile units and on-board hardware.
-              Click any active service card or map marker to automatically focus that vehicle and corridor.
+              Live telemetry ingested from driver mobile units and on-board hardware. The map automatically follows your selected bus as it travels along the corridor.
             </p>
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             {lastFetchTime && (
               <span style={{ fontSize: '12px', color: 'var(--color-muted)' }}>
-                Updated at {lastFetchTime} IST
+                Pinged at {lastFetchTime} IST
               </span>
             )}
             <button
@@ -202,13 +227,20 @@ export default function TrackingPage() {
                     </span>
                   </div>
 
-                  {selectedLocation?.isLive ? (
-                    <span className="badge badge-success" style={{ fontSize: '11px' }}>
-                      ● LIVE BROADCAST
-                    </span>
+                  {selectedLocation ? (
+                    selectedLocation.isLive ? (
+                      <span className="badge badge-success" style={{ fontSize: '11px', display: 'flex', alignItems: 'center', gap: '5px' }}>
+                        <span className="live-pulse" style={{ width: '6px', height: '6px' }}></span>
+                        LIVE BROADCAST
+                      </span>
+                    ) : (
+                      <span className="badge badge-warning" style={{ fontSize: '11px' }}>
+                        STALE SIGNAL (&gt;2 MIN)
+                      </span>
+                    )
                   ) : (
-                    <span className="badge badge-warning" style={{ fontSize: '11px' }}>
-                      STALE SIGNAL (&gt;2 MIN)
+                    <span className="badge badge-neutral" style={{ fontSize: '11px' }}>
+                      AWAITING DRIVER GPS
                     </span>
                   )}
                 </div>
@@ -259,6 +291,28 @@ export default function TrackingPage() {
                     </div>
                   </div>
                 </div>
+
+                {selectedLocation && (
+                  <div
+                    style={{
+                      fontSize: '11px',
+                      color: 'var(--color-on-dark-soft)',
+                      marginBottom: '12px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      borderBottom: '1px solid #334155',
+                      paddingBottom: '10px',
+                    }}
+                  >
+                    <span>
+                      GPS Fix: <strong>{selectedLocation.latitude.toFixed(4)}° N, {selectedLocation.longitude.toFixed(4)}° E</strong>
+                    </span>
+                    <span>
+                      Updated: {new Date(selectedLocation.timestamp).toLocaleTimeString('en-IN', { timeZone: 'Asia/Kolkata' })} IST
+                    </span>
+                  </div>
+                )}
 
                 <div style={{ fontSize: '12px', color: 'var(--color-on-dark-soft)', lineHeight: 1.6, marginBottom: '16px' }}>
                   <strong>Operational Notes:</strong> {selectedTrip.operationalNotes || 'Standard scheduled institutional transit service.'}
@@ -427,7 +481,7 @@ export default function TrackingPage() {
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px' }}>
                   <span className="live-pulse"></span>
-                  <span>Auto-Pinging Active</span>
+                  <span>Auto-Pinging Active (3.5s)</span>
                 </div>
               </div>
 

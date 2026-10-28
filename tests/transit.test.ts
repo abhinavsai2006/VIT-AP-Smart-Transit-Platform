@@ -545,6 +545,11 @@ describe('10. Student Bus Pass Generation, Security & Personalization', () => {
     expect(updated.preferredRouteId).toBe('route-vv-1');
     expect(updated.preferredStopId).toBe('stop-vv-1-1');
   });
+
+  it('safely handles non-existent user pass requests without throwing 500 error', async () => {
+    const pass = await getBusPassForUser('usr-non-existent-999');
+    expect(pass).toBeUndefined();
+  });
 });
 
 describe('Live Telemetry & Interactive Map Synchronization', () => {

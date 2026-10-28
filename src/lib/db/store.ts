@@ -75,7 +75,70 @@ declare global {
 
 function getInitialStore(): StoreState {
   if (global.__transitStore) {
-    return global.__transitStore;
+    const s = global.__transitStore;
+    if (!s.users) {
+      s.users = new Map();
+      SEED_USERS.forEach((u) => s.users.set(u.id, u));
+    }
+    if (!s.stops) {
+      s.stops = new Map();
+      SEED_STOPS.forEach((st) => s.stops.set(st.id, st));
+    }
+    if (!s.routes) {
+      s.routes = new Map();
+      SEED_ROUTES.forEach((r) => {
+        const populatedStops = r.stops.map((rs) => ({
+          ...rs,
+          stop: s.stops.get(rs.stopId),
+        }));
+        s.routes.set(r.id, { ...r, stops: populatedStops });
+      });
+    }
+    if (!s.buses) {
+      s.buses = new Map();
+      SEED_BUSES.forEach((b) => s.buses.set(b.id, b));
+    }
+    if (!s.staff) {
+      s.staff = new Map();
+      SEED_STAFF.forEach((st) => s.staff.set(st.id, st));
+    }
+    if (!s.trips) {
+      s.trips = new Map();
+      SEED_TRIPS.forEach((t) => {
+        const route = s.routes.get(t.routeId);
+        const bus = s.buses.get(t.busId);
+        const driver = s.staff.get(t.driverId);
+        const conductor = s.staff.get(t.conductorId);
+        s.trips.set(t.id, { ...t, route, bus, driver, conductor });
+      });
+    }
+    if (!s.bookings) s.bookings = new Map();
+    if (!s.tickets) s.tickets = new Map();
+    if (!s.passes) {
+      s.passes = new Map();
+      SEED_BUS_PASSES.forEach((p) => s.passes.set(p.id, p));
+    }
+    if (!s.scans) s.scans = [];
+    if (!s.locations) s.locations = new Map();
+    if (!s.disruptions) {
+      s.disruptions = new Map();
+      SEED_DISRUPTIONS.forEach((d) => s.disruptions.set(d.id, d));
+    }
+    if (!s.maintenance) s.maintenance = [...SEED_MAINTENANCE];
+    if (!s.fuel) s.fuel = [...SEED_FUEL];
+    if (!s.incidents) s.incidents = [...SEED_INCIDENTS];
+    if (!s.eventRequests) {
+      s.eventRequests = new Map();
+      SEED_EVENT_REQUESTS.forEach((e) => s.eventRequests.set(e.id, e));
+    }
+    if (!s.complaints) {
+      s.complaints = new Map();
+      SEED_COMPLAINTS.forEach((c) => s.complaints.set(c.id, c));
+    }
+    if (!s.notifications) s.notifications = [...SEED_NOTIFICATIONS];
+    if (!s.auditLogs) s.auditLogs = [];
+
+    return s;
   }
 
   const store: StoreState = {
@@ -1090,6 +1153,10 @@ export async function addAuditLog(entry: Omit<AuditLog, 'id' | 'timestamp'>): Pr
 
 export async function getBusPassForUser(userId: string): Promise<BusPass | undefined> {
   await ensureSeedTickets();
+  if (!store.passes) {
+    store.passes = new Map();
+    SEED_BUS_PASSES.forEach((p) => store.passes.set(p.id, p));
+  }
   const passes = Array.from(store.passes.values());
   const pass = passes.find((p) => p.userId === userId && p.status === 'active');
   if (pass && !pass.qrCodeDataUrl) {
@@ -1112,6 +1179,10 @@ export async function getBusPassForUser(userId: string): Promise<BusPass | undef
 
 export async function getBusPassById(id: string): Promise<BusPass | undefined> {
   await ensureSeedTickets();
+  if (!store.passes) {
+    store.passes = new Map();
+    SEED_BUS_PASSES.forEach((p) => store.passes.set(p.id, p));
+  }
   const pass = store.passes.get(id);
   if (pass && !pass.qrCodeDataUrl) {
     try {
@@ -1133,11 +1204,19 @@ export async function getBusPassById(id: string): Promise<BusPass | undefined> {
 
 export async function getAllBusPasses(): Promise<BusPass[]> {
   await ensureSeedTickets();
+  if (!store.passes) {
+    store.passes = new Map();
+    SEED_BUS_PASSES.forEach((p) => store.passes.set(p.id, p));
+  }
   return Array.from(store.passes.values());
 }
 
 export async function createBusPass(data: Omit<BusPass, 'id' | 'passNumber' | 'issuedAt'>): Promise<BusPass> {
   await ensureSeedTickets();
+  if (!store.passes) {
+    store.passes = new Map();
+    SEED_BUS_PASSES.forEach((p) => store.passes.set(p.id, p));
+  }
   const id = `pass-${Date.now()}`;
   const passNumber = `VITAP/BP/2026/${Math.floor(1000 + Math.random() * 9000)}`;
   const pass: BusPass = {
