@@ -1,0 +1,1778 @@
+{
+  "entries": {
+    "Vijayawada|Vuyyuru Bus Stand": {
+      "status": "unresolved",
+      "query": "Vuyyuru Bus Stand, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Vuyyuru Masjid Center": {
+      "status": "unresolved",
+      "query": "Vuyyuru Masjid Center, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Vuyyuru Main Center": {
+      "status": "unresolved",
+      "query": "Vuyyuru Main Center, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Gandigunta Datta Sai Kalyana mandapam": {
+      "status": "unresolved",
+      "query": "Gandigunta Datta Sai Kalyana mandapam, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Chinna Ogirala High way Road": {
+      "status": "unresolved",
+      "query": "Chinna Ogirala High way Road, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Chalivendrapalem High way Road": {
+      "status": "unresolved",
+      "query": "Chalivendrapalem High way Road, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Davuluru Tool Plaza": {
+      "status": "unresolved",
+      "query": "Davuluru Tool Plaza, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Kankipadu": {
+      "status": "geocoded_unverified",
+      "query": "Kankipadu, Andhra Pradesh",
+      "latitude": 16.438705,
+      "longitude": 80.764702,
+      "matchedName": "Kankipadu, Kankipadu Mandal, Krishna District, Andhra Pradesh, 521151, India",
+      "osmType": "node",
+      "osmId": 245636141
+    },
+    "Vijayawada|Gosala": {
+      "status": "geocoded_unverified",
+      "query": "Gosala, Andhra Pradesh",
+      "latitude": 16.450783,
+      "longitude": 80.746124,
+      "matchedName": "Gosala, Penamaluru Mandal, Krishna District, Andhra Pradesh, 521151, India",
+      "osmType": "node",
+      "osmId": 11330388155
+    },
+    "Vijayawada|Edupugallu": {
+      "status": "geocoded_unverified",
+      "query": "Edupugallu, Vijayawada, Andhra Pradesh",
+      "latitude": 16.450631,
+      "longitude": 80.745379,
+      "matchedName": "Edupugallu Bus Stop, Vijayawada - Machilipatnam Road, Kankipadu Urban, Gosala, Penamaluru Mandal, Krishna District, Andhra Pradesh, 521139, India",
+      "osmType": "node",
+      "osmId": 11330388156
+    },
+    "Vijayawada|Ganguru": {
+      "status": "geocoded_unverified",
+      "query": "Ganguru, Andhra Pradesh",
+      "latitude": 16.47608,
+      "longitude": 80.74163,
+      "matchedName": "Ganguru, Penamaluru Mandal, Krishna District, Andhra Pradesh, 521139, India",
+      "osmType": "node",
+      "osmId": 3785743714
+    },
+    "Vijayawada|Penamaluru": {
+      "status": "geocoded_unverified",
+      "query": "Penamaluru, Vijayawada, Andhra Pradesh",
+      "latitude": 16.489639,
+      "longitude": 80.672559,
+      "matchedName": "Line-1 – Pandit Nehru Bus Station (PNBS) – Penamaluru (12.76 km), Patamatalanka Foot Over, Vijayawada Urban, Patamata Lanka, Vijayawada, Vijayawada Urban Mandal, NTR District, Andhra Pradesh, 520001, India",
+      "osmType": "way",
+      "osmId": 911898464
+    },
+    "Vijayawada|Poranki Center": {
+      "status": "unresolved",
+      "query": "Poranki Center, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Thumu Center": {
+      "status": "unresolved",
+      "query": "Thumu Center, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Tadigadapa": {
+      "status": "geocoded_unverified",
+      "query": "Tadigadapa, Vijayawada, Andhra Pradesh",
+      "latitude": 16.478992,
+      "longitude": 80.699184,
+      "matchedName": "Tadigadapa Bus Stop, Vijayawada - Machilipatnam Road, Kankipadu Urban, Gosala, Penamaluru Mandal, Krishna District, Andhra Pradesh, 521139, India",
+      "osmType": "node",
+      "osmId": 13944713581
+    },
+    "Vijayawada|KCP Colony": {
+      "status": "unresolved",
+      "query": "KCP Colony, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|VR Siddhartha": {
+      "status": "geocoded_unverified",
+      "query": "VR Siddhartha, Vijayawada, Andhra Pradesh",
+      "latitude": 16.485205,
+      "longitude": 80.691111,
+      "matchedName": "VR Siddhartha CSE Block, Panta Kaluva Road, Chalasani Nagar, Tadigadapa, Penamaluru Mandal, Krishna District, Andhra Pradesh, 520007, India",
+      "osmType": "way",
+      "osmId": 403282758
+    },
+    "Vijayawada|Bharath Pertol Pump": {
+      "status": "unresolved",
+      "query": "Bharath Pertol Pump, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Kamayatopu Center(Kanuru)": {
+      "status": "unresolved",
+      "query": "Kamayatopu Center(Kanuru), Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Pappula Mill Center": {
+      "status": "unresolved",
+      "query": "Pappula Mill Center, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Ashok Nagar": {
+      "status": "geocoded_unverified",
+      "query": "Ashok Nagar, Vijayawada, Andhra Pradesh",
+      "latitude": 16.482847,
+      "longitude": 80.686481,
+      "matchedName": "Ashok Nagar, Vijayawada, Vijayawada Urban Mandal, NTR District, Andhra Pradesh, 520001, India",
+      "osmType": "node",
+      "osmId": 13944854591
+    },
+    "Vijayawada|Time Hospital": {
+      "status": "geocoded_unverified",
+      "query": "Time Hospital, Vijayawada, Andhra Pradesh",
+      "latitude": 16.487786,
+      "longitude": 80.677492,
+      "matchedName": "Time Hospitals Pvt Ltd, Vijayawada - Machilipatnam Road, Vijayawada Urban, Tadigadapa, Vijayawada Urban Mandal, NTR District, Andhra Pradesh, 520007, India",
+      "osmType": "node",
+      "osmId": 6770952581
+    },
+    "Vijayawada|Auto nagar Gate": {
+      "status": "geocoded_unverified",
+      "query": "Auto nagar Gate, Vijayawada, Andhra Pradesh",
+      "latitude": 16.4926,
+      "longitude": 80.668839,
+      "matchedName": "Auto Nagar Gate, Patamata, Vijayawada, Vijayawada Urban Mandal, NTR District, Andhra Pradesh, 520001, India",
+      "osmType": "node",
+      "osmId": 13944710472
+    },
+    "Vijayawada|Screw Bridge": {
+      "status": "unresolved",
+      "query": "Screw Bridge, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Autonagar Gate": {
+      "status": "geocoded_unverified",
+      "query": "Autonagar Gate, Vijayawada, Andhra Pradesh",
+      "latitude": 16.490691,
+      "longitude": 80.671189,
+      "matchedName": "APSRTC Bus Station , Autonagar, APSRTC Autonagar Bus Station Inner Road, Vijayawada Urban, Patamata, Vijayawada, Vijayawada Urban Mandal, NTR District, Andhra Pradesh, 520001, India",
+      "osmType": "node",
+      "osmId": 12994127654
+    },
+    "Vijayawada|Patamata (High School Road)": {
+      "status": "unresolved",
+      "query": "Patamata (High School Road), Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|P & T Colony - NTR Circle": {
+      "status": "unresolved",
+      "query": "P & T Colony - NTR Circle, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Auto Nagar Gate": {
+      "status": "geocoded_unverified",
+      "query": "Auto Nagar Gate, Vijayawada, Andhra Pradesh",
+      "latitude": 16.4926,
+      "longitude": 80.668839,
+      "matchedName": "Auto Nagar Gate, Patamata, Vijayawada, Vijayawada Urban Mandal, NTR District, Andhra Pradesh, 520001, India",
+      "osmType": "node",
+      "osmId": 13944710472
+    },
+    "Vijayawada|High school road": {
+      "status": "geocoded_unverified",
+      "query": "High school road, Vijayawada, Andhra Pradesh",
+      "latitude": 16.493319,
+      "longitude": 80.6654,
+      "matchedName": "High school road bus stop, Vijayawada - Machilipatnam Road, Vijayawada Urban, Patamata, Vijayawada, Vijayawada Urban Mandal, NTR District, Andhra Pradesh, 520001, India",
+      "osmType": "relation",
+      "osmId": 6045338
+    },
+    "Vijayawada|NTR Circle": {
+      "status": "geocoded_unverified",
+      "query": "NTR Circle, Vijayawada, Andhra Pradesh",
+      "latitude": 16.496734,
+      "longitude": 80.657972,
+      "matchedName": "NTR Circle, Vijayawada - Machilipatnam Road, Vijayawada Urban, Patamata, Vijayawada, Vijayawada Urban Mandal, NTR District, Andhra Pradesh, 520001, India",
+      "osmType": "way",
+      "osmId": 1248886875
+    },
+    "Vijayawada|Eenadu": {
+      "status": "geocoded_unverified",
+      "query": "Eenadu, Vijayawada, Andhra Pradesh",
+      "latitude": 16.489524,
+      "longitude": 80.654562,
+      "matchedName": "Eenadu Colony, Patamata Lanka, Vijayawada, Vijayawada Urban Mandal, NTR District, Andhra Pradesh, 520001, India",
+      "osmType": "node",
+      "osmId": 13944889035
+    },
+    "Vijayawada|Benz Circle (Bajaj Showroom)": {
+      "status": "unresolved",
+      "query": "Benz Circle (Bajaj Showroom), Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|DV Manor(Sweet Magic)": {
+      "status": "unresolved",
+      "query": "DV Manor(Sweet Magic), Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Ramesh Hospital": {
+      "status": "geocoded_unverified",
+      "query": "Ramesh Hospital, Vijayawada, Andhra Pradesh",
+      "latitude": 16.505794,
+      "longitude": 80.660077,
+      "matchedName": "Dr Ramesh Super Speciality Hospital, ITI College Road, Vijayawada Urban, Patamata, Vijayawada, Vijayawada Urban Mandal, NTR District, Andhra Pradesh, 520008, India",
+      "osmType": "way",
+      "osmId": 408933562
+    },
+    "Vijayawada|Patamata E Seva": {
+      "status": "unresolved",
+      "query": "Patamata E Seva, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Khandhari(MVR)": {
+      "status": "unresolved",
+      "query": "Khandhari(MVR), Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|PVP Mall": {
+      "status": "unresolved",
+      "query": "PVP Mall, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Labbipet (Venkateswara Swamy Temple)": {
+      "status": "unresolved",
+      "query": "Labbipet (Venkateswara Swamy Temple), Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Varadhi": {
+      "status": "geocoded_unverified",
+      "query": "Varadhi, Vijayawada, Andhra Pradesh",
+      "latitude": 16.499066,
+      "longitude": 80.631369,
+      "matchedName": "Kanakadurga Varadhi - Vijayawada - Mangalagiri Road -  Old NH16 Road, Ranigari Thota, Krishna Lanka, Vijayawada, Vijayawada Urban Mandal, NTR District, Andhra Pradesh, 520001, India",
+      "osmType": "way",
+      "osmId": 471184209
+    },
+    "Vijayawada|Gannavaram Bus Stand": {
+      "status": "geocoded_unverified",
+      "query": "Gannavaram Bus Stand, Andhra Pradesh",
+      "latitude": 16.543637,
+      "longitude": 80.80764,
+      "matchedName": "Apsrtc bus stand , Gannavaram, APSRTC Gannavaram Bus Station Inner Road, Gannavaram Urban, Gannavaram, Gannavaram Mandal, Krishna District, Andhra Pradesh, 521101, India",
+      "osmType": "way",
+      "osmId": 1336275051
+    },
+    "Vijayawada|Kesarapalli": {
+      "status": "geocoded_unverified",
+      "query": "Kesarapalli, Andhra Pradesh",
+      "latitude": 16.565151,
+      "longitude": 80.796634,
+      "matchedName": "Kesarapalli Minor, Venkatanarasimhapuram, Bahubalendrunigudem, Gannavaram Mandal, Krishna District, Andhra Pradesh, 521101, India",
+      "osmType": "way",
+      "osmId": 1316819428
+    },
+    "Vijayawada|Gudavalli": {
+      "status": "geocoded_unverified",
+      "query": "Gudavalli, Vijayawada, Andhra Pradesh",
+      "latitude": 16.509418,
+      "longitude": 80.749827,
+      "matchedName": "Gudavalli, Vijayawada Rural Mandal, NTR District, Andhra Pradesh, 521104, India",
+      "osmType": "node",
+      "osmId": 5523175461
+    },
+    "Vijayawada|Nidamanuru": {
+      "status": "geocoded_unverified",
+      "query": "Nidamanuru, Vijayawada, Andhra Pradesh",
+      "latitude": 16.507414,
+      "longitude": 80.731301,
+      "matchedName": "Nidamanuru, Vijayawada - Gannavaram - Pedda Avutapalli Road ( Old NH16 Road ), Gudavalli, Vijayawada Rural Mandal, NTR District, Andhra Pradesh, 521104, India",
+      "osmType": "node",
+      "osmId": 2122647117
+    },
+    "Vijayawada|Enikepadu": {
+      "status": "geocoded_unverified",
+      "query": "Enikepadu, Vijayawada, Andhra Pradesh",
+      "latitude": 16.51642,
+      "longitude": 80.701185,
+      "matchedName": "Enikepadu, Vijayawada Rural Mandal, NTR District, Andhra Pradesh, 521108, India",
+      "osmType": "node",
+      "osmId": 11603178150
+    },
+    "Vijayawada|Prasadampadu": {
+      "status": "geocoded_unverified",
+      "query": "Prasadampadu, Vijayawada, Andhra Pradesh",
+      "latitude": 16.521091,
+      "longitude": 80.68948,
+      "matchedName": "Prasadampadu, Vijayawada Rural Mandal, NTR District, Andhra Pradesh, 521108, India",
+      "osmType": "node",
+      "osmId": 11603178151
+    },
+    "Vijayawada|Ramavarapadu Ring": {
+      "status": "unresolved",
+      "query": "Ramavarapadu Ring, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Currency Nagar": {
+      "status": "geocoded_unverified",
+      "query": "Currency Nagar, Vijayawada, Andhra Pradesh",
+      "latitude": 16.518066,
+      "longitude": 80.677818,
+      "matchedName": "swami vivekanada currency nagar park, Vijayawada - Gannavaram - Pedda Avutapalli Road ( Old NH16 Road ), Ramavarappadu Junction Roads, Penamaluru Mandal, Krishna District, Andhra Pradesh, 520001, India",
+      "osmType": "way",
+      "osmId": 1319819218
+    },
+    "Vijayawada|Ramavarapadu Ring - Govt Hospital (Mahanadu Road)": {
+      "status": "unresolved",
+      "query": "Ramavarapadu Ring - Govt Hospital (Mahanadu Road), Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Govt Hospital (Mahanadu Road)": {
+      "status": "unresolved",
+      "query": "Govt Hospital (Mahanadu Road), Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Novotel": {
+      "status": "geocoded_unverified",
+      "query": "Novotel, Vijayawada, Andhra Pradesh",
+      "latitude": 16.509113,
+      "longitude": 80.665653,
+      "matchedName": "Novotel Vijayawada Varun, Vijayawada - Gannavaram - Pedda Avutapalli Road ( Old NH16 Road ), Ramavarappadu Junction Roads, Vijayawada, Vijayawada Urban Mandal, NTR District, Andhra Pradesh, 520008, India",
+      "osmType": "way",
+      "osmId": 403215873
+    },
+    "Vijayawada|McDonalds": {
+      "status": "unresolved",
+      "query": "McDonalds, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Maris Stella College": {
+      "status": "geocoded_unverified",
+      "query": "Maris Stella College, Vijayawada, Andhra Pradesh",
+      "latitude": 16.501986,
+      "longitude": 80.659038,
+      "matchedName": "Maris Stella College, Benz Circle Flyover, Gurunanak Nagar, Patamata Lanka, Vijayawada, Vijayawada Urban Mandal, NTR District, Andhra Pradesh, 520001, India",
+      "osmType": "node",
+      "osmId": 12875380944
+    },
+    "Vijayawada|Balaji Nagar": {
+      "status": "geocoded_unverified",
+      "query": "Balaji Nagar, Vijayawada, Andhra Pradesh",
+      "latitude": 16.497253,
+      "longitude": 80.637117,
+      "matchedName": "Balaji Nagar, Patamata Lanka, Vijayawada, Vijayawada Urban Mandal, NTR District, Andhra Pradesh, 520001, India",
+      "osmType": "node",
+      "osmId": 13944890525
+    },
+    "Vijayawada|Varadhi Bus Stop": {
+      "status": "geocoded_unverified",
+      "query": "Varadhi Bus Stop, Vijayawada, Andhra Pradesh",
+      "latitude": 16.501661,
+      "longitude": 80.634488,
+      "matchedName": "Krishnalanka Varadhi Bus Stop, NH65, Ranigari Thota, Krishna Lanka, Vijayawada, Vijayawada Urban Mandal, NTR District, Andhra Pradesh, 520001, India",
+      "osmType": "node",
+      "osmId": 10833816500
+    },
+    "Vijayawada|Nunna Center": {
+      "status": "unresolved",
+      "query": "Nunna Center, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Sub Station": {
+      "status": "geocoded_unverified",
+      "query": "Sub Station, Vijayawada, Andhra Pradesh",
+      "latitude": 16.522241,
+      "longitude": 80.672432,
+      "matchedName": "Gunadala Sub Station, Karl Marx Road, Vijayawada Urban, Krishna Lanka, Vijayawada, Penamaluru Mandal, Krishna District, Andhra Pradesh, 520001, India",
+      "osmType": "way",
+      "osmId": 242291888
+    },
+    "Vijayawada|Kandrika Pertol Pump": {
+      "status": "unresolved",
+      "query": "Kandrika Pertol Pump, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Payakapuram": {
+      "status": "geocoded_unverified",
+      "query": "Payakapuram, Vijayawada, Andhra Pradesh",
+      "latitude": 16.54892,
+      "longitude": 80.649601,
+      "matchedName": "Payakapuram, Devi Nagar, Vijayawada, Vijayawada Urban Mandal, NTR District, Andhra Pradesh, 520001, India",
+      "osmType": "node",
+      "osmId": 11603248766
+    },
+    "Vijayawada|Prakash Nagar": {
+      "status": "geocoded_unverified",
+      "query": "Prakash Nagar, Vijayawada, Andhra Pradesh",
+      "latitude": 16.545166,
+      "longitude": 80.647985,
+      "matchedName": "Mukhyamantri Aarogya Kendram,Prakash Nagar, Vijayawada - Nuzvidu Road, Kandrika, Devi Nagar, Vijayawada, Vijayawada Urban Mandal, NTR District, Andhra Pradesh, 520015, India",
+      "osmType": "node",
+      "osmId": 7116293086
+    },
+    "Vijayawada|Pipula Road": {
+      "status": "unresolved",
+      "query": "Pipula Road, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Singh Nagar Sai Baba Temple": {
+      "status": "unresolved",
+      "query": "Singh Nagar Sai Baba Temple, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Dabakotlu Center": {
+      "status": "unresolved",
+      "query": "Dabakotlu Center, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Budameru Vantena": {
+      "status": "geocoded_unverified",
+      "query": "Budameru Vantena, Vijayawada, Andhra Pradesh",
+      "latitude": 16.529263,
+      "longitude": 80.638219,
+      "matchedName": "Budameru vantena, Ramakrishna Puram, Ayodhya Nagar, Vijayawada, Vijayawada Urban Mandal, NTR District, Andhra Pradesh, 520001, India",
+      "osmType": "way",
+      "osmId": 847965314
+    },
+    "Vijayawada|Ayodhya Nagar": {
+      "status": "geocoded_unverified",
+      "query": "Ayodhya Nagar, Vijayawada, Andhra Pradesh",
+      "latitude": 16.53029,
+      "longitude": 80.631601,
+      "matchedName": "Ayodhya Nagar, Vijayawada, Vijayawada Urban Mandal, NTR District, Andhra Pradesh, 520001, India",
+      "osmType": "node",
+      "osmId": 13137417327
+    },
+    "Vijayawada|Lotus Land Mark": {
+      "status": "unresolved",
+      "query": "Lotus Land Mark, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Prabhas College(Fruit Market)": {
+      "status": "unresolved",
+      "query": "Prabhas College(Fruit Market), Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|MS Raja Rao Bridge": {
+      "status": "unresolved",
+      "query": "MS Raja Rao Bridge, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Sobhan Babu Circle": {
+      "status": "unresolved",
+      "query": "Sobhan Babu Circle, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Challapalli Bunglaw": {
+      "status": "unresolved",
+      "query": "Challapalli Bunglaw, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Bandar Lakulu": {
+      "status": "unresolved",
+      "query": "Bandar Lakulu, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Meesal Raja Rao Bridge": {
+      "status": "unresolved",
+      "query": "Meesal Raja Rao Bridge, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Sarada College": {
+      "status": "geocoded_unverified",
+      "query": "Sarada College, Vijayawada, Andhra Pradesh",
+      "latitude": 16.511835,
+      "longitude": 80.66434,
+      "matchedName": "sarada, Loyola College Road, Vijayawada Urban, Patamata, Vijayawada, Vijayawada Urban Mandal, NTR District, Andhra Pradesh, 520001, India",
+      "osmType": "way",
+      "osmId": 342934657
+    },
+    "Vijayawada|Food Junction": {
+      "status": "geocoded_unverified",
+      "query": "Food Junction, Vijayawada, Andhra Pradesh",
+      "latitude": 16.517721,
+      "longitude": 80.666067,
+      "matchedName": "sree food junction, siri cool drinks and tea stall, Christurajupuram Road, Vijayawada Urban, Patamata Lanka, Vijayawada, Vijayawada Urban Mandal, NTR District, Andhra Pradesh, 520001, India",
+      "osmType": "way",
+      "osmId": 342971655
+    },
+    "Vijayawada|Madhura Nagar Signal": {
+      "status": "unresolved",
+      "query": "Madhura Nagar Signal, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Padavala Revu": {
+      "status": "unresolved",
+      "query": "Padavala Revu, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|ESI Hospital": {
+      "status": "geocoded_unverified",
+      "query": "ESI Hospital, Vijayawada, Andhra Pradesh",
+      "latitude": 16.519314,
+      "longitude": 80.668198,
+      "matchedName": "ESI hospital, ESI Hospital, ESI Road, Vijayawada Urban, Penamaluru Mandal, Krishna District, Andhra Pradesh, 520008, India",
+      "osmType": "way",
+      "osmId": 761658939
+    },
+    "Vijayawada|Gunadala Bridge": {
+      "status": "unresolved",
+      "query": "Gunadala Bridge, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Gunadala Center": {
+      "status": "unresolved",
+      "query": "Gunadala Center, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Machavaram": {
+      "status": "geocoded_unverified",
+      "query": "Machavaram, Vijayawada, Andhra Pradesh",
+      "latitude": 16.518949,
+      "longitude": 80.649153,
+      "matchedName": "Machavaram, Devi Nagar, Vijayawada, Vijayawada Urban Mandal, NTR District, Andhra Pradesh, 520001, India",
+      "osmType": "node",
+      "osmId": 11607185471
+    },
+    "Vijayawada|SRR College": {
+      "status": "unresolved",
+      "query": "SRR College, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|BSNL": {
+      "status": "geocoded_unverified",
+      "query": "BSNL, Vijayawada, Andhra Pradesh",
+      "latitude": 16.517315,
+      "longitude": 80.643356,
+      "matchedName": "BSNL Bhavan, Chandra Rajeswara Rao Road, Vijayawada Urban, Devi Nagar, Vijayawada, Vijayawada Urban Mandal, NTR District, Andhra Pradesh, 520001, India",
+      "osmType": "way",
+      "osmId": 342953387
+    },
+    "Vijayawada|Sitarampuram Signal": {
+      "status": "unresolved",
+      "query": "Sitarampuram Signal, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Vijaya Talkies": {
+      "status": "geocoded_unverified",
+      "query": "Vijaya Talkies, Vijayawada, Andhra Pradesh",
+      "latitude": 16.51441,
+      "longitude": 80.632565,
+      "matchedName": "Vijaya Talkies, Karl Marx Road, Vijayawada Urban, Krishna Lanka, Vijayawada, Vijayawada Urban Mandal, NTR District, Andhra Pradesh, 520001, India",
+      "osmType": "node",
+      "osmId": 11578427759
+    },
+    "Vijayawada|Apsara Theater": {
+      "status": "unresolved",
+      "query": "Apsara Theater, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Challapalli Bunglow": {
+      "status": "geocoded_unverified",
+      "query": "Challapalli Bunglow, Vijayawada, Andhra Pradesh",
+      "latitude": 16.512884,
+      "longitude": 80.622859,
+      "matchedName": "Challapalli Bunglow, Karl Marx Road, Vijayawada Urban, Krishna Lanka, Vijayawada, Vijayawada Urban Mandal, NTR District, Andhra Pradesh, 520001, India",
+      "osmType": "node",
+      "osmId": 13006798984
+    },
+    "Vijayawada|Kanchikacherla - Reliance Trends": {
+      "status": "unresolved",
+      "query": "Kanchikacherla - Reliance Trends, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Kanchikacherla - RTC Bus Stand": {
+      "status": "unresolved",
+      "query": "Kanchikacherla - RTC Bus Stand, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Paritala": {
+      "status": "geocoded_unverified",
+      "query": "Paritala, Andhra Pradesh",
+      "latitude": 16.658992,
+      "longitude": 80.409338,
+      "matchedName": "Paritala, Kanchikacherla Mandal, NTR District, Andhra Pradesh, 522180, India",
+      "osmType": "node",
+      "osmId": 4754865627
+    },
+    "Vijayawada|Keesara": {
+      "status": "unresolved",
+      "query": "Keesara, Andhra Pradesh",
+      "error": "TypeError: fetch failed"
+    },
+    "Vijayawada|Danabanda": {
+      "status": "unresolved",
+      "query": "Danabanda, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Ketanakonda": {
+      "status": "unresolved",
+      "query": "Ketanakonda, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Moolapadu": {
+      "status": "unresolved",
+      "query": "Moolapadu, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Kileshpuram": {
+      "status": "unresolved",
+      "query": "Kileshpuram, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Kondapalli (vtps colony)": {
+      "status": "geocoded_unverified",
+      "query": "Kondapalli (vtps colony), Andhra Pradesh",
+      "latitude": 16.621476,
+      "longitude": 80.538222,
+      "matchedName": "Government Hospital, Kondapalli, NH30, Kondapalli Rurban, Ibrahimpatnam, Ibrahimpatnam Mandal, NTR District, Andhra Pradesh, 521228, India",
+      "osmType": "node",
+      "osmId": 7116293061
+    },
+    "Vijayawada|Ibrahimpatnam": {
+      "status": "geocoded_unverified",
+      "query": "Ibrahimpatnam, Andhra Pradesh",
+      "latitude": 16.594002,
+      "longitude": 80.522527,
+      "matchedName": "Ibrahimpatnam, Ibrahimpatnam Mandal, NTR District, Andhra Pradesh, 521456, India",
+      "osmType": "node",
+      "osmId": 7133971290
+    },
+    "Vijayawada|Kazipet": {
+      "status": "unresolved",
+      "query": "Kazipet, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Guntupalli": {
+      "status": "geocoded_unverified",
+      "query": "Guntupalli, Andhra Pradesh",
+      "latitude": 16.585309,
+      "longitude": 80.55256,
+      "matchedName": "Railway Colony  Guntupalli, Ibrahimpatnam, Ibrahimpatnam Mandal, NTR District, Andhra Pradesh, 521456, India",
+      "osmType": "node",
+      "osmId": 13137385804
+    },
+    "Vijayawada|Rayanapadu X Road": {
+      "status": "unresolved",
+      "query": "Rayanapadu X Road, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Gollapudi One Center": {
+      "status": "unresolved",
+      "query": "Gollapudi One Center, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Y Junction": {
+      "status": "geocoded_unverified",
+      "query": "Y Junction, Andhra Pradesh",
+      "latitude": 16.328039,
+      "longitude": 80.483855,
+      "matchedName": "Y Junction, MDR0105, Guntur Urban, Gaddipadu, Pedakakani, Pedakakani Mandal, Guntur District, Andhra Pradesh, 522509, India",
+      "osmType": "node",
+      "osmId": 11761418199
+    },
+    "Vijayawada|Andhra Hospitals": {
+      "status": "geocoded_unverified",
+      "query": "Andhra Hospitals, Vijayawada, Andhra Pradesh",
+      "latitude": 16.511058,
+      "longitude": 80.629698,
+      "matchedName": "Andhra Hospitals, Prakasam Road, Vijayawada Urban, Krishna Lanka, Vijayawada, Vijayawada Urban Mandal, NTR District, Andhra Pradesh, 520002, India",
+      "osmType": "node",
+      "osmId": 6768283958
+    },
+    "Vijayawada|Swathi Center": {
+      "status": "unresolved",
+      "query": "Swathi Center, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Bhavanipuram Sivalayam Center": {
+      "status": "unresolved",
+      "query": "Bhavanipuram Sivalayam Center, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Trends": {
+      "status": "geocoded_unverified",
+      "query": "Trends, Vijayawada, Andhra Pradesh",
+      "latitude": 16.50724,
+      "longitude": 80.65031,
+      "matchedName": "Trends, ITI College Road, Vijayawada Urban, Patamata, Vijayawada, Vijayawada Urban Mandal, NTR District, Andhra Pradesh, 520001, India",
+      "osmType": "way",
+      "osmId": 343155454
+    },
+    "Vijayawada|Bhavanipuram Church": {
+      "status": "unresolved",
+      "query": "Bhavanipuram Church, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Sitara": {
+      "status": "geocoded_unverified",
+      "query": "Sitara, Vijayawada, Andhra Pradesh",
+      "latitude": 16.533187,
+      "longitude": 80.606144,
+      "matchedName": "Sitara Center, Vijawada Bypass Road, RRT Nagar, Vidhyadharapuram, Vijayawada, Vijayawada Urban Mandal, NTR District, Andhra Pradesh, 520001, India",
+      "osmType": "node",
+      "osmId": 13005750821
+    },
+    "Vijayawada|Kabela": {
+      "status": "geocoded_unverified",
+      "query": "Kabela, Vijayawada, Andhra Pradesh",
+      "latitude": 16.541876,
+      "longitude": 80.607572,
+      "matchedName": "Kabela, Vidhyadharapuram, Vijayawada, Vijayawada Urban Mandal, NTR District, Andhra Pradesh, 520001, India",
+      "osmType": "node",
+      "osmId": 11603287960
+    },
+    "Vijayawada|Milk Project": {
+      "status": "geocoded_unverified",
+      "query": "Milk Project, Vijayawada, Andhra Pradesh",
+      "latitude": 16.541466,
+      "longitude": 80.613073,
+      "matchedName": "Milk projecT, Chanumolu Venkata Flyover, Bheemannavaripeta, Vidhyadharapuram, Vijayawada, Vijayawada Urban Mandal, NTR District, Andhra Pradesh, 520001, India",
+      "osmType": "node",
+      "osmId": 4170169389
+    },
+    "Vijayawada|Sai Ram Theater": {
+      "status": "geocoded_unverified",
+      "query": "Sai Ram Theater, Vijayawada, Andhra Pradesh",
+      "latitude": 16.538925,
+      "longitude": 80.613536,
+      "matchedName": "SAI RAM THEATRE, Chanumolu Venkata Flyover, Bheemannavaripeta, Vidhyadharapuram, Vijayawada, Vijayawada Urban Mandal, NTR District, Andhra Pradesh, 520001, India",
+      "osmType": "node",
+      "osmId": 13204711526
+    },
+    "Vijayawada|Chittinagar": {
+      "status": "geocoded_unverified",
+      "query": "Chittinagar, Vijayawada, Andhra Pradesh",
+      "latitude": 16.531875,
+      "longitude": 80.611674,
+      "matchedName": "Chittinagar, Vidhyadharapuram, Vijayawada, Vijayawada Urban Mandal, NTR District, Andhra Pradesh, 520001, India",
+      "osmType": "node",
+      "osmId": 13137410245
+    },
+    "Vijayawada|Vagu Center": {
+      "status": "unresolved",
+      "query": "Vagu Center, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|KBN College": {
+      "status": "unresolved",
+      "query": "KBN College, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Panja Center": {
+      "status": "unresolved",
+      "query": "Panja Center, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|KR Market": {
+      "status": "geocoded_unverified",
+      "query": "KR Market, Vijayawada, Andhra Pradesh",
+      "latitude": 16.512389,
+      "longitude": 80.613745,
+      "matchedName": "Kaleswara Rao Market, kaleswara rao market, Shivalayam Main Road, Vijayawada Urban, Krishna Lanka, Vijayawada, Vijayawada Urban Mandal, NTR District, Andhra Pradesh, 520001, India",
+      "osmType": "node",
+      "osmId": 11594018345
+    },
+    "Vijayawada|Govt. Hospital - Near Railway Station": {
+      "status": "unresolved",
+      "query": "Govt. Hospital - Near Railway Station, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Kanakadurga Flyover": {
+      "status": "unresolved",
+      "query": "Kanakadurga Flyover, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Krishnalanka Katta": {
+      "status": "unresolved",
+      "query": "Krishnalanka Katta, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Fire Station -Bus Stop": {
+      "status": "unresolved",
+      "query": "Fire Station -Bus Stop, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Auto Nagar Association Hall": {
+      "status": "unresolved",
+      "query": "Auto Nagar Association Hall, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Gurunank colony": {
+      "status": "unresolved",
+      "query": "Gurunank colony, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Ramesh hospital": {
+      "status": "geocoded_unverified",
+      "query": "Ramesh hospital, Vijayawada, Andhra Pradesh",
+      "latitude": 16.505794,
+      "longitude": 80.660077,
+      "matchedName": "Dr Ramesh Super Speciality Hospital, ITI College Road, Vijayawada Urban, Patamata, Vijayawada, Vijayawada Urban Mandal, NTR District, Andhra Pradesh, 520008, India",
+      "osmType": "way",
+      "osmId": 408933562
+    },
+    "Vijayawada|ITI College": {
+      "status": "geocoded_unverified",
+      "query": "ITI College, Vijayawada, Andhra Pradesh",
+      "latitude": 16.506312,
+      "longitude": 80.654137,
+      "matchedName": "Industrial Training Institute (ITI), LIC colony 1st lane, Vijayawada Urban, Patamata Lanka, Vijayawada, Vijayawada Urban Mandal, NTR District, Andhra Pradesh, 520001, India",
+      "osmType": "way",
+      "osmId": 1247680966
+    },
+    "Vijayawada|Amma Kalyana Mandapam": {
+      "status": "unresolved",
+      "query": "Amma Kalyana Mandapam, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Jammi Chettu Centre": {
+      "status": "geocoded_unverified",
+      "query": "Jammi Chettu Centre, Vijayawada, Andhra Pradesh",
+      "latitude": 16.506934,
+      "longitude": 80.644668,
+      "matchedName": "SLN SANJEEVANI AYURVEDA HOSPITALS, 32-14-2, Mogalarajapuram, A/1, Sivalayam St, Jammi Chettu Centre, Christurajupuram, Vijayawada, Andhra Pradesh 520010, AS Rama Rao Road, Vijayawada Urban, Patamata Lanka, Vijayawada, Vijayawada Urban Mandal, NTR District, Andhra Pradesh, 520010, India",
+      "osmType": "node",
+      "osmId": 12850815892
+    },
+    "Vijayawada|Sridartha Arts & Scinces": {
+      "status": "unresolved",
+      "query": "Sridartha Arts & Scinces, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Commisioner office": {
+      "status": "unresolved",
+      "query": "Commisioner office, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Raghavaiah Park": {
+      "status": "geocoded_unverified",
+      "query": "Raghavaiah Park, Vijayawada, Andhra Pradesh",
+      "latitude": 16.507938,
+      "longitude": 80.625801,
+      "matchedName": "Raghavaiah Park, Krishna Lanka, Vijayawada, Vijayawada Urban Mandal, NTR District, Andhra Pradesh, 520001, India",
+      "osmType": "node",
+      "osmId": 11540283966
+    },
+    "Vijayawada|Manipal": {
+      "status": "geocoded_unverified",
+      "query": "Manipal, Andhra Pradesh",
+      "latitude": 16.484403,
+      "longitude": 80.616883,
+      "matchedName": "Manipal Super Specialty Hospital, Service Road, Navodaya Colony, Tadepalle, Padmasaleela Bazar, Tadepalle Mandal, Guntur District, Andhra Pradesh, 522501, India",
+      "osmType": "node",
+      "osmId": 5036963303
+    },
+    "Vijayawada|Ushodaya Mart": {
+      "status": "unresolved",
+      "query": "Ushodaya Mart, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Praturu Road": {
+      "status": "unresolved",
+      "query": "Praturu Road, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Kunchinapalli Road": {
+      "status": "unresolved",
+      "query": "Kunchinapalli Road, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Kunchinapalli Sai baba Temple": {
+      "status": "unresolved",
+      "query": "Kunchinapalli Sai baba Temple, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|D-Mrat": {
+      "status": "unresolved",
+      "query": "D-Mrat, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|TadepaIii Petrol Pump": {
+      "status": "unresolved",
+      "query": "TadepaIii Petrol Pump, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Undavalli Centre": {
+      "status": "unresolved",
+      "query": "Undavalli Centre, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Penunmaka": {
+      "status": "unresolved",
+      "query": "Penunmaka, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Kunchinapalli": {
+      "status": "unresolved",
+      "query": "Kunchinapalli, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|TadepaIii Petrol Bunk": {
+      "status": "unresolved",
+      "query": "TadepaIii Petrol Bunk, Vijayawada, Andhra Pradesh"
+    },
+    "Vijayawada|Undavalli": {
+      "status": "geocoded_unverified",
+      "query": "Undavalli, Andhra Pradesh",
+      "latitude": 16.495881,
+      "longitude": 80.586204,
+      "matchedName": "Undavalli, Andhra Pradesh Capital Region Development Authority, Tadepalle Mandal, Guntur District, Andhra Pradesh, 522501, India",
+      "osmType": "node",
+      "osmId": 4734167938
+    },
+    "Guntur|Naaz Center": {
+      "status": "unresolved",
+      "query": "Naaz Center, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Market - Guntur": {
+      "status": "geocoded_unverified",
+      "query": "Market - Guntur, Guntur, Andhra Pradesh",
+      "latitude": 16.294766,
+      "longitude": 80.441898,
+      "matchedName": "market, Guntur Amaravathi Road, Guntur Urban, Lalapet, Guntur, Guntur Mandal, Guntur District, Andhra Pradesh, 522001, India",
+      "osmType": "node",
+      "osmId": 2332966455
+    },
+    "Guntur|Chandana Bros": {
+      "status": "geocoded_unverified",
+      "query": "Chandana Bros, Guntur, Andhra Pradesh",
+      "latitude": 16.293357,
+      "longitude": 80.448473,
+      "matchedName": "Chandana Bros Jewellers, Grand Trunk Road, Guntur Urban, Lalapet, Guntur, Guntur Mandal, Guntur District, Andhra Pradesh, 522001, India",
+      "osmType": "node",
+      "osmId": 12865239148
+    },
+    "Guntur|Bus Stand - Guntur": {
+      "status": "geocoded_unverified",
+      "query": "Bus Stand - Guntur, Guntur, Andhra Pradesh",
+      "latitude": 16.296039,
+      "longitude": 80.456573,
+      "matchedName": "ntr bus stand, MDR0105, Guntur Urban, Lalapet, Guntur, Guntur Mandal, Guntur District, Andhra Pradesh, 522001, India",
+      "osmType": "way",
+      "osmId": 1294898868
+    },
+    "Guntur|Anand peta": {
+      "status": "unresolved",
+      "query": "Anand peta, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Masjid center": {
+      "status": "geocoded_unverified",
+      "query": "Masjid center, Guntur, Andhra Pradesh",
+      "latitude": 16.447154,
+      "longitude": 80.609708,
+      "matchedName": "New masjid center, Road, Vaddeswaram, Tadepalle Mandal, Guntur District, Andhra Pradesh, 522502, India",
+      "osmType": "node",
+      "osmId": 5640977732
+    },
+    "Guntur|Bramhananda Stadium": {
+      "status": "unresolved",
+      "query": "Bramhananda Stadium, Guntur, Andhra Pradesh"
+    },
+    "Guntur|RTC Colony": {
+      "status": "unresolved",
+      "query": "RTC Colony, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Manipuram Bridge": {
+      "status": "unresolved",
+      "query": "Manipuram Bridge, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Badhra Kali Amma vari Temple": {
+      "status": "unresolved",
+      "query": "Badhra Kali Amma vari Temple, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Bharath Petrol Pump": {
+      "status": "unresolved",
+      "query": "Bharath Petrol Pump, Guntur, Andhra Pradesh"
+    },
+    "Guntur|HP Petrol Pump": {
+      "status": "geocoded_unverified",
+      "query": "HP Petrol Pump, Andhra Pradesh",
+      "latitude": 16.506827,
+      "longitude": 80.645182,
+      "matchedName": "Kritunga Restaurant, Jammi Chettu Center, beside HP Petrol Pump, Mogalrajapuram, Christurajupuram, Vijayawada, Andhra Pradesh 520010, AS Rama Rao Road, Vijayawada Urban, Patamata Lanka, Vijayawada, Vijayawada Urban Mandal, NTR District, Andhra Pradesh, 520010, India",
+      "osmType": "node",
+      "osmId": 12850913490
+    },
+    "Guntur|Relaince Mart": {
+      "status": "unresolved",
+      "query": "Relaince Mart, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Vasavi Cloth Market": {
+      "status": "geocoded_unverified",
+      "query": "Vasavi Cloth Market, Guntur, Andhra Pradesh",
+      "latitude": 16.306341,
+      "longitude": 80.464084,
+      "matchedName": "vasavi cloth market, MDR0105, Guntur Urban, Lalapet, Guntur, Guntur Mandal, Guntur District, Andhra Pradesh, 522001, India",
+      "osmType": "way",
+      "osmId": 776417049
+    },
+    "Guntur|Mangal Das Nagar": {
+      "status": "unresolved",
+      "query": "Mangal Das Nagar, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Reliance Petrol Pump": {
+      "status": "unresolved",
+      "query": "Reliance Petrol Pump, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Hanumaiah Company": {
+      "status": "unresolved",
+      "query": "Hanumaiah Company, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Rajendra Nagar Colony": {
+      "status": "unresolved",
+      "query": "Rajendra Nagar Colony, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Brundavan Gardens": {
+      "status": "unresolved",
+      "query": "Brundavan Gardens, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Sitaramaiah High School": {
+      "status": "unresolved",
+      "query": "Sitaramaiah High School, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Nayer Hostel Center": {
+      "status": "unresolved",
+      "query": "Nayer Hostel Center, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Baker's Fun Center": {
+      "status": "unresolved",
+      "query": "Baker's Fun Center, Guntur, Andhra Pradesh"
+    },
+    "Guntur|HDFC Bank": {
+      "status": "geocoded_unverified",
+      "query": "HDFC Bank, Guntur, Andhra Pradesh",
+      "latitude": 16.291992,
+      "longitude": 80.4337,
+      "matchedName": "HDFC Bank, Grand Trunk Road, Guntur Urban, Lalapet, Guntur, Guntur Mandal, Guntur District, Andhra Pradesh, 522001, India",
+      "osmType": "node",
+      "osmId": 12001964897
+    },
+    "Guntur|Reliance Mart": {
+      "status": "geocoded_unverified",
+      "query": "Reliance Mart, Guntur, Andhra Pradesh",
+      "latitude": 16.309957,
+      "longitude": 80.463561,
+      "matchedName": "Reliance Mart, MDR0105, Guntur Urban, Lalapet, Guntur, Guntur Mandal, Guntur District, Andhra Pradesh, 522001, India",
+      "osmType": "way",
+      "osmId": 309857539
+    },
+    "Guntur|Hollywood-Bollywood": {
+      "status": "geocoded_unverified",
+      "query": "Hollywood-Bollywood, Guntur, Andhra Pradesh",
+      "latitude": 16.308135,
+      "longitude": 80.434474,
+      "matchedName": "Hollywood Bollywood Theatre, Lakshmipuram Main Road, Guntur Urban, Arundelpet, Brodipet, Guntur Mandal, Guntur District, Andhra Pradesh, 522001, India",
+      "osmType": "node",
+      "osmId": 13697872399
+    },
+    "Guntur|Amaravathi Road": {
+      "status": "geocoded_unverified",
+      "query": "Amaravathi Road, Guntur, Andhra Pradesh",
+      "latitude": 16.379778,
+      "longitude": 80.432047,
+      "matchedName": "Hilly lay ps, amaravathi road, Guntur - Amaravathi Road, Lam, Tadikonda Mandal, Guntur District, Andhra Pradesh, 522034, India",
+      "osmType": "node",
+      "osmId": 5309965966
+    },
+    "Guntur|Chillies": {
+      "status": "geocoded_unverified",
+      "query": "Chillies, Guntur, Andhra Pradesh",
+      "latitude": 16.291949,
+      "longitude": 80.448384,
+      "matchedName": "Vijaya Chillies Merchants, Guntur - Parchuru Road, Guntur Urban, Lalapet, Guntur, Guntur Mandal, Guntur District, Andhra Pradesh, 522001, India",
+      "osmType": "node",
+      "osmId": 12865200956
+    },
+    "Guntur|S V N Colony": {
+      "status": "geocoded_unverified",
+      "query": "S V N Colony, Andhra Pradesh",
+      "latitude": 16.522369,
+      "longitude": 80.678021,
+      "matchedName": "N.S.V.S residence, Vijayawada - Gannavaram - Pedda Avutapalli Road ( Old NH16 Road ), Ramavarappadu Junction Roads, Penamaluru Mandal, Krishna District, Andhra Pradesh, 520001, India",
+      "osmType": "way",
+      "osmId": 1322530401
+    },
+    "Guntur|Gujjanagundla": {
+      "status": "geocoded_unverified",
+      "query": "Gujjanagundla, Guntur, Andhra Pradesh",
+      "latitude": 16.319728,
+      "longitude": 80.414559,
+      "matchedName": "Gujjanagundla Road, Guntur Urban, Pattabhipuram, Guntur, Guntur Mandal, Guntur District, Andhra Pradesh, 522001, India",
+      "osmType": "way",
+      "osmId": 847952301
+    },
+    "Guntur|Sthambala Garuvu": {
+      "status": "unresolved",
+      "query": "Sthambala Garuvu, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Old RTO Office": {
+      "status": "unresolved",
+      "query": "Old RTO Office, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Syamala Nagar Petrol Bunk": {
+      "status": "unresolved",
+      "query": "Syamala Nagar Petrol Bunk, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Swamy Theater": {
+      "status": "unresolved",
+      "query": "Swamy Theater, Guntur, Andhra Pradesh"
+    },
+    "Guntur|TJPS College": {
+      "status": "geocoded_unverified",
+      "query": "TJPS College, Guntur, Andhra Pradesh",
+      "latitude": 16.305583,
+      "longitude": 80.422503,
+      "matchedName": "TJPS, Pattabhipuram Road, Guntur Urban, Pattabhipuram, Guntur, Guntur Mandal, Guntur District, Andhra Pradesh, 522001, India",
+      "osmType": "node",
+      "osmId": 5322683429
+    },
+    "Guntur|Kankarakunta Bridge": {
+      "status": "unresolved",
+      "query": "Kankarakunta Bridge, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Market": {
+      "status": "geocoded_unverified",
+      "query": "Market, Guntur, Andhra Pradesh",
+      "latitude": 16.294766,
+      "longitude": 80.441898,
+      "matchedName": "market, Guntur Amaravathi Road, Guntur Urban, Lalapet, Guntur, Guntur Mandal, Guntur District, Andhra Pradesh, 522001, India",
+      "osmType": "node",
+      "osmId": 2332966455
+    },
+    "Guntur|Bus Stand": {
+      "status": "geocoded_unverified",
+      "query": "Bus Stand, Guntur, Andhra Pradesh",
+      "latitude": 16.442083,
+      "longitude": 80.625212,
+      "matchedName": "Bus stand, sdc block to library road, Vaddeswaram, Tadepalle Mandal, Guntur District, Andhra Pradesh, 522502, India",
+      "osmType": "way",
+      "osmId": 1436666601
+    },
+    "Guntur|Auto Nagar - Guntur": {
+      "status": "geocoded_unverified",
+      "query": "Auto Nagar - Guntur, Guntur, Andhra Pradesh",
+      "latitude": 16.271225,
+      "longitude": 80.640893,
+      "matchedName": "Auto Nagar, Tenali Mandal, Guntur District, Andhra Pradesh, 522201, India",
+      "osmType": "node",
+      "osmId": 5639840899
+    },
+    "Guntur|Palakaluru": {
+      "status": "geocoded_unverified",
+      "query": "Palakaluru, Guntur, Andhra Pradesh",
+      "latitude": 16.33239,
+      "longitude": 80.379796,
+      "matchedName": "Peda Palakaluru, Guntur Mandal, Guntur District, Andhra Pradesh, 522005, India",
+      "osmType": "node",
+      "osmId": 5636861998
+    },
+    "Guntur|Gujjana Gundla Current Office": {
+      "status": "unresolved",
+      "query": "Gujjana Gundla Current Office, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Gujjana Gundla": {
+      "status": "unresolved",
+      "query": "Gujjana Gundla, Guntur, Andhra Pradesh"
+    },
+    "Guntur|JKC College": {
+      "status": "geocoded_unverified",
+      "query": "JKC College, Guntur, Andhra Pradesh",
+      "latitude": 16.322256,
+      "longitude": 80.417137,
+      "matchedName": "JKC College, MDR028, Guntur Urban, Pattabhipuram, Guntur, Guntur Mandal, Guntur District, Andhra Pradesh, 522001, India",
+      "osmType": "way",
+      "osmId": 900362172
+    },
+    "Guntur|RTO Office Road": {
+      "status": "unresolved",
+      "query": "RTO Office Road, Guntur, Andhra Pradesh"
+    },
+    "Guntur|SGV": {
+      "status": "unresolved",
+      "query": "SGV, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Vidhya Nagar": {
+      "status": "unresolved",
+      "query": "Vidhya Nagar, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Saibaba Temple Road": {
+      "status": "geocoded_unverified",
+      "query": "Saibaba Temple Road, Guntur, Andhra Pradesh",
+      "latitude": 16.501263,
+      "longitude": 80.605364,
+      "matchedName": "Saibaba Temple, Mangalagiri - Prakasam Barrage Main Road, Seethanagaram, Andhra Pradesh Capital Region Development Authority, Tadepalle Mandal, Guntur District, Andhra Pradesh, 520001, India",
+      "osmType": "way",
+      "osmId": 876620794
+    },
+    "Guntur|Koritipadu Library Center": {
+      "status": "unresolved",
+      "query": "Koritipadu Library Center, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Gandhi Statue Center": {
+      "status": "unresolved",
+      "query": "Gandhi Statue Center, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Harihara Theatre": {
+      "status": "unresolved",
+      "query": "Harihara Theatre, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Kalamandir": {
+      "status": "unresolved",
+      "query": "Kalamandir, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Navabharath Nagar": {
+      "status": "geocoded_unverified",
+      "query": "Navabharath Nagar, Guntur, Andhra Pradesh",
+      "latitude": 16.321822,
+      "longitude": 80.420328,
+      "matchedName": "Navabharath Nagar, Pattabhipuram, Guntur, Guntur Mandal, Guntur District, Andhra Pradesh, 522001, India",
+      "osmType": "node",
+      "osmId": 13188040618
+    },
+    "Guntur|New RTO Office": {
+      "status": "unresolved",
+      "query": "New RTO Office, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Swarna Bharath Nagar": {
+      "status": "unresolved",
+      "query": "Swarna Bharath Nagar, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Inner Ring Road": {
+      "status": "geocoded_unverified",
+      "query": "Inner Ring Road, Guntur, Andhra Pradesh",
+      "latitude": 16.327389,
+      "longitude": 80.453096,
+      "matchedName": "Mahatma Gandhi Inner Ring Road, Guntur Urban, Gorantla, Guntur, Guntur Mandal, Guntur District, Andhra Pradesh, 522001, India",
+      "osmType": "way",
+      "osmId": 309857544
+    },
+    "Guntur|Vijaya Digitals": {
+      "status": "unresolved",
+      "query": "Vijaya Digitals, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Baristha": {
+      "status": "unresolved",
+      "query": "Baristha, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Ysr Bomma - Reddy Palem": {
+      "status": "unresolved",
+      "query": "Ysr Bomma - Reddy Palem, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Sri Chaitanya School": {
+      "status": "geocoded_unverified",
+      "query": "Sri Chaitanya School, Guntur, Andhra Pradesh",
+      "latitude": 16.328697,
+      "longitude": 80.439327,
+      "matchedName": "Sri chaitanya school, Guntur - Amaravathi Road, Guntur Urban, Mallikarjunpet, Guntur, Guntur Mandal, Guntur District, Andhra Pradesh, 522034, India",
+      "osmType": "way",
+      "osmId": 1390408622
+    },
+    "Guntur|Pedakakani": {
+      "status": "geocoded_unverified",
+      "query": "Pedakakani, Guntur, Andhra Pradesh",
+      "latitude": 16.343522,
+      "longitude": 80.486219,
+      "matchedName": "Pedakakani, MDR047, Koppuravuru, Pedakakani Mandal, Guntur District, Andhra Pradesh, 522509, India",
+      "osmType": "node",
+      "osmId": 6157777167
+    },
+    "Guntur|Namburu x Road": {
+      "status": "geocoded_unverified",
+      "query": "Namburu x Road, Guntur, Andhra Pradesh",
+      "latitude": 16.362257,
+      "longitude": 80.500709,
+      "matchedName": "Namburu X Road, MDR042, Namburu, Pedakakani Mandal, Guntur District, Andhra Pradesh, 522509, India",
+      "osmType": "node",
+      "osmId": 11761418261
+    },
+    "Guntur|Kaza": {
+      "status": "geocoded_unverified",
+      "query": "Kaza, Guntur, Andhra Pradesh",
+      "latitude": 16.389094,
+      "longitude": 80.540557,
+      "matchedName": "Kaza, Mangalagiri Mandal, Guntur District, Andhra Pradesh, 522500, India",
+      "osmType": "node",
+      "osmId": 5382677895
+    },
+    "Guntur|China kakani": {
+      "status": "unresolved",
+      "query": "China kakani, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Hailand": {
+      "status": "unresolved",
+      "query": "Hailand, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Housing Board Colony": {
+      "status": "geocoded_unverified",
+      "query": "Housing Board Colony, Guntur, Andhra Pradesh",
+      "latitude": 16.296595,
+      "longitude": 80.400513,
+      "matchedName": "URBAN MAIDAAN SPORTS CENTER, Housing Board Colony, Narasaraopet Guntur Road, Guntur Urban, Arundelpet, Guntur, Guntur Mandal, Guntur District, Andhra Pradesh, 522007, India",
+      "osmType": "node",
+      "osmId": 10728811031
+    },
+    "Guntur|Mirchi Yard": {
+      "status": "geocoded_unverified",
+      "query": "Mirchi Yard, Guntur, Andhra Pradesh",
+      "latitude": 16.294005,
+      "longitude": 80.41316,
+      "matchedName": "Mirchi yard, Narasaraopet Guntur Road, Guntur Urban, Arundelpet, Nallapadu, Guntur Mandal, Guntur District, Andhra Pradesh, 522001, India",
+      "osmType": "node",
+      "osmId": 7246549560
+    },
+    "Guntur|Sriram Nagar Colony": {
+      "status": "geocoded_unverified",
+      "query": "Sriram Nagar Colony, Andhra Pradesh",
+      "latitude": 16.50025,
+      "longitude": 80.646553,
+      "matchedName": "Element School Of Visual Arts, 3rd Floor, Corporate centre, MG Rd, opp. RS Brothers, Brindavan Colony, Sriram Nagar, Vijayawada, Andhra Pradesh 520010, MG Road, Vijayawada Urban, Patamata Lanka, Vijayawada, Vijayawada Urban Mandal, NTR District, Andhra Pradesh, 520010, India",
+      "osmType": "node",
+      "osmId": 12850610579
+    },
+    "Guntur|Chuttugunta": {
+      "status": "unresolved",
+      "query": "Chuttugunta, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Mastan Dargha": {
+      "status": "unresolved",
+      "query": "Mastan Dargha, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Nalla Cheruvu High Rd": {
+      "status": "unresolved",
+      "query": "Nalla Cheruvu High Rd, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Medikonduru": {
+      "status": "geocoded_unverified",
+      "query": "Medikonduru, Guntur, Andhra Pradesh",
+      "latitude": 16.346464,
+      "longitude": 80.3002,
+      "matchedName": "Medikonduru, Medikonduru Mandal, Guntur District, Andhra Pradesh, 522438, India",
+      "osmType": "node",
+      "osmId": 5446592932
+    },
+    "Guntur|Perecharla": {
+      "status": "unresolved",
+      "query": "Perecharla, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Vengalayapalem": {
+      "status": "geocoded_unverified",
+      "query": "Vengalayapalem, Guntur, Andhra Pradesh",
+      "latitude": 16.287188,
+      "longitude": 80.372275,
+      "matchedName": "Vengalayapalem, Guntur Mandal, Guntur District, Andhra Pradesh, 522005, India",
+      "osmType": "node",
+      "osmId": 5485868222
+    },
+    "Guntur|Nallapadu": {
+      "status": "geocoded_unverified",
+      "query": "Nallapadu, Guntur, Andhra Pradesh",
+      "latitude": 16.307683,
+      "longitude": 80.397039,
+      "matchedName": "Nallapadu, Nallapadu Railway station Road, Guntur Urban, Pattabhipuram, Guntur, Guntur Mandal, Guntur District, Andhra Pradesh, 522001, India",
+      "osmType": "node",
+      "osmId": 2525380973
+    },
+    "Guntur|NGO Colony": {
+      "status": "unresolved",
+      "query": "NGO Colony, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Venkata Ramana Colony": {
+      "status": "geocoded_unverified",
+      "query": "Venkata Ramana Colony, Andhra Pradesh",
+      "latitude": 16.787184,
+      "longitude": 80.848668,
+      "matchedName": "Venkata Ramana Ayurveda Nilayam, Nuzvid - Gannavaram Road, Nuzvid Urban, Ramanagaram, Nandha Moori Peta, Nuzvid, Nuzvid Mandal, Krishna District, Andhra Pradesh, 521201, India",
+      "osmType": "node",
+      "osmId": 7793151920
+    },
+    "Guntur|Nallacheruvu High Rd": {
+      "status": "unresolved",
+      "query": "Nallacheruvu High Rd, Guntur, Andhra Pradesh"
+    },
+    "Guntur|NTR Circle - Guntur": {
+      "status": "unresolved",
+      "query": "NTR Circle - Guntur, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Ponnur": {
+      "status": "geocoded_unverified",
+      "query": "Ponnur, Guntur, Andhra Pradesh",
+      "latitude": 16.066728,
+      "longitude": 80.54651,
+      "matchedName": "ponnur, Ponnuru Urban, Ponnuru, Ponnur Mandal, Guntur District, Andhra Pradesh, 522124, India",
+      "osmType": "way",
+      "osmId": 564620860
+    },
+    "Guntur|Patchalatadiparru": {
+      "status": "geocoded_unverified",
+      "query": "Patchalatadiparru, Guntur, Andhra Pradesh",
+      "latitude": 16.111297,
+      "longitude": 80.535901,
+      "matchedName": "Patchalatadiparru, Ponnur Mandal, Guntur District, Andhra Pradesh, 522124, India",
+      "osmType": "node",
+      "osmId": 5375826796
+    },
+    "Guntur|Munipalle": {
+      "status": "geocoded_unverified",
+      "query": "Munipalle, Guntur, Andhra Pradesh",
+      "latitude": 16.126717,
+      "longitude": 80.540192,
+      "matchedName": "Munipalle, Ponnur Mandal, Guntur District, Andhra Pradesh, 522318, India",
+      "osmType": "node",
+      "osmId": 5375826797
+    },
+    "Guntur|Manchala- Main Road": {
+      "status": "unresolved",
+      "query": "Manchala- Main Road, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Chebrolu": {
+      "status": "geocoded_unverified",
+      "query": "Chebrolu, Guntur, Andhra Pradesh",
+      "latitude": 16.292728,
+      "longitude": 80.458017,
+      "matchedName": "Chebrolu Satyanarayana Advocate, Guntur - Hanumanpalem Road, Guntur Urban, Lalapet, Guntur, Guntur Mandal, Guntur District, Andhra Pradesh, 522001, India",
+      "osmType": "node",
+      "osmId": 14258899401
+    },
+    "Guntur|Nara Koduru": {
+      "status": "unresolved",
+      "query": "Nara Koduru, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Budampadu": {
+      "status": "geocoded_unverified",
+      "query": "Budampadu, Guntur, Andhra Pradesh",
+      "latitude": 16.260876,
+      "longitude": 80.475476,
+      "matchedName": "Budampadu, Guntur Mandal, Guntur District, Andhra Pradesh, 522003, India",
+      "osmType": "node",
+      "osmId": 5036963296
+    },
+    "Guntur|Sangadigunta Temple": {
+      "status": "unresolved",
+      "query": "Sangadigunta Temple, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Lodge Center": {
+      "status": "unresolved",
+      "query": "Lodge Center, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Ala Hospital": {
+      "status": "geocoded_unverified",
+      "query": "Ala Hospital, Guntur, Andhra Pradesh",
+      "latitude": 16.313691,
+      "longitude": 80.437433,
+      "matchedName": "Ala Hospital, Guntur - Amaravathi Road, Guntur Urban, Arundelpet, Koritepadu, Guntur Mandal, Guntur District, Andhra Pradesh, 522002, India",
+      "osmType": "node",
+      "osmId": 6755704088
+    },
+    "Guntur|Anjaneya Swamy Temple": {
+      "status": "geocoded_unverified",
+      "query": "Anjaneya Swamy Temple, Guntur, Andhra Pradesh",
+      "latitude": 16.290883,
+      "longitude": 80.460093,
+      "matchedName": "Anjaneya Swamy Temple, Guntur - Hanumanpalem Road, Guntur Urban, Lalapet, Guntur, Guntur Mandal, Guntur District, Andhra Pradesh, 522001, India",
+      "osmType": "way",
+      "osmId": 412304207
+    },
+    "Guntur|Priya Gardens": {
+      "status": "unresolved",
+      "query": "Priya Gardens, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Muthyala Reddy Nagar": {
+      "status": "unresolved",
+      "query": "Muthyala Reddy Nagar, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Nagaralu": {
+      "status": "unresolved",
+      "query": "Nagaralu, Guntur, Andhra Pradesh"
+    },
+    "Guntur|ID Hospitals": {
+      "status": "unresolved",
+      "query": "ID Hospitals, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Chillis Restaurant": {
+      "status": "unresolved",
+      "query": "Chillis Restaurant, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Venkateswara Swamy Temple": {
+      "status": "geocoded_unverified",
+      "query": "Venkateswara Swamy Temple, Guntur, Andhra Pradesh",
+      "latitude": 16.337251,
+      "longitude": 80.438293,
+      "matchedName": "Venkateswara swamy Temple, Guntur - Amaravathi Road, Guntur Urban, Mallikarjunpet, Guntur, Guntur Mandal, Guntur District, Andhra Pradesh, 522034, India",
+      "osmType": "way",
+      "osmId": 1390405683
+    },
+    "Guntur|Siva Green Valley": {
+      "status": "unresolved",
+      "query": "Siva Green Valley, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Gorantla": {
+      "status": "geocoded_unverified",
+      "query": "Gorantla, Guntur, Andhra Pradesh",
+      "latitude": 16.343097,
+      "longitude": 80.441095,
+      "matchedName": "Gorantla, Guntur, Guntur Mandal, Guntur District, Andhra Pradesh, 522001, India",
+      "osmType": "node",
+      "osmId": 11383511947
+    },
+    "Guntur|Hosanna Mandir": {
+      "status": "geocoded_unverified",
+      "query": "Hosanna Mandir, Guntur, Andhra Pradesh",
+      "latitude": 16.349615,
+      "longitude": 80.438801,
+      "matchedName": "Hosanna Mandir, Gorantla, Guntur, Guntur Mandal, Guntur District, Andhra Pradesh, 522001, India",
+      "osmType": "way",
+      "osmId": 1360049740
+    },
+    "Guntur|Lam Farm": {
+      "status": "unresolved",
+      "query": "Lam Farm, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Lam Village - Jonnalagadda X Road": {
+      "status": "unresolved",
+      "query": "Lam Village - Jonnalagadda X Road, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Tadikonda X Road": {
+      "status": "unresolved",
+      "query": "Tadikonda X Road, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Tadikonda": {
+      "status": "geocoded_unverified",
+      "query": "Tadikonda, Guntur, Andhra Pradesh",
+      "latitude": 16.418339,
+      "longitude": 80.454628,
+      "matchedName": "Tadikonda, Tadikonda Mandal, Guntur District, Andhra Pradesh, 522236, India",
+      "osmType": "node",
+      "osmId": 5127907934
+    },
+    "Guntur|Peda Parimi": {
+      "status": "unresolved",
+      "query": "Peda Parimi, Guntur, Andhra Pradesh"
+    },
+    "Guntur|NRI": {
+      "status": "geocoded_unverified",
+      "query": "NRI, Guntur, Andhra Pradesh",
+      "latitude": 16.415035,
+      "longitude": 80.557396,
+      "matchedName": "NRI General Hospital, Mangalagiri Main Road, Mangalagiri Urban, Mangalagiri, Chinakakani, Andhra Pradesh Capital Region Development Authority, Guntur Mandal, Guntur District, Andhra Pradesh, 522503, India",
+      "osmType": "node",
+      "osmId": 6773969068
+    },
+    "Guntur|Alfa Hotel": {
+      "status": "geocoded_unverified",
+      "query": "Alfa Hotel, Guntur, Andhra Pradesh",
+      "latitude": 16.297325,
+      "longitude": 80.455922,
+      "matchedName": "Hotel Alfa, MDR0105, Guntur Urban, Lalapet, Guntur, Guntur Mandal, Guntur District, Andhra Pradesh, 522001, India",
+      "osmType": "node",
+      "osmId": 12102657652
+    },
+    "Guntur|RTC Depot Road": {
+      "status": "unresolved",
+      "query": "RTC Depot Road, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Gopala Krishna Theater": {
+      "status": "geocoded_unverified",
+      "query": "Gopala Krishna Theater, Guntur, Andhra Pradesh",
+      "latitude": 16.427253,
+      "longitude": 80.565601,
+      "matchedName": "Gopala Krishna Hall, Mangalagiri Main Road, Mangalagiri Urban, Mangalagiri, Andhra Pradesh Capital Region Development Authority, Mangalagiri Mandal, Guntur District, Andhra Pradesh, 522500, India",
+      "osmType": "node",
+      "osmId": 12994287577
+    },
+    "Guntur|Old Bus Stand": {
+      "status": "geocoded_unverified",
+      "query": "Old Bus Stand, Guntur, Andhra Pradesh",
+      "latitude": 16.070736,
+      "longitude": 80.557706,
+      "matchedName": "Bangalore Bakery, Ponnur - Repalle Road, Ponnuru Urban, Ponnuru, Ponnur Mandal, Guntur District, Andhra Pradesh, 522124, India",
+      "osmType": "node",
+      "osmId": 1485445893
+    },
+    "Guntur|New Bus Stand": {
+      "status": "unresolved",
+      "query": "New Bus Stand, Andhra Pradesh",
+      "rejected": "match 52.4 km from campus: APSRTC Bus Station New Terminal , Hanuman Junction, APSRTC Hanuman Junction Bus Stand Inner Road, Hanuma Junction Urban, Hanuman Junction, Bapulapadu Mandal, Krishna District, Andhra Pradesh, 521110, India"
+    },
+    "Guntur|Reliance Trends": {
+      "status": "geocoded_unverified",
+      "query": "Reliance Trends, Guntur, Andhra Pradesh",
+      "latitude": 16.291073,
+      "longitude": 80.436988,
+      "matchedName": "Reliance Trends, Grand Trunk Road, Guntur Urban, Lalapet, Guntur, Guntur Mandal, Guntur District, Andhra Pradesh, 522001, India",
+      "osmType": "node",
+      "osmId": 12001964896
+    },
+    "Guntur|Kodi guddu Bunglow": {
+      "status": "unresolved",
+      "query": "Kodi guddu Bunglow, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Don Bosco": {
+      "status": "geocoded_unverified",
+      "query": "Don Bosco, Andhra Pradesh",
+      "latitude": 16.570276,
+      "longitude": 80.540956,
+      "matchedName": "Don Bosco High School, NH65, Ibrahimpatnam Urban, SSS Colony, Gollapudi, Ibrahimpatnam Mandal, NTR District, Andhra Pradesh, 521225, India",
+      "osmType": "way",
+      "osmId": 1246209385
+    },
+    "Guntur|Navuluru": {
+      "status": "geocoded_unverified",
+      "query": "Navuluru, Guntur, Andhra Pradesh",
+      "latitude": 16.442142,
+      "longitude": 80.567512,
+      "matchedName": "Navuluru Road, Mangalagiri Urban, Yerrapalem, Yerrabalem, Andhra Pradesh Capital Region Development Authority, Mangalagiri Mandal, Guntur District, Andhra Pradesh, 522503, India",
+      "osmType": "way",
+      "osmId": 331886694
+    },
+    "Guntur|Yerrabalem": {
+      "status": "geocoded_unverified",
+      "query": "Yerrabalem, Guntur, Andhra Pradesh",
+      "latitude": 16.461674,
+      "longitude": 80.568056,
+      "matchedName": "Yerrabalem, Andhra Pradesh Capital Region Development Authority, Mangalagiri Mandal, Guntur District, Andhra Pradesh, 522503, India",
+      "osmType": "node",
+      "osmId": 5382677900
+    },
+    "Guntur|Krishnaya palem": {
+      "status": "unresolved",
+      "query": "Krishnaya palem, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Mandadam": {
+      "status": "geocoded_unverified",
+      "query": "Mandadam, Guntur, Andhra Pradesh",
+      "latitude": 16.512439,
+      "longitude": 80.533459,
+      "matchedName": "Mandadam, Vijayawada Road, Mandadam, Andhra Pradesh Capital Region Development Authority, Thullur Mandal, Guntur District, Andhra Pradesh, India",
+      "osmType": "node",
+      "osmId": 12993477900
+    },
+    "Guntur|Vadlapudi Flyover": {
+      "status": "unresolved",
+      "query": "Vadlapudi Flyover, Guntur, Andhra Pradesh"
+    },
+    "Guntur|VJ Jounir College": {
+      "status": "unresolved",
+      "query": "VJ Jounir College, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Best Bake": {
+      "status": "unresolved",
+      "query": "Best Bake, Guntur, Andhra Pradesh"
+    },
+    "Guntur|APSP 6th Batalion Bridge": {
+      "status": "unresolved",
+      "query": "APSP 6th Batalion Bridge, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Atmakuru Sai baba Temple": {
+      "status": "unresolved",
+      "query": "Atmakuru Sai baba Temple, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Vadlapudi Bridge": {
+      "status": "unresolved",
+      "query": "Vadlapudi Bridge, Guntur, Andhra Pradesh"
+    },
+    "Guntur|IOCL Pertrol bunk": {
+      "status": "unresolved",
+      "query": "IOCL Pertrol bunk, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Ratnala Cheruvu": {
+      "status": "unresolved",
+      "query": "Ratnala Cheruvu, Guntur, Andhra Pradesh"
+    },
+    "Guntur|JS Party Office": {
+      "status": "unresolved",
+      "query": "JS Party Office, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Amaravathi Temple": {
+      "status": "geocoded_unverified",
+      "query": "Amaravathi Temple, Guntur, Andhra Pradesh",
+      "latitude": 16.522839,
+      "longitude": 80.524278,
+      "matchedName": "TTD Sri Venkateswara Swami Temple, Venkatapalem ,Amaravathi,Andhra pradesh,522503, E4, Modugalankapalem, Venkatapalem, Andhra Pradesh Capital Region Development Authority, Thullur Mandal, Guntur District, Andhra Pradesh, India",
+      "osmType": "node",
+      "osmId": 12992451612
+    },
+    "Guntur|Madduru": {
+      "status": "geocoded_unverified",
+      "query": "Madduru, Andhra Pradesh",
+      "latitude": 16.403614,
+      "longitude": 80.729426,
+      "matchedName": "Madduru, Thotlavalluru Mandal, Krishna District, Andhra Pradesh, India",
+      "osmType": "node",
+      "osmId": 1946892981
+    },
+    "Guntur|Vykuntapuram": {
+      "status": "geocoded_unverified",
+      "query": "Vykuntapuram, Andhra Pradesh",
+      "latitude": 16.568582,
+      "longitude": 80.412893,
+      "matchedName": "Vykuntapuram, Vaikuntapuram, Amaravathi Mandal, Palnadu District, Andhra Pradesh, India",
+      "osmType": "way",
+      "osmId": 324526491
+    },
+    "Guntur|Harishchandra Puram": {
+      "status": "unresolved",
+      "query": "Harishchandra Puram, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Borupalem": {
+      "status": "geocoded_unverified",
+      "query": "Borupalem, Guntur, Andhra Pradesh",
+      "latitude": 16.563429,
+      "longitude": 80.456294,
+      "matchedName": "Borupalem, Andhra Pradesh Capital Region Development Authority, Thullur Mandal, Guntur District, Andhra Pradesh, India",
+      "osmType": "node",
+      "osmId": 5446591814
+    },
+    "Guntur|Dondapadu": {
+      "status": "geocoded_unverified",
+      "query": "Dondapadu, Guntur, Andhra Pradesh",
+      "latitude": 16.54495,
+      "longitude": 80.451682,
+      "matchedName": "Dondapadu, Andhra Pradesh Capital Region Development Authority, Thullur Mandal, Guntur District, Andhra Pradesh, India",
+      "osmType": "relation",
+      "osmId": 11982262
+    },
+    "Guntur|Thulluru": {
+      "status": "geocoded_unverified",
+      "query": "Thulluru, Guntur, Andhra Pradesh",
+      "latitude": 16.528486,
+      "longitude": 80.468791,
+      "matchedName": "Thulluru, Andhra Pradesh Capital Region Development Authority, Thullur Mandal, Guntur District, Andhra Pradesh, India",
+      "osmType": "way",
+      "osmId": 459600686
+    },
+    "Guntur|Rayapadu": {
+      "status": "unresolved",
+      "query": "Rayapadu, Guntur, Andhra Pradesh"
+    },
+    "Guntur|Velagapudi": {
+      "status": "geocoded_unverified",
+      "query": "Velagapudi, Guntur, Andhra Pradesh",
+      "latitude": 16.526275,
+      "longitude": 80.511699,
+      "matchedName": "Velagapudi, Andhra Pradesh Capital Region Development Authority, Thullur Mandal, Guntur District, Andhra Pradesh, India",
+      "osmType": "node",
+      "osmId": 11989681048
+    },
+    "Guntur|Malkapuram": {
+      "status": "geocoded_unverified",
+      "query": "Malkapuram, Andhra Pradesh",
+      "latitude": 16.611406,
+      "longitude": 80.538788,
+      "matchedName": "Malkapuram, Kondapalli, Ibrahimpatnam Mandal, NTR District, Andhra Pradesh, 521228, India",
+      "osmType": "node",
+      "osmId": 14263233808
+    },
+    "Tenali|Tenali Bus Stand": {
+      "status": "unresolved",
+      "query": "Tenali Bus Stand, Tenali, Andhra Pradesh"
+    },
+    "Tenali|Bhayankar Bunk": {
+      "status": "unresolved",
+      "query": "Bhayankar Bunk, Tenali, Andhra Pradesh"
+    },
+    "Tenali|Nandivelugu": {
+      "status": "geocoded_unverified",
+      "query": "Nandivelugu, Tenali, Andhra Pradesh",
+      "latitude": 16.291667,
+      "longitude": 80.642567,
+      "matchedName": "Nandivelugu, Tenali Mandal, Guntur District, Andhra Pradesh, 522307, India",
+      "osmType": "node",
+      "osmId": 3478288119
+    },
+    "Tenali|Pedavadlapudi": {
+      "status": "geocoded_unverified",
+      "query": "Pedavadlapudi, Andhra Pradesh",
+      "latitude": 16.412777,
+      "longitude": 80.611378,
+      "matchedName": "Governent Hospital ,Pedavadlapudi, Panchayathi Office, Mangalagiri Mandal, Guntur District, Andhra Pradesh, 522302, India",
+      "osmType": "node",
+      "osmId": 7113914065
+    },
+    "Tenali|Mangalagiri Bypass": {
+      "status": "geocoded_unverified",
+      "query": "Mangalagiri Bypass, Andhra Pradesh",
+      "latitude": 16.412158,
+      "longitude": 80.558413,
+      "matchedName": "Mangalagiri Bypass, Service Road, Mangalagiri Urban, Nowluru, Chinakakani, Mangalagiri Mandal, Guntur District, Andhra Pradesh, 522500, India",
+      "osmType": "node",
+      "osmId": 10833811977
+    },
+    "Tenali|Cocacola": {
+      "status": "unresolved",
+      "query": "Cocacola, Tenali, Andhra Pradesh"
+    },
+    "Tenali|Chenchupet Govt Hospital": {
+      "status": "unresolved",
+      "query": "Chenchupet Govt Hospital, Tenali, Andhra Pradesh"
+    },
+    "Tenali|Tenali Market": {
+      "status": "geocoded_unverified",
+      "query": "Tenali Market, Tenali, Andhra Pradesh",
+      "latitude": 16.238249,
+      "longitude": 80.645649,
+      "matchedName": "Tenali Market Road, Tenali Urban, Chenchupeta, Tenali, Tenali Mandal, Guntur District, Andhra Pradesh, 522200, India",
+      "osmType": "way",
+      "osmId": 1296928213
+    },
+    "Tenali|Chintala pudi": {
+      "status": "unresolved",
+      "query": "Chintala pudi, Tenali, Andhra Pradesh"
+    },
+    "Tenali|Duggirala": {
+      "status": "geocoded_unverified",
+      "query": "Duggirala, Andhra Pradesh",
+      "latitude": 16.328919,
+      "longitude": 80.62385,
+      "matchedName": "Duggirala, MDR0143, Duggirala, Duggirala Mandal, Guntur District, Andhra Pradesh, 522330, India",
+      "osmType": "node",
+      "osmId": 2965513080
+    },
+    "Tenali|Thummapudi X Road": {
+      "status": "unresolved",
+      "query": "Thummapudi X Road, Tenali, Andhra Pradesh"
+    },
+    "Tenali|Revendrapadu Junction": {
+      "status": "unresolved",
+      "query": "Revendrapadu Junction, Tenali, Andhra Pradesh"
+    },
+    "Tenali|Pedavadlapudi Center": {
+      "status": "unresolved",
+      "query": "Pedavadlapudi Center, Tenali, Andhra Pradesh"
+    }
+  },
+  "generatedBy": "scripts/geocode-stops.mjs (OpenStreetMap Nominatim)",
+  "attribution": "Geocoding data © OpenStreetMap contributors, ODbL",
+  "updatedAt": "2026-10-28T07:33:36.766Z"
+}

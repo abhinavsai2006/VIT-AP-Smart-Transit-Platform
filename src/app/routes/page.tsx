@@ -66,7 +66,7 @@ export default function RoutesPage() {
             Campus Routes & Stop Sequences
           </h1>
           <p style={{ fontSize: '15px', color: 'var(--color-muted)', maxWidth: '720px', margin: 0 }}>
-            Comprehensive directory of official VIT-AP bus corridors connecting Vijayawada, Guntur, Mangalagiri, and internal campus loops.
+            Official 2026-27 morning timetable: 44 routes from Vijayawada, Guntur and Tenali, all arriving at VIT-AP Campus by 8:45 AM.
           </p>
         </div>
 
@@ -147,9 +147,11 @@ export default function RoutesPage() {
                       </span>
                     </div>
 
-                    <div style={{ fontSize: '14px', fontWeight: 700, color: 'var(--color-ink)' }}>
-                      {route.fareAmount === 0 ? 'FREE SHUTTLE' : `₹${route.fareAmount}`}
-                    </div>
+                    {route.fareAmount > 0 && (
+                      <div style={{ fontSize: '14px', fontWeight: 700, color: 'var(--color-ink)' }}>
+                        ₹{route.fareAmount}
+                      </div>
+                    )}
                   </div>
 
                   <h3 style={{ fontSize: '17px', fontWeight: 700, marginBottom: '6px' }}>
@@ -170,12 +172,16 @@ export default function RoutesPage() {
                       paddingTop: '12px',
                     }}
                   >
+                    {route.distanceKm > 0 && (
+                      <>
+                        <span>
+                          <strong>Distance:</strong> {route.distanceKm} km
+                        </span>
+                        <span>•</span>
+                      </>
+                    )}
                     <span>
-                      <strong>Distance:</strong> {route.distanceKm} km
-                    </span>
-                    <span>•</span>
-                    <span>
-                      <strong>Est. Travel:</strong> ~{route.estimatedDurationMinutes} mins
+                      <strong>{route.source ? 'Scheduled' : 'Est. Travel'}:</strong> {route.estimatedDurationMinutes} mins
                     </span>
                     <span>•</span>
                     <span>
@@ -255,8 +261,8 @@ export default function RoutesPage() {
                       <tr>
                         <th>#</th>
                         <th>Stop Name</th>
-                        <th>Dep. Offset</th>
-                        <th>Arr. Offset</th>
+                        <th>Scheduled Time</th>
+                        <th>Offset</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -266,7 +272,7 @@ export default function RoutesPage() {
                           <tr key={rs.id}>
                             <td style={{ fontWeight: 700 }}>{rs.stopSequence}</td>
                             <td>{rs.stop?.name || rs.stopId}</td>
-                            <td>+{rs.departureOffsetMinutes} mins</td>
+                            <td style={{ fontWeight: 700 }}>{rs.scheduledTime || '—'}</td>
                             <td>+{rs.arrivalOffsetMinutes} mins</td>
                           </tr>
                         ))}

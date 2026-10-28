@@ -59,13 +59,19 @@ export interface Stop {
   name: string;
   description: string;
   landmark: string;
+  // NaN when the location has not been resolved; never a guessed value
   latitude: number;
   longitude: number;
+  // How the coordinate was obtained. Absent on legacy/admin-created stops (treated as manually entered).
+  coordinateStatus?: 'surveyed' | 'reference' | 'geocoded_unverified' | 'unresolved';
+  coordinateSource?: string;
   isAccessible: boolean;
   createdAt: string;
 }
 
 export interface RouteStop {
+  // Official printed pickup time for this stop (e.g. "7.05 AM"), when imported from the timetable
+  scheduledTime?: string;
   id: string;
   routeId: string;
   stopId: string;
@@ -84,9 +90,26 @@ export interface Route {
   destinationStopId: string;
   status: 'active' | 'inactive' | 'suspended';
   estimatedDurationMinutes: number;
-  distanceKm: number;
+  distanceKm: number; // 0 when not measured
   fareAmount: number; // 0 for free campus shuttles
   stops: RouteStop[];
+  region?: string; // e.g. 'Vijayawada', 'Guntur', 'Tenali'
+  source?: string; // provenance, e.g. '2026-27 Bus Routes.pdf'
+  geometry?: RouteGeometry;
+}
+
+// Planned road path for a route, computed offline by a routing engine (see data/README.md)
+export interface RouteGeometry {
+  // ok: road path through every stop; partial: some stops unlocated/rejected or legs suspect;
+  // unavailable: no road path (nothing is drawn rather than a fabricated line)
+  status: 'ok' | 'partial' | 'unavailable';
+  coordinates: [number, number][]; // [lat, lng]
+  distanceM?: number;
+  provider?: string;
+  profile?: string;
+  excludedStops?: { seq: number; name: string; reason: string }[];
+  problems?: string[];
+  reason?: string;
 }
 
 export interface VehicleDocument {
@@ -221,6 +244,14 @@ export interface GPSLocation {
   accuracyMeters: number;
   timestamp: string;
   isLive: boolean; // False if stale (> 2 mins old)
+  // latitude/longitude above are the raw device observation. When it matches the trip's planned
+  // road path, the matched display position is given separately; it is never a new measurement.
+  matchStatus?: 'on_route' | 'off_route' | 'low_accuracy' | 'ambiguous' | 'no_route';
+  matchedLatitude?: number;
+  matchedLongitude?: number;
+  routeOffsetM?: number; // distance from the observation to the planned path
+  alongRouteM?: number; // progress along the planned path, when matched
+  source?: 'device';
 }
 
 export interface ServiceDisruption {

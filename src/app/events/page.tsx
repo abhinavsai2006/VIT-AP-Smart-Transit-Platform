@@ -162,7 +162,7 @@ export default function EventsPage() {
 
           <div style={{ display: 'flex', gap: '16px' }}>
             <Link
-              href="/booking?tripId=trip-101-morning"
+              href="/booking"
               className="btn btn-primary btn-sm"
             >
               Reserve Seat on Station Shuttle ›

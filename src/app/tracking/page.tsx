@@ -36,59 +36,54 @@ export default function TrackingPage() {
   const [stops, setStops] = useState<Stop[]>([]);
   const [trips, setTrips] = useState<Trip[]>([]);
   const [activeLocations, setActiveLocations] = useState<(GPSLocation & { bus?: Bus; routeName?: string })[]>([]);
-  const [selectedTripId, setSelectedTripId] = useState<string>('trip-101-morning');
+  const [selectedTripId, setSelectedTripId] = useState<string>('');
   const [selectedStopId, setSelectedStopId] = useState<string | null>(null);
   const [refreshing, setRefreshing] = useState(false);
   const [lastFetchTime, setLastFetchTime] = useState<string>('');
 
+  // Routes (with road geometry) and stops are static timetable data: load once
+  const loadNetwork = async () => {
+    try {
+      const [routesRes, stopsRes] = await Promise.all([fetch('/api/routes'), fetch('/api/stops')]);
+      const routesData = await routesRes.json();
+      const stopsData = await stopsRes.json();
+      setRoutes(routesData.routes || []);
+      setStops(stopsData.stops || []);
+    } catch (err) {
+      console.error('Failed to load routes and stops', err);
+    }
+  };
+
+  // Trips and reported positions change: poll these only
   const loadTrackingData = async () => {
     try {
       setRefreshing(true);
-      const [routesRes, stopsRes, tripsRes] = await Promise.all([
-        fetch('/api/routes'),
-        fetch('/api/stops'),
-        fetch('/api/trips'),
-      ]);
-
-      const routesData = await routesRes.json();
-      const stopsData = await stopsRes.json();
+      const [tripsRes, locRes] = await Promise.all([fetch('/api/trips'), fetch('/api/locations')]);
       const tripsData = await tripsRes.json();
+      const locData = await locRes.json();
 
-      setRoutes(routesData.routes || []);
-      setStops(stopsData.stops || []);
-      setTrips(tripsData.trips || []);
+      const receivedTrips: Trip[] = tripsData.trips || [];
+      setTrips(receivedTrips);
+      setSelectedTripId((prev) => {
+        if (receivedTrips.some((t) => t.id === prev)) return prev;
+        return receivedTrips[0]?.id || '';
+      });
 
-      // Fetch live locations for all active trips
-      const locPromises = (tripsData.trips || [])
-        .filter((t: Trip) => t.status === 'in_progress' || t.status === 'scheduled')
-        .map(async (t: Trip) => {
-          try {
-            const res = await fetch(`/api/trips/${t.id}/location`);
-            const data = await res.json();
-            if (data.location) {
-              return {
-                ...data.location,
-                bus: t.bus,
-                routeName: t.route?.routeName,
-              };
-            }
-          } catch {
-            // Ignore telemetry fetch race
-          }
-          return null;
-        });
-
-      const fetchedLocs = (await Promise.all(locPromises)).filter(Boolean) as (GPSLocation & { bus?: Bus; routeName?: string })[];
+      const tripsById = new Map(receivedTrips.map((t) => [t.id, t]));
+      const fetchedLocs = ((locData.locations || []) as GPSLocation[])
+        .filter((l) => tripsById.has(l.tripId))
+        .map((l) => ({ ...l, bus: tripsById.get(l.tripId)?.bus, routeName: tripsById.get(l.tripId)?.route?.routeName }));
       setActiveLocations(fetchedLocs);
       setLastFetchTime(new Date().toLocaleTimeString('en-IN', { timeZone: 'Asia/Kolkata' }));
     } catch (err) {
-      console.error('Failed to refresh GPS telemetry', err);
+      console.error('Failed to refresh GPS positions', err);
     } finally {
       setRefreshing(false);
     }
   };
 
   useEffect(() => {
+    loadNetwork();
     loadTrackingData();
 
     // 3.5s real-time polling cadence for smooth continuous vehicle tracking
@@ -220,7 +215,7 @@ export default function TrackingPage() {
                         fontWeight: 800,
                       }}
                     >
-                      TRIP {selectedTrip.route?.routeNumber}
+                      ROUTE {selectedTrip.route?.routeNumber}
                     </div>
                     <span style={{ fontSize: '15px', fontWeight: 700 }}>
                       {selectedTrip.route?.routeName}
@@ -260,10 +255,10 @@ export default function TrackingPage() {
                       Assigned Bus
                     </div>
                     <div style={{ fontSize: '16px', fontWeight: 800, color: '#ffffff', marginTop: '2px' }}>
-                      {selectedTrip.bus?.busCode || 'BUS'}
+                      {selectedTrip.bus?.busCode || 'Not assigned'}
                     </div>
                     <div style={{ fontSize: '11px', color: '#93c5fd' }}>
-                      {selectedTrip.bus?.registrationNumber || 'AP Registered'}
+                      {selectedTrip.bus?.registrationNumber || 'No bus assigned yet'}
                     </div>
                   </div>
 
@@ -272,10 +267,14 @@ export default function TrackingPage() {
                       Ground Speed
                     </div>
                     <div style={{ fontSize: '16px', fontWeight: 800, color: '#ffffff', marginTop: '2px' }}>
-                      {selectedLocation ? `${selectedLocation.speedKmH} km/h` : '0 km/h'}
+                      {!selectedLocation ? '—' : Number.isFinite(selectedLocation.speedKmH) && selectedLocation.speedKmH !== null ? `${selectedLocation.speedKmH} km/h` : 'Not reported'}
                     </div>
                     <div style={{ fontSize: '11px', color: 'var(--color-on-dark-soft)' }}>
-                      Heading: {selectedLocation?.heading || 0}°
+                      {!selectedLocation
+                        ? 'No GPS data'
+                        : Number.isFinite(selectedLocation.heading) && selectedLocation.heading !== null
+                          ? `Heading: ${selectedLocation.heading}°`
+                          : 'Heading not reported'}
                     </div>
                   </div>
 
@@ -284,10 +283,10 @@ export default function TrackingPage() {
                       Driver Assigned
                     </div>
                     <div style={{ fontSize: '15px', fontWeight: 700, color: '#ffffff', marginTop: '2px' }}>
-                      {selectedTrip.driver?.fullName || 'Crew Assigned'}
+                      {selectedTrip.driver?.fullName || 'Not assigned'}
                     </div>
                     <div style={{ fontSize: '11px', color: 'var(--color-on-dark-soft)' }}>
-                      {selectedTrip.driver?.phone || 'On Duty'}
+                      {selectedTrip.driver ? selectedTrip.driver.phone : '—'}
                     </div>
                   </div>
                 </div>
@@ -306,7 +305,12 @@ export default function TrackingPage() {
                     }}
                   >
                     <span>
-                      GPS Fix: <strong>{selectedLocation.latitude.toFixed(4)}° N, {selectedLocation.longitude.toFixed(4)}° E</strong>
+                      GPS Fix: <strong>{selectedLocation.latitude.toFixed(5)}° N, {selectedLocation.longitude.toFixed(5)}° E</strong> (±{selectedLocation.accuracyMeters} m)
+                      {selectedLocation.matchStatus === 'on_route' && ' · on planned route'}
+                      {selectedLocation.matchStatus === 'off_route' && ` · off planned route by ~${selectedLocation.routeOffsetM} m`}
+                      {selectedLocation.matchStatus === 'low_accuracy' && ' · accuracy too low to match to road'}
+                      {selectedLocation.matchStatus === 'ambiguous' && ' · road match ambiguous'}
+                      {!selectedLocation.isLive && ' · STALE'}
                     </span>
                     <span>
                       Updated: {new Date(selectedLocation.timestamp).toLocaleTimeString('en-IN', { timeZone: 'Asia/Kolkata' })} IST
@@ -329,7 +333,7 @@ export default function TrackingPage() {
                         const s = rs.stop || stops.find((item) => item.id === rs.stopId);
                         if (!s) return null;
                         const isStopActive = selectedStopId === s.id;
-                        const stopTime = computeScheduledTime(selectedTrip.departureTime, rs.arrivalOffsetMinutes);
+                        const stopTime = rs.scheduledTime || computeScheduledTime(selectedTrip.departureTime, rs.arrivalOffsetMinutes);
 
                         return (
                           <div
@@ -402,7 +406,7 @@ export default function TrackingPage() {
                               fontSize: '11px',
                             }}
                           >
-                            R-{trip.route?.routeNumber}
+                            {trip.route?.routeNumber}
                           </span>
                           <span style={{ fontSize: '14px', fontWeight: 700 }}>
                             {trip.route?.routeName}
@@ -445,11 +449,14 @@ export default function TrackingPage() {
                         }}
                       >
                         <div>
-                          <strong>Dep:</strong> {trip.departureTime} • <strong>Bus:</strong> {trip.bus?.busCode} ({trip.bus?.registrationNumber})
+                          <strong>Dep:</strong> {trip.departureTime} • <strong>Bus:</strong>{' '}
+                          {trip.bus ? `${trip.bus.busCode} (${trip.bus.registrationNumber})` : 'not assigned'}
                         </div>
-                        <div>
-                          {trip.bookedSeats} / {trip.totalSeats} seats booked
-                        </div>
+                        {trip.totalSeats > 0 && (
+                          <div>
+                            {trip.bookedSeats} / {trip.totalSeats} seats booked
+                          </div>
+                        )}
                       </div>
                     </div>
                   );
@@ -476,12 +483,18 @@ export default function TrackingPage() {
                     Live GPS Telemetry Visualizer
                   </div>
                   <div style={{ fontSize: '16px', fontWeight: 700 }}>
-                    Amaravati • Vijayawada • Guntur Corridors
+                    Vijayawada • Guntur • Tenali Routes
                   </div>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px' }}>
-                  <span className="live-pulse"></span>
-                  <span>Auto-Pinging Active (3.5s)</span>
+                  {activeLocations.some((l) => l.isLive) ? (
+                    <>
+                      <span className="live-pulse"></span>
+                      <span>{activeLocations.filter((l) => l.isLive).length} bus(es) reporting GPS</span>
+                    </>
+                  ) : (
+                    <span style={{ color: 'var(--color-on-dark-soft)' }}>No buses reporting GPS</span>
+                  )}
                 </div>
               </div>
 

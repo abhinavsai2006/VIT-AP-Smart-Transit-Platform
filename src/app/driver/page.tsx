@@ -29,12 +29,22 @@ export default function DriverPage() {
   const [currentCoords, setCurrentCoords] = useState<{
     lat: number;
     lng: number;
-    speed: number;
-    heading: number;
+    speed: number | null; // null when the device does not report it
+    heading: number | null;
     accuracy: number;
     lastPing: string;
+    serverStatus?: string;
   } | null>(null);
   const [broadcastError, setBroadcastError] = useState<string | null>(null);
+  // Per-bus device key issued by the transport office (GPS_DEVICE_KEYS). Kept for this tab only.
+  const [deviceKey, setDeviceKey] = useState<string>(() => {
+    try {
+      return typeof window !== 'undefined' ? sessionStorage.getItem('gpsDeviceKey') || '' : '';
+    } catch {
+      return '';
+    }
+  });
+  const [driverTrips, setDriverTrips] = useState<Trip[]>([]);
 
   // Defect / Incident Report Modal
   const [showDefectModal, setShowDefectModal] = useState(false);
@@ -50,10 +60,10 @@ export default function DriverPage() {
       setLoading(true);
       const res = await fetch('/api/trips');
       const data = await res.json();
-      // Find trip assigned to driver (or default to trip-101-morning for demo)
-      const trips: Trip[] = data.trips || [];
-      const match = trips.find((t) => t.driverId === 'staff-drv-1' || t.status === 'in_progress') || trips[0];
-      setAssignedTrip(match || null);
+      // Only trips that have a bus assigned can receive positions
+      const trips: Trip[] = (data.trips || []).filter((t: Trip) => t.busId && t.status !== 'completed' && t.status !== 'cancelled');
+      setDriverTrips(trips);
+      setAssignedTrip((prev) => trips.find((t) => t.id === prev?.id) || trips[0] || null);
     } catch (err) {
       console.error('Failed to load driver trip', err);
     } finally {
@@ -81,6 +91,21 @@ export default function DriverPage() {
       setBroadcastError('Geolocation is not supported by your browser or operating system.');
       return;
     }
+    if (!assignedTrip) {
+      setBroadcastError('No trip with an assigned bus is available.');
+      return;
+    }
+    if (!deviceKey.trim()) {
+      setBroadcastError('Enter the device key issued for this bus before transmitting.');
+      return;
+    }
+    try {
+      sessionStorage.setItem('gpsDeviceKey', deviceKey.trim());
+    } catch {
+      // Storage unavailable; the key still works for this session
+    }
+    const trip = assignedTrip;
+    const key = deviceKey.trim();
 
     setIsBroadcasting(true);
 
@@ -88,34 +113,48 @@ export default function DriverPage() {
       async (position) => {
         const { latitude, longitude, speed, heading, accuracy } = position.coords;
         const now = new Date().toLocaleTimeString('en-IN', { timeZone: 'Asia/Kolkata' });
+        // Only values the device actually reports are sent; heading is undefined when stationary
+        const speedKmH = speed !== null && Number.isFinite(speed) ? speed * 3.6 : null;
+        const headingDeg = heading !== null && Number.isFinite(heading) ? heading % 360 : null;
 
         setCurrentCoords({
           lat: latitude,
           lng: longitude,
-          speed: speed ? Math.round(speed * 3.6) : 45, // m/s to km/h fallback
-          heading: heading || 0,
-          accuracy: accuracy || 5,
+          speed: speedKmH !== null ? Math.round(speedKmH) : null,
+          heading: headingDeg !== null ? Math.round(headingDeg) : null,
+          accuracy,
           lastPing: now,
         });
 
-        // Transmit coordinates to authoritative backend endpoint
-        if (assignedTrip) {
-          try {
-            await fetch(`/api/trips/${assignedTrip.id}/location`, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                driverId: assignedTrip.driverId || 'staff-drv-1',
-                latitude,
-                longitude,
-                speedKmH: speed ? Math.round(speed * 3.6) : 45,
-                heading: heading || 0,
-                accuracyMeters: accuracy || 5,
-              }),
-            });
-          } catch (e) {
-            console.error('Failed to transmit GPS coordinates to server', e);
+        try {
+          const res = await fetch(`/api/trips/${trip.id}/location`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${key}` },
+            body: JSON.stringify({
+              latitude,
+              longitude,
+              accuracyMeters: accuracy,
+              ...(speedKmH !== null ? { speedKmH } : {}),
+              ...(headingDeg !== null ? { heading: headingDeg } : {}),
+              recordedAt: new Date(position.timestamp).toISOString(),
+            }),
+          });
+          if (res.status === 429) return; // reports faster than 1/s are dropped by design
+          const data = await res.json().catch(() => ({}));
+          if (!res.ok) {
+            setBroadcastError(`Server rejected position: ${data.error || res.status}`);
+            if (res.status === 401 || res.status === 403) {
+              navigator.geolocation.clearWatch(watchIdRef.current!);
+              watchIdRef.current = null;
+              setIsBroadcasting(false);
+            }
+            return;
           }
+          setBroadcastError(null);
+          setCurrentCoords((c) => (c ? { ...c, serverStatus: data.location?.matchStatus } : c));
+        } catch (e) {
+          setBroadcastError('Network error: position not delivered. Will retry on next fix.');
+          console.error('Failed to transmit GPS coordinates to server', e);
         }
       },
       (err) => {
@@ -353,6 +392,37 @@ export default function DriverPage() {
                 )}
               </div>
 
+              {!isBroadcasting && (
+                <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '14px' }}>
+                  <label style={{ fontSize: '12px', fontWeight: 700, display: 'flex', flexDirection: 'column', gap: '4px', flex: '1 1 220px' }}>
+                    Trip
+                    <select
+                      className="form-select"
+                      value={assignedTrip?.id || ''}
+                      onChange={(e) => setAssignedTrip(driverTrips.find((t) => t.id === e.target.value) || null)}
+                    >
+                      {driverTrips.length === 0 && <option value="">No trips with an assigned bus</option>}
+                      {driverTrips.map((t) => (
+                        <option key={t.id} value={t.id}>
+                          {t.route?.routeNumber} · {t.departureTime} · {t.bus?.busCode || t.busId}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                  <label style={{ fontSize: '12px', fontWeight: 700, display: 'flex', flexDirection: 'column', gap: '4px', flex: '1 1 220px' }}>
+                    Device key
+                    <input
+                      type="password"
+                      className="form-control"
+                      autoComplete="off"
+                      value={deviceKey}
+                      onChange={(e) => setDeviceKey(e.target.value)}
+                      placeholder="Issued by the transport office"
+                    />
+                  </label>
+                </div>
+              )}
+
               {broadcastError && (
                 <div
                   style={{
@@ -387,7 +457,7 @@ export default function DriverPage() {
                   </div>
                   <div>
                     <span style={{ color: 'var(--color-muted)' }}>Ground Speed:</span>{' '}
-                    <strong>{currentCoords.speed} km/h</strong>
+                    <strong>{currentCoords.speed !== null ? `${currentCoords.speed} km/h` : 'Not reported'}</strong>
                   </div>
                   <div>
                     <span style={{ color: 'var(--color-muted)' }}>Last Server Sync:</span>{' '}

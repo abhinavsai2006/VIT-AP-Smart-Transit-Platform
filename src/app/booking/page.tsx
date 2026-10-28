@@ -24,8 +24,8 @@ function BookingContent() {
   const searchParams = useSearchParams();
   const { user } = useAuth();
 
-  const tripIdParam = searchParams.get('tripId') || 'trip-101-morning';
-  const originStopIdParam = searchParams.get('originStopId') || 'stop-vja-rly';
+  const tripIdParam = searchParams.get('tripId') || '';
+  const originStopIdParam = searchParams.get('originStopId') || '';
   const destStopIdParam = searchParams.get('destinationStopId') || 'stop-vit-ap-campus';
   const seatsParam = Number(searchParams.get('seats') || 1);
 

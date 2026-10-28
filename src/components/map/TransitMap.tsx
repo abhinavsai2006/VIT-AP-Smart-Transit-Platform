@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState, useCallback, useMemo } from 'react';
 import type { Map as LeafletMap, LayerGroup as LeafletLayerGroup, Marker as LeafletMarker } from 'leaflet';
 import { Route, Stop, GPSLocation, Bus } from '@/types/transit';
+import { LatLng, cumulativeDistances, distanceAlong, pointAtDistance, splitAtDistance } from '@/lib/route-geometry';
 import { Compass, AlertTriangle, Crosshair, Maximize2, Radio, RotateCcw, MapPin, Navigation } from 'lucide-react';
 import { setOptions, importLibrary } from '@googlemaps/js-api-loader';
 
@@ -58,23 +59,6 @@ function escapeHtml(str: string): string {
     .replace(/'/g, '&#39;');
 }
 
-function computeScheduledTime(baseTime: string | undefined, offsetMinutes: number = 0): string {
-  if (!baseTime) return '--:--';
-  const parts = baseTime.split(':');
-  if (parts.length < 2) return baseTime;
-  const hours = parseInt(parts[0], 10);
-  const minutes = parseInt(parts[1], 10);
-  if (isNaN(hours) || isNaN(minutes)) return baseTime;
-
-  const totalMinutes = hours * 60 + minutes + offsetMinutes;
-  const newHours = Math.floor(totalMinutes / 60) % 24;
-  const newMins = totalMinutes % 60;
-  const period = newHours >= 12 ? 'PM' : 'AM';
-  const displayHours = newHours % 12 === 0 ? 12 : newHours % 12;
-  const displayMins = newMins.toString().padStart(2, '0');
-  return `${displayHours}:${displayMins} ${period}`;
-}
-
 export default function TransitMap({
   stops = [],
   routes = [],
@@ -111,19 +95,41 @@ export default function TransitMap({
   const googlePolylinesRef = useRef<google.maps.Polyline[]>([]);
 
   // Lifecycle guards
-  const isInitializingRef = useRef<boolean>(false);
-  const isDestroyedRef = useRef<boolean>(false);
+  // Incremented by every mount effect run; an async init only proceeds if its generation is still current.
+  // (A boolean "initializing" flag let a stale Strict Mode run block the live one, leaving an empty map.)
+  const mountGenerationRef = useRef<number>(0);
   const googleFailedRef = useRef<boolean>(false);
   const animFrameIdRef = useRef<number | null>(null);
   const prevSelectedTripIdRef = useRef<string | undefined>(undefined);
   const prevSelectedStopIdRef = useRef<string | undefined>(undefined);
   const hasCenteredInitialTripRef = useRef<boolean>(false);
+  // Set while the component itself moves the camera, so those moves don't count as user interaction
+  const programmaticMoveRef = useRef<boolean>(false);
+  const vehicleTweensRef = useRef<Map<string, number>>(new Map());
+  // Last displayed progress along the planned road per trip, for along-road animation
+  const vehicleAlongRef = useRef<Map<string, number>>(new Map());
+  const accuracyCircleRef = useRef<import('leaflet').Circle | null>(null);
+
+  // `center` is often a fresh array literal each render; keep it out of effect deps so polling
+  // re-renders never tear down and rebuild the map (which reset the viewport to the origin and
+  // crashed in-flight zoom animations with "_leaflet_pos" errors).
+  const initialCenterRef = useRef(center);
+  const initialZoomRef = useRef(zoom);
 
   // Selected vehicle location
   const selectedVehicleLocation = useMemo(() => {
     if (!selectedTripId) return undefined;
     return activeLocations.find((l) => l.tripId === selectedTripId);
   }, [selectedTripId, activeLocations]);
+
+  const selectedVehicleLocationRef = useRef(selectedVehicleLocation);
+
+  // Keep latest values for the async map init; declared before the mount effect so it runs first
+  useEffect(() => {
+    initialCenterRef.current = center;
+    initialZoomRef.current = zoom;
+    selectedVehicleLocationRef.current = selectedVehicleLocation;
+  });
 
   // Selected route object
   const selectedRouteObj = useMemo(() => {
@@ -140,31 +146,36 @@ export default function TransitMap({
         return {
           stop: s,
           sequence: rs.stopSequence,
-          arrivalOffsetMinutes: rs.arrivalOffsetMinutes,
+          scheduledTime: rs.scheduledTime,
         };
-      }).filter((item): item is { stop: Stop; sequence: number; arrivalOffsetMinutes: number } => Boolean(item.stop));
+      }).filter((item): item is { stop: Stop; sequence: number; scheduledTime: string | undefined } => Boolean(item.stop));
     }
     return stops.map((s, idx) => ({
       stop: s,
       sequence: idx + 1,
-      arrivalOffsetMinutes: 0,
+      scheduledTime: undefined as string | undefined,
     }));
   }, [tableFilterMode, selectedRouteObj, stops]);
 
   // Clean up Leaflet map instance completely
+  // Clean up Leaflet map instance completely
   const cleanupLeafletMap = useCallback(() => {
     if (leafletMapRef.current) {
       try {
-        leafletMapRef.current.stop();
+        const map = leafletMapRef.current;
+        leafletMapRef.current = null;
+        vehicleTweensRef.current.forEach((id) => cancelAnimationFrame(id));
+        vehicleTweensRef.current.clear();
+        map.stop();
+        map.off();
         vehicleMarkersMapRef.current.clear();
         leafletStopsLayerRef.current?.clearLayers();
         leafletRoutesLayerRef.current?.clearLayers();
         leafletVehiclesLayerRef.current?.clearLayers();
-        leafletMapRef.current.remove();
+        map.remove();
       } catch {
         // Safe guard against unmount race
       }
-      leafletMapRef.current = null;
       leafletStopsLayerRef.current = null;
       leafletRoutesLayerRef.current = null;
       leafletVehiclesLayerRef.current = null;
@@ -204,35 +215,96 @@ export default function TransitMap({
     cleanupGoogleMap();
   }, [cleanupLeafletMap, cleanupGoogleMap]);
 
-  // Create Leaflet divIcon for a bus stop
-  const createStopIcon = useCallback((L: typeof import('leaflet'), code: string, isSelected: boolean) => {
-    const displayCode = escapeHtml(code.length > 5 ? code.slice(-5) : code);
+  // Create Leaflet divIcon for a bus stop.
+  // kind: 'origin' | 'destination' | 'route' (on the selected route) | 'other' (off-route, dimmed)
+  const createStopIcon = useCallback((
+    L: typeof import('leaflet'),
+    kind: 'origin' | 'destination' | 'route' | 'other',
+    label: string,
+    isSelected: boolean,
+    isPassed: boolean
+  ) => {
+    const safeLabel = escapeHtml(label);
+    if (kind === 'other') {
+      const size = isSelected ? 14 : 10;
+      return L.divIcon({
+        className: 'transit-stop-marker',
+        html: `<div style="width:${size}px;height:${size}px;border-radius:50%;background:${isSelected ? '#1c69d4' : '#94a3b8'};border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,0.35);"></div>`,
+        iconSize: [size, size],
+        iconAnchor: [size / 2, size / 2],
+        popupAnchor: [0, -size / 2],
+      });
+    }
+    if (kind === 'origin' || kind === 'destination') {
+      const bg = kind === 'origin' ? '#16a34a' : '#0f172a';
+      const inner = kind === 'origin'
+        ? '<div style="width:8px;height:8px;border-radius:50%;background:#fff;"></div>'
+        : '<div style="width:8px;height:8px;background:#fff;"></div>';
+      const size = isSelected ? 26 : 22;
+      return L.divIcon({
+        className: 'transit-stop-marker',
+        html: `
+          <div style="position:relative;display:flex;flex-direction:column;align-items:center;">
+            <div style="width:${size}px;height:${size}px;border-radius:${kind === 'origin' ? '50%' : '4px'};background:${bg};border:3px solid ${isSelected ? '#60a5fa' : '#fff'};box-shadow:0 2px 8px rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;box-sizing:border-box;">${inner}</div>
+            <div style="position:absolute;top:${size + 2}px;white-space:nowrap;background:#fff;color:#0f172a;font:700 10px system-ui,sans-serif;padding:1px 5px;border-radius:3px;box-shadow:0 1px 4px rgba(0,0,0,0.25);">${safeLabel}</div>
+          </div>`,
+        iconSize: [size, size],
+        iconAnchor: [size / 2, size / 2],
+        popupAnchor: [0, -size / 2],
+      });
+    }
+    const size = isSelected ? 24 : 20;
     return L.divIcon({
       className: 'transit-stop-marker',
-      html: `
-        <div style="
-          background: ${isSelected ? '#1c69d4' : '#0f172a'};
-          color: #f8fafc;
-          width: ${isSelected ? '28px' : '24px'};
-          height: ${isSelected ? '28px' : '24px'};
-          border-radius: 4px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 10px;
-          font-weight: 800;
-          border: ${isSelected ? '2.5px solid #60a5fa' : '1.5px solid #ffffff'};
-          box-shadow: 0 ${isSelected ? '4px 12px rgba(28,105,212,0.5)' : '2px 6px rgba(0,0,0,0.35)'};
-          cursor: pointer;
-          transition: all 0.2s ease;
-        ">
-          <span>${displayCode}</span>
-        </div>
-      `,
-      iconSize: isSelected ? [28, 28] : [24, 24],
-      iconAnchor: isSelected ? [14, 14] : [12, 12],
-      popupAnchor: [0, -14],
+      html: `<div style="width:${size}px;height:${size}px;border-radius:50%;box-sizing:border-box;background:${isSelected ? '#1c69d4' : '#fff'};color:${isSelected ? '#fff' : (isPassed ? '#94a3b8' : '#1c69d4')};border:3px solid ${isPassed ? '#94a3b8' : '#1c69d4'};box-shadow:0 1px 4px rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center;font:800 9px system-ui,sans-serif;cursor:pointer;">${safeLabel}</div>`,
+      iconSize: [size, size],
+      iconAnchor: [size / 2, size / 2],
+      popupAnchor: [0, -size / 2],
     });
+  }, []);
+
+  // Camera helper: marks the move as programmatic so auto-follow isn't cancelled by our own moves
+  const moveCamera = useCallback((fn: (map: LeafletMap) => void) => {
+    const map = leafletMapRef.current;
+    if (!map) return;
+    programmaticMoveRef.current = true;
+    map.once('moveend', () => {
+      programmaticMoveRef.current = false;
+    });
+    fn(map);
+  }, []);
+
+  // Moves a vehicle marker to its new display position. When both the previous and new positions
+  // are matched to the planned road, the marker travels along that road between them (display
+  // interpolation only, never stored as a measurement). Otherwise it is placed directly, so it can
+  // never be drawn cutting across buildings or fields.
+  const placeMarker = useCallback((
+    tripId: string,
+    marker: LeafletMarker,
+    to: LatLng,
+    roadPath?: { line: LatLng[]; cum: number[]; fromM: number; toM: number }
+  ) => {
+    const prev = vehicleTweensRef.current.get(tripId);
+    if (prev) cancelAnimationFrame(prev);
+    vehicleTweensRef.current.delete(tripId);
+    if (!roadPath || roadPath.toM <= roadPath.fromM || roadPath.toM - roadPath.fromM > 3000) {
+      marker.setLatLng(to);
+      return;
+    }
+    const duration = 1500;
+    const t0 = performance.now();
+    const step = (now: number) => {
+      if (!leafletMapRef.current) return;
+      const t = Math.min(1, (now - t0) / duration);
+      const e = t * (2 - t);
+      marker.setLatLng(pointAtDistance(roadPath.line, roadPath.fromM + (roadPath.toM - roadPath.fromM) * e, roadPath.cum));
+      if (t < 1) {
+        vehicleTweensRef.current.set(tripId, requestAnimationFrame(step));
+      } else {
+        vehicleTweensRef.current.delete(tripId);
+      }
+    };
+    vehicleTweensRef.current.set(tripId, requestAnimationFrame(step));
   }, []);
 
   // Create Uber / Ola / Rapido Style Live Vehicle DivIcon
@@ -240,11 +312,13 @@ export default function TransitMap({
     L: typeof import('leaflet'),
     isLive: boolean,
     busCode: string,
-    speedKmH: number,
-    heading: number,
-    isSelected: boolean
+    speedKmH: number | null,
+    heading: number | null,
+    isSelected: boolean,
+    offRoute: boolean
   ) => {
     const safeBusCode = escapeHtml(busCode);
+    const hasHeading = heading !== null && Number.isFinite(heading);
     const beaconClass = isLive ? 'live' : 'stale';
 
     return L.divIcon({
@@ -261,7 +335,7 @@ export default function TransitMap({
             height: 38px;
             border-radius: 50%;
             background: ${isSelected ? '#090d16' : '#1e293b'};
-            border: 3px solid ${isSelected ? '#3b82f6' : (isLive ? '#22c55e' : '#f59e0b')};
+            border: 3px solid ${!isLive ? '#94a3b8' : offRoute ? '#f59e0b' : isSelected ? '#3b82f6' : '#22c55e'};
             box-shadow: 0 4px 16px rgba(0,0,0,0.55), ${isSelected ? '0 0 14px rgba(59,130,246,0.7)' : 'none'};
             display: flex;
             align-items: center;
@@ -269,8 +343,9 @@ export default function TransitMap({
             cursor: pointer;
             z-index: 2;
           ">
-            <!-- Heading Pointer Arrow: points in vehicle's direction of travel -->
+            <!-- Heading Pointer Arrow: only when the device reports a heading -->
             <div style="
+              display: ${hasHeading ? 'block' : 'none'};
               position: absolute;
               top: 2px;
               left: 50%;
@@ -279,7 +354,7 @@ export default function TransitMap({
               border-left: 5px solid transparent;
               border-right: 5px solid transparent;
               border-bottom: 7px solid ${isSelected ? '#60a5fa' : '#ffffff'};
-              transform: translateX(-50%) rotate(${heading || 0}deg);
+              transform: translateX(-50%) rotate(${hasHeading ? heading : 0}deg);
               transform-origin: 50% 17px;
               transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             "></div>
@@ -318,11 +393,12 @@ export default function TransitMap({
               width: 6px;
               height: 6px;
               border-radius: 50%;
-              background-color: ${isLive ? '#22c55e' : '#f59e0b'};
+              background-color: ${!isLive ? '#94a3b8' : offRoute ? '#f59e0b' : '#22c55e'};
               display: inline-block;
             "></span>
             <span>${safeBusCode}</span>
-            <span style="color: #94a3b8; font-weight: 600; border-left: 1px solid #334155; padding-left: 4px;">${speedKmH}k</span>
+            ${speedKmH !== null && Number.isFinite(speedKmH) && isLive ? `<span style="color: #94a3b8; font-weight: 600; border-left: 1px solid #334155; padding-left: 4px;">${speedKmH} km/h</span>` : ''}
+            ${!isLive ? '<span style="color: #94a3b8; font-weight: 600; border-left: 1px solid #334155; padding-left: 4px;">last seen</span>' : ''}
           </div>
         </div>
       `,
@@ -344,55 +420,93 @@ export default function TransitMap({
     leafletRoutesLayerRef.current?.clearLayers();
     leafletStopsLayerRef.current?.clearLayers();
 
-    // 1. Render Routes (Polylines)
+    const resolveStop = (rs: Route['stops'][number]) => rs.stop || stops.find((st) => st.id === rs.stopId);
+    const selectedVehicle = selectedTripId ? activeLocations.find((l) => l.tripId === selectedTripId) : undefined;
+
+    // Planned road path of the selected route (absent when the routing step found none)
+    const selectedRoute = routes.find((r) => r.id === selectedRouteId);
+    const roadLine: LatLng[] | undefined =
+      selectedRoute?.geometry && selectedRoute.geometry.status !== 'unavailable' && selectedRoute.geometry.coordinates.length > 1
+        ? selectedRoute.geometry.coordinates
+        : undefined;
+    const roadCum = roadLine ? cumulativeDistances(roadLine) : undefined;
+    const selectedRouteStops = selectedRoute
+      ? [...selectedRoute.stops]
+          .sort((a, b) => a.stopSequence - b.stopSequence)
+          .map((rs) => resolveStop(rs))
+          .filter((st): st is Stop => Boolean(st && isValidCoordinate(st.latitude, st.longitude)))
+      : [];
+
+    // Bus progress along the road comes from server-side matching; only trusted when on-route
+    const busAlongM =
+      selectedVehicle?.matchStatus === 'on_route' && typeof selectedVehicle.alongRouteM === 'number' && roadLine
+        ? selectedVehicle.alongRouteM
+        : undefined;
+
+    // 1. Routes: road geometry only. A route without a road path draws no line at all.
     routes.forEach((route) => {
-      const isSelected = selectedRouteId === route.id;
-      const sortedStops = [...route.stops].sort((a, b) => a.stopSequence - b.stopSequence);
-      const latLngs = sortedStops
-        .map((rs) => {
-          const s = rs.stop || stops.find((st) => st.id === rs.stopId);
-          if (s && isValidCoordinate(s.latitude, s.longitude)) {
-            return [s.latitude, s.longitude] as [number, number];
-          }
-          return null;
-        })
-        .filter((c): c is [number, number] => c !== null);
-
-      if (latLngs.length > 1 && leafletRoutesLayerRef.current) {
-        const polyline = L.polyline(latLngs, {
-          color: isSelected ? '#1c69d4' : '#94a3b8',
-          weight: isSelected ? 6 : 3,
-          opacity: isSelected ? 0.95 : 0.5,
-          dashArray: isSelected ? undefined : '5, 8',
-        }).addTo(leafletRoutesLayerRef.current);
-
-        polyline.on('click', () => {
-          onSelectRoute?.(route.id);
-        });
-      }
+      if (route.id === selectedRouteId) return;
+      const g = route.geometry;
+      if (!g || g.status === 'unavailable' || g.coordinates.length < 2 || !leafletRoutesLayerRef.current) return;
+      const polyline = L.polyline(g.coordinates, {
+        color: '#64748b',
+        weight: 3,
+        opacity: selectedRouteId ? 0.18 : 0.45,
+      }).addTo(leafletRoutesLayerRef.current);
+      polyline.bindTooltip(`Route ${escapeHtml(route.routeNumber)}`, { sticky: true });
+      polyline.on('click', () => onSelectRoute?.(route.id));
     });
 
-    // 2. Render Stops
+    if (roadLine && leafletRoutesLayerRef.current) {
+      const lineOpts = { lineCap: 'round' as const, lineJoin: 'round' as const };
+      const [travelled, remaining] = busAlongM !== undefined ? splitAtDistance(roadLine, busAlongM) : [[], roadLine];
+      L.polyline(roadLine, { ...lineOpts, color: '#0b2a55', weight: 10, opacity: 0.85 }).addTo(leafletRoutesLayerRef.current);
+      if (travelled.length > 1) {
+        L.polyline(travelled, { ...lineOpts, color: '#94a3b8', weight: 6, opacity: 1 }).addTo(leafletRoutesLayerRef.current);
+      }
+      if (remaining.length > 1) {
+        L.polyline(remaining, { ...lineOpts, color: '#1c69d4', weight: 6, opacity: 1 }).addTo(leafletRoutesLayerRef.current);
+      }
+    }
+
+    // 2. Stops: origin / numbered / destination on the selected route, grey dots elsewhere.
+    //    "Passed" is decided by position along the road, not straight-line proximity.
+    const routeStopIndex = new Map<string, number>();
+    selectedRouteStops.forEach((st, i) => routeStopIndex.set(st.id, i));
+    const stopPassed = (st: Stop) =>
+      busAlongM !== undefined && roadLine && roadCum
+        ? distanceAlong([st.latitude, st.longitude], roadLine, roadCum).alongM < busAlongM - 50
+        : false;
+    const totalOnRoute = selectedRoute?.stops.length ?? 0;
+
     stops.forEach((stop) => {
       if (!isValidCoordinate(stop.latitude, stop.longitude)) return;
       const isSelected = selectedStopId === stop.id;
+      const idx = routeStopIndex.get(stop.id);
+      const seq = idx !== undefined ? selectedRoute!.stops.find((rs) => rs.stopId === stop.id)?.stopSequence : undefined;
+      const kind: 'origin' | 'destination' | 'route' | 'other' = seq === undefined
+        ? 'other'
+        : seq === 1
+          ? 'origin'
+          : seq === totalOnRoute
+            ? 'destination'
+            : 'route';
+      const label = kind === 'origin' || kind === 'destination' ? stop.name : String(seq ?? '');
+      const rs = selectedRoute?.stops.find((r) => r.stopId === stop.id);
 
       const marker = L.marker([stop.latitude, stop.longitude], {
-        icon: createStopIcon(L, stop.code, isSelected),
-        zIndexOffset: isSelected ? 500 : 100,
+        icon: createStopIcon(L, kind, label, isSelected, kind !== 'other' && stopPassed(stop)),
+        zIndexOffset: isSelected ? 1500 : idx !== undefined ? 1000 : 100,
       });
 
+      const approx = stop.coordinateStatus === 'geocoded_unverified';
       marker.bindPopup(`
         <div style="font-family: system-ui, sans-serif; min-width: 190px; padding: 2px;">
-          <div style="font-size: 10px; font-weight: 700; color: #1c69d4; text-transform: uppercase;">Bus Stop</div>
+          <div style="font-size: 10px; font-weight: 700; color: #1c69d4; text-transform: uppercase;">${seq !== undefined ? `Stop ${seq} of ${totalOnRoute}` : 'Pickup point'}</div>
           <div style="font-size: 14px; font-weight: 800; margin: 2px 0;">${escapeHtml(stop.name)}</div>
-          <div style="font-size: 12px; color: #64748b; margin-bottom: 6px;">${escapeHtml(stop.description || '')} (${escapeHtml(stop.landmark || '')})</div>
-          <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #e2e8f0; padding-top: 6px; font-size: 11px;">
-            <span>Code: <strong>${escapeHtml(stop.code)}</strong></span>
-            <span style="color: ${stop.isAccessible ? '#16a34a' : '#64748b'}; font-weight: 600;">
-              ${stop.isAccessible ? '♿ Accessible' : 'Standard'}
-            </span>
-          </div>
+          ${rs?.scheduledTime ? `<div style="font-size: 12px; margin-bottom: 4px;">Scheduled: <strong>${escapeHtml(rs.scheduledTime)}</strong></div>` : ''}
+          <div style="font-size: 12px; color: #64748b; margin-bottom: 6px;">${escapeHtml(stop.description || '')}</div>
+          ${approx ? '<div style="font-size: 11px; color: #b45309; border-top: 1px solid #e2e8f0; padding-top: 6px;">Approximate location (geocoded, not yet verified)</div>' : ''}
         </div>
       `);
 
@@ -402,8 +516,8 @@ export default function TransitMap({
           type: 'stop',
           id: stop.id,
           title: stop.name,
-          details: `${stop.description} (${stop.landmark})`,
-          status: stop.isAccessible ? 'Wheelchair Accessible' : 'Standard Stop',
+          details: `${rs?.scheduledTime ? `Scheduled ${rs.scheduledTime} · ` : ''}${stop.description || ''}`,
+          status: approx ? 'Approximate location' : 'Located',
           coordinates: [stop.latitude, stop.longitude],
         });
       });
@@ -413,7 +527,8 @@ export default function TransitMap({
       }
     });
 
-    // 3. Render / Update Moving Vehicles (Persistent markers for smooth Uber-like motion)
+    // 3. Vehicles: persistent markers updated in place. Display position is the road-matched point
+    //    when the observation matched the planned road, otherwise the raw GPS observation.
     const currentActiveTripIds = new Set<string>();
 
     activeLocations.forEach((loc) => {
@@ -421,84 +536,109 @@ export default function TransitMap({
 
       currentActiveTripIds.add(loc.tripId);
       const isSelected = selectedTripId === loc.tripId;
-      const busCode = loc.bus?.busCode || 'BUS';
-      const formattedTime = new Date(loc.timestamp).toLocaleTimeString('en-IN', {
-        timeZone: 'Asia/Kolkata',
-      });
+      const busCode = loc.bus?.busCode || 'Bus';
+      const onRoute = loc.matchStatus === 'on_route' && isValidCoordinate(loc.matchedLatitude, loc.matchedLongitude);
+      const display: LatLng = onRoute ? [loc.matchedLatitude!, loc.matchedLongitude!] : [loc.latitude, loc.longitude];
+      const speed = typeof loc.speedKmH === 'number' && Number.isFinite(loc.speedKmH) ? loc.speedKmH : null;
+      const heading = typeof loc.heading === 'number' && Number.isFinite(loc.heading) ? loc.heading : null;
+      const formattedTime = new Date(loc.timestamp).toLocaleTimeString('en-IN', { timeZone: 'Asia/Kolkata' });
+      const matchText: Record<string, string> = {
+        on_route: `On planned route${typeof loc.routeOffsetM === 'number' ? ` (GPS ${loc.routeOffsetM} m from road line)` : ''}`,
+        off_route: `Off planned route by ~${loc.routeOffsetM ?? '?'} m`,
+        low_accuracy: `GPS accuracy too low to match (±${loc.accuracyMeters} m)`,
+        ambiguous: 'Position matches the route in more than one place',
+        no_route: 'No planned road path for this route',
+      };
 
       const popupHtml = `
         <div style="font-family: system-ui, sans-serif; min-width: 210px; padding: 4px;">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
-            <span style="font-size: 10px; font-weight: 700; color: #1c69d4; text-transform: uppercase;">Live Telemetry</span>
-            <span style="
-              font-size: 10px;
-              font-weight: 800;
-              padding: 2px 6px;
-              border-radius: 2px;
-              background-color: ${loc.isLive ? '#dcfce7' : '#fef3c7'};
-              color: ${loc.isLive ? '#15803d' : '#b45309'};
-            ">
-              ${loc.isLive ? 'LIVE' : 'STALE (>2m)'}
+            <span style="font-size: 10px; font-weight: 700; color: #1c69d4; text-transform: uppercase;">Live GPS</span>
+            <span style="font-size: 10px; font-weight: 800; padding: 2px 6px; border-radius: 2px; background-color: ${loc.isLive ? '#dcfce7' : '#f1f5f9'}; color: ${loc.isLive ? '#15803d' : '#475569'};">
+              ${loc.isLive ? 'LIVE' : 'STALE'}
             </span>
           </div>
-          <div style="font-size: 15px; font-weight: 800; margin: 2px 0;">${escapeHtml(busCode)} (${escapeHtml(loc.bus?.rawRegistration || loc.bus?.registrationNumber || 'AP39')})</div>
-          <div style="font-size: 12px; margin-bottom: 4px;">Route: <strong>${escapeHtml(loc.routeName || 'Active Service')}</strong></div>
-          <div style="font-size: 12px; margin-bottom: 6px;">Ground Speed: <strong>${loc.speedKmH} km/h</strong> • Heading: <strong>${loc.heading || 0}°</strong></div>
-          <div style="font-size: 10px; color: #64748b; border-top: 1px solid #e2e8f0; padding-top: 4px;">
-            Last Update: ${formattedTime} IST
+          <div style="font-size: 15px; font-weight: 800; margin: 2px 0;">${escapeHtml(busCode)}${loc.bus?.registrationNumber ? ` (${escapeHtml(loc.bus.registrationNumber)})` : ''}</div>
+          ${loc.routeName ? `<div style="font-size: 12px; margin-bottom: 4px;">Route: <strong>${escapeHtml(loc.routeName)}</strong></div>` : ''}
+          <div style="font-size: 12px; margin-bottom: 4px;">
+            Speed: <strong>${speed !== null ? `${speed} km/h` : 'not reported'}</strong> · Heading: <strong>${heading !== null ? `${heading}°` : 'not reported'}</strong>
           </div>
+          <div style="font-size: 12px; margin-bottom: 6px;">${escapeHtml(matchText[loc.matchStatus ?? 'no_route'] ?? '')} · ±${loc.accuracyMeters} m</div>
+          <div style="font-size: 10px; color: #64748b; border-top: 1px solid #e2e8f0; padding-top: 4px;">GPS fix: ${formattedTime} IST</div>
         </div>
       `;
 
+      const newIcon = createUberBusIcon(L, loc.isLive, busCode, speed, heading, isSelected, !onRoute);
       const existingMarker = vehicleMarkersMapRef.current.get(loc.tripId);
-      const newIcon = createUberBusIcon(L, loc.isLive, busCode, loc.speedKmH, loc.heading || 0, isSelected);
+      const prevAlong = vehicleAlongRef.current.get(loc.tripId);
+      const alongNow = onRoute && typeof loc.alongRouteM === 'number' ? loc.alongRouteM : undefined;
 
       if (existingMarker) {
-        // Smoothly glide existing marker to new GPS coordinate without recreating DOM
-        existingMarker.setLatLng([loc.latitude, loc.longitude]);
+        const animate = loc.isLive && isSelected && roadLine && roadCum && prevAlong !== undefined && alongNow !== undefined;
+        placeMarker(
+          loc.tripId,
+          existingMarker,
+          display,
+          animate ? { line: roadLine!, cum: roadCum!, fromM: prevAlong!, toM: alongNow! } : undefined
+        );
         existingMarker.setIcon(newIcon);
         existingMarker.setZIndexOffset(isSelected ? 3000 : 2000);
         existingMarker.setPopupContent(popupHtml);
       } else {
-        // Create new marker
-        const marker = L.marker([loc.latitude, loc.longitude], {
-          icon: newIcon,
-          zIndexOffset: isSelected ? 3000 : 2000,
-        });
-
+        const marker = L.marker(display, { icon: newIcon, zIndexOffset: isSelected ? 3000 : 2000 });
         marker.bindPopup(popupHtml);
-
         marker.on('click', () => {
           onSelectTrip?.(loc.tripId);
           setIsAutoFollowing(true);
           setSelectedItem({
             type: 'bus',
             id: loc.tripId,
-            title: `Vehicle ${busCode}`,
-            details: `Route: ${loc.routeName || 'Scheduled Commuter'} | Reg: ${loc.bus?.registrationNumber || 'AP39'}`,
-            status: loc.isLive ? 'Active Telemetry' : 'Signal Stale (>2m)',
-            speed: loc.speedKmH,
-            heading: loc.heading,
+            title: busCode,
+            details: loc.routeName || '',
+            status: loc.isLive ? 'Live GPS' : 'GPS stale',
+            speed: speed ?? undefined,
+            heading: heading ?? undefined,
             lastUpdated: formattedTime,
-            coordinates: [loc.latitude, loc.longitude],
+            coordinates: display,
           });
-          if (leafletMapRef.current) {
-            leafletMapRef.current.setView([loc.latitude, loc.longitude], 15, { animate: true });
-          }
+          const at = marker.getLatLng();
+          moveCamera((m) => m.setView(at, Math.max(m.getZoom(), 15), { animate: true }));
         });
-
         if (leafletVehiclesLayerRef.current) {
           marker.addTo(leafletVehiclesLayerRef.current);
           vehicleMarkersMapRef.current.set(loc.tripId, marker);
         }
       }
+      if (alongNow !== undefined) vehicleAlongRef.current.set(loc.tripId, alongNow);
+      else vehicleAlongRef.current.delete(loc.tripId);
+
+      // Accuracy circle around the raw observation of the selected bus when it isn't road-matched
+      if (isSelected) {
+        accuracyCircleRef.current?.remove();
+        accuracyCircleRef.current = null;
+        if (!onRoute && leafletVehiclesLayerRef.current) {
+          accuracyCircleRef.current = L.circle([loc.latitude, loc.longitude], {
+            radius: Math.max(loc.accuracyMeters, 5),
+            color: '#f59e0b',
+            weight: 1,
+            fillOpacity: 0.12,
+            interactive: false,
+          }).addTo(leafletVehiclesLayerRef.current);
+        }
+      }
     });
 
-    // Remove any markers no longer in active locations
+    if (!selectedVehicle) {
+      accuracyCircleRef.current?.remove();
+      accuracyCircleRef.current = null;
+    }
+
+    // Remove markers for trips that no longer report
     vehicleMarkersMapRef.current.forEach((marker, tripId) => {
       if (!currentActiveTripIds.has(tripId)) {
         leafletVehiclesLayerRef.current?.removeLayer(marker);
         vehicleMarkersMapRef.current.delete(tripId);
+        vehicleAlongRef.current.delete(tripId);
       }
     });
 
@@ -507,15 +647,15 @@ export default function TransitMap({
     if (selectedTripId && isAutoFollowing && leafletMapRef.current) {
       const targetLoc = activeLocations.find((l) => l.tripId === selectedTripId);
       if (targetLoc && isValidCoordinate(targetLoc.latitude, targetLoc.longitude)) {
-        const curZoom = leafletMapRef.current.getZoom();
-        if (curZoom < 14 || !hasCenteredInitialTripRef.current) {
-          leafletMapRef.current.setView([targetLoc.latitude, targetLoc.longitude], 15, { animate: true });
+        const target: LatLng = targetLoc.matchStatus === 'on_route' && isValidCoordinate(targetLoc.matchedLatitude, targetLoc.matchedLongitude)
+          ? [targetLoc.matchedLatitude!, targetLoc.matchedLongitude!]
+          : [targetLoc.latitude, targetLoc.longitude];
+        // Zoom in only on the first follow; afterwards keep the user's zoom level and just pan
+        if (!hasCenteredInitialTripRef.current) {
+          moveCamera((m) => m.setView(target, Math.max(m.getZoom(), 15), { animate: true }));
           hasCenteredInitialTripRef.current = true;
-        } else {
-          leafletMapRef.current.panTo([targetLoc.latitude, targetLoc.longitude], {
-            animate: true,
-            duration: 0.8,
-          });
+        } else if (targetLoc.isLive) {
+          moveCamera((m) => m.panTo(target, { animate: true, duration: 0.8 }));
         }
       }
     }
@@ -529,6 +669,8 @@ export default function TransitMap({
     isAutoFollowing,
     createStopIcon,
     createUberBusIcon,
+    moveCamera,
+    placeMarker,
     onSelectRoute,
     onSelectStop,
     onSelectTrip,
@@ -575,20 +717,13 @@ export default function TransitMap({
     // Routes
     routes.forEach((route) => {
       const isSelected = selectedRouteId === route.id;
-      const sortedStops = [...route.stops].sort((a, b) => a.stopSequence - b.stopSequence);
-      const path = sortedStops
-        .map((rs) => {
-          const s = rs.stop || stops.find((st) => st.id === rs.stopId);
-          return s && isValidCoordinate(s.latitude, s.longitude)
-            ? { lat: s.latitude, lng: s.longitude }
-            : null;
-        })
-        .filter((c): c is google.maps.LatLngLiteral => c !== null);
+      // Road geometry only; routes without a computed road path are not drawn
+      const g = route.geometry;
+      const path = g && g.status !== 'unavailable' ? g.coordinates.map(([lat, lng]) => ({ lat, lng })) : [];
 
       if (path.length > 1) {
         const polyline = new google.maps.Polyline({
           path,
-          geodesic: true,
           strokeColor: isSelected ? '#1c69d4' : '#94a3b8',
           strokeOpacity: isSelected ? 0.95 : 0.6,
           strokeWeight: isSelected ? 5 : 3,
@@ -638,9 +773,10 @@ export default function TransitMap({
   }, [stops, routes, selectedRouteId, selectedTripId, selectedStopId, activeLocations, isAutoFollowing, onSelectStop, onSelectTrip]);
 
   // Initialize Leaflet Map instance once
-  const initLeafletMapInstance = useCallback(async () => {
+  const initLeafletMapInstance = useCallback(async (isCurrent: () => boolean) => {
     const container = mapContainerRef.current;
-    if (!container || isDestroyedRef.current) return;
+    if (!container || !isCurrent()) return;
+    if (leafletMapRef.current) return; // Map already active, do not recreate
 
     cleanupLeafletMap();
 
@@ -651,24 +787,28 @@ export default function TransitMap({
     container.innerHTML = '';
 
     const L = (await import('leaflet')).default;
-    if (!mapContainerRef.current || isDestroyedRef.current) return;
+    if (!mapContainerRef.current || !isCurrent() || leafletMapRef.current) return;
 
-    // Center on selected vehicle if available, else center prop
-    const initialCenter = selectedVehicleLocation && isValidCoordinate(selectedVehicleLocation.latitude, selectedVehicleLocation.longitude)
-      ? [selectedVehicleLocation.latitude, selectedVehicleLocation.longitude] as [number, number]
-      : center;
+    // Center on selected vehicle if available at mount time, else center prop
+    const initialLoc = selectedVehicleLocationRef.current;
+    const initialCenter = initialLoc && isValidCoordinate(initialLoc.latitude, initialLoc.longitude)
+      ? [initialLoc.latitude, initialLoc.longitude] as [number, number]
+      : initialCenterRef.current;
 
     const map = L.map(container, {
       center: initialCenter,
-      zoom: selectedVehicleLocation ? 15 : zoom,
+      zoom: initialLoc ? 15 : initialZoomRef.current,
       zoomControl: true,
       fadeAnimation: false,
     });
     leafletMapRef.current = map;
 
-    // Detect manual user dragging to pause auto-follow
+    // Detect manual user dragging and zooming to pause auto-follow
     map.on('dragstart', () => {
       setIsAutoFollowing(false);
+    });
+    map.on('zoomstart', () => {
+      if (!programmaticMoveRef.current) setIsAutoFollowing(false);
     });
 
     // Standard OpenStreetMap tiles - zero watermarks
@@ -695,12 +835,12 @@ export default function TransitMap({
 
     // Signal map readiness so layer update triggers immediately
     setIsMapReady(true);
-  }, [center, zoom, selectedVehicleLocation, cleanupLeafletMap]);
+  }, [cleanupLeafletMap]);
 
   // Initialize Google Maps instance once
-  const initGoogleMapInstance = useCallback(async (apiKey: string) => {
+  const initGoogleMapInstance = useCallback(async (apiKey: string, isCurrent: () => boolean) => {
     const container = mapContainerRef.current;
-    if (!container || isDestroyedRef.current) return;
+    if (!container || !isCurrent()) return;
 
     cleanupGoogleMap();
 
@@ -710,11 +850,11 @@ export default function TransitMap({
     });
 
     const { Map } = (await importLibrary('maps')) as google.maps.MapsLibrary;
-    if (!mapContainerRef.current || isDestroyedRef.current) return;
+    if (!mapContainerRef.current || !isCurrent()) return;
 
     const map = new Map(container, {
-      center: { lat: center[0], lng: center[1] },
-      zoom,
+      center: { lat: initialCenterRef.current[0], lng: initialCenterRef.current[1] },
+      zoom: initialZoomRef.current,
       mapTypeId: 'roadmap',
       streetViewControl: false,
       mapTypeControl: false,
@@ -728,14 +868,18 @@ export default function TransitMap({
     map.addListener('dragstart', () => {
       setIsAutoFollowing(false);
     });
+    map.addListener('zoom_changed', () => {
+      setIsAutoFollowing(false);
+    });
 
     googleMapRef.current = map;
     setIsMapReady(true);
-  }, [center, zoom, cleanupGoogleMap]);
+  }, [cleanupGoogleMap]);
 
   // Main Effect: Initializes Map Engine ONCE on mount
   useEffect(() => {
-    isDestroyedRef.current = false;
+    const generation = ++mountGenerationRef.current;
+    const isCurrent = () => mountGenerationRef.current === generation;
 
     if (activeTab !== 'map') {
       cleanupAllMaps();
@@ -748,17 +892,11 @@ export default function TransitMap({
     let isEffectActive = true;
 
     async function mountMapEngine() {
-      if (isInitializingRef.current) return;
-      isInitializingRef.current = true;
-
       try {
         if (shouldAttemptGoogle && googleApiKey) {
           try {
-            await initGoogleMapInstance(googleApiKey);
-            if (!isEffectActive || isDestroyedRef.current) {
-              cleanupGoogleMap();
-              return;
-            }
+            await initGoogleMapInstance(googleApiKey, isCurrent);
+            if (!isEffectActive) return;
             setMapProvider('google');
             setGoogleLoadError(null);
             return;
@@ -773,16 +911,11 @@ export default function TransitMap({
         }
 
         // Initialize high-performance OpenStreetMap via Leaflet
-        await initLeafletMapInstance();
-        if (!isEffectActive || isDestroyedRef.current) {
-          cleanupLeafletMap();
-          return;
-        }
+        await initLeafletMapInstance(isCurrent);
+        if (!isEffectActive) return;
         setMapProvider('leaflet');
       } catch (err) {
         console.error('Leaflet initialization error:', err);
-      } finally {
-        isInitializingRef.current = false;
       }
     }
 
@@ -790,10 +923,10 @@ export default function TransitMap({
 
     return () => {
       isEffectActive = false;
-      isDestroyedRef.current = true;
+      mountGenerationRef.current++;
       cleanupAllMaps();
     };
-  }, [activeTab, initGoogleMapInstance, initLeafletMapInstance, cleanupAllMaps, cleanupGoogleMap, cleanupLeafletMap]);
+  }, [activeTab, initGoogleMapInstance, initLeafletMapInstance, cleanupAllMaps]);
 
   // Layer Update Effect: Runs whenever map is ready or telemetry/routes/stops update
   useEffect(() => {
@@ -819,6 +952,18 @@ export default function TransitMap({
     updateGoogleLayers,
   ]);
 
+  // Points that describe a route's extent: its road path, else its located stops
+  const routeExtent = useCallback((route: Route | undefined): LatLng[] => {
+    if (!route) return [];
+    if (route.geometry && route.geometry.status !== 'unavailable' && route.geometry.coordinates.length > 1) {
+      return route.geometry.coordinates;
+    }
+    return route.stops
+      .map((rs) => rs.stop || stops.find((s) => s.id === rs.stopId))
+      .filter((s): s is Stop => Boolean(s && isValidCoordinate(s.latitude, s.longitude)))
+      .map((s) => [s.latitude, s.longitude] as LatLng);
+  }, [stops]);
+
   // Camera Focus when user selects a different trip or stop
   useEffect(() => {
     if (activeTab !== 'map') return;
@@ -830,15 +975,18 @@ export default function TransitMap({
 
       const loc = activeLocations.find((l) => l.tripId === selectedTripId);
       if (loc && isValidCoordinate(loc.latitude, loc.longitude)) {
+        // Tracking starts centred on the bus
         if (leafletMapRef.current) {
-          try {
-            leafletMapRef.current.setView([loc.latitude, loc.longitude], 15, { animate: true });
-          } catch {
-            // Safe guard
-          }
+          moveCamera((m) => m.setView([loc.latitude, loc.longitude], 15, { animate: true }));
         } else if (googleMapRef.current) {
           googleMapRef.current.panTo({ lat: loc.latitude, lng: loc.longitude });
           googleMapRef.current.setZoom(15);
+        }
+      } else {
+        // No GPS for this trip: show its planned route once, on this deliberate selection
+        const extent = routeExtent(selectedRouteObj);
+        if (extent.length > 1 && leafletMapRef.current) {
+          moveCamera((m) => m.fitBounds(extent, { padding: [40, 40], maxZoom: 15, animate: true }));
         }
       }
       return;
@@ -849,18 +997,14 @@ export default function TransitMap({
       const stop = stops.find((s) => s.id === selectedStopId);
       if (stop && isValidCoordinate(stop.latitude, stop.longitude)) {
         if (leafletMapRef.current) {
-          try {
-            leafletMapRef.current.setView([stop.latitude, stop.longitude], 16, { animate: true });
-          } catch {
-            // Safe guard
-          }
+          moveCamera((m) => m.setView([stop.latitude, stop.longitude], 16, { animate: true }));
         } else if (googleMapRef.current) {
           googleMapRef.current.panTo({ lat: stop.latitude, lng: stop.longitude });
           googleMapRef.current.setZoom(16);
         }
       }
     }
-  }, [selectedTripId, selectedStopId, activeLocations, stops, activeTab]);
+  }, [selectedTripId, selectedStopId, activeLocations, stops, activeTab, moveCamera, routeExtent, selectedRouteObj]);
 
   // Camera Actions
   const handleRecenterOnBus = useCallback(() => {
@@ -869,15 +1013,11 @@ export default function TransitMap({
       return;
     }
     if (leafletMapRef.current) {
-      try {
-        leafletMapRef.current.setView(
-          [selectedVehicleLocation.latitude, selectedVehicleLocation.longitude],
-          15,
-          { animate: true }
-        );
-      } catch {
-        // Safe guard
-      }
+      moveCamera((m) => m.setView(
+        [selectedVehicleLocation.latitude, selectedVehicleLocation.longitude],
+        15,
+        { animate: true }
+      ));
     } else if (googleMapRef.current) {
       googleMapRef.current.panTo({
         lat: selectedVehicleLocation.latitude,
@@ -885,35 +1025,21 @@ export default function TransitMap({
       });
       googleMapRef.current.setZoom(15);
     }
-  }, [selectedVehicleLocation]);
+  }, [selectedVehicleLocation, moveCamera]);
 
   const handleShowFullRoute = useCallback(() => {
     setIsAutoFollowing(false);
-    if (!selectedRouteObj || selectedRouteObj.stops.length === 0) return;
-
-    const validCoords = selectedRouteObj.stops
-      .map((rs) => rs.stop || stops.find((s) => s.id === rs.stopId))
-      .filter((s): s is Stop => Boolean(s && isValidCoordinate(s.latitude, s.longitude)))
-      .map((s) => [s.latitude, s.longitude] as [number, number]);
-
+    const validCoords = routeExtent(selectedRouteObj);
     if (validCoords.length === 0) return;
 
-    if (leafletMapRef.current && mapContainerRef.current) {
-      try {
-        leafletMapRef.current.fitBounds(validCoords, {
-          padding: [40, 40],
-          animate: false,
-          maxZoom: 15,
-        });
-      } catch {
-        // Safe guard
-      }
+    if (leafletMapRef.current) {
+      moveCamera((m) => m.fitBounds(validCoords, { padding: [40, 40], maxZoom: 15, animate: true }));
     } else if (googleMapRef.current) {
       const bounds = new google.maps.LatLngBounds();
       validCoords.forEach(([lat, lng]) => bounds.extend({ lat, lng }));
       googleMapRef.current.fitBounds(bounds, 40);
     }
-  }, [selectedRouteObj, stops]);
+  }, [selectedRouteObj, routeExtent, moveCamera]);
 
   const handleShowAllBuses = useCallback(() => {
     setIsAutoFollowing(false);
@@ -950,14 +1076,8 @@ export default function TransitMap({
     setActiveTab('map');
     onSelectStop?.(stop.id);
 
-    if (leafletMapRef.current) {
-      try {
-        leafletMapRef.current.setView([stop.latitude, stop.longitude], 16, { animate: true });
-      } catch {
-        // Safe guard
-      }
-    }
-  }, [onSelectStop]);
+    moveCamera((m) => m.setView([stop.latitude, stop.longitude], 16, { animate: true }));
+  }, [onSelectStop, moveCamera]);
 
   return (
     <div className="card" style={{ padding: 0, overflow: 'hidden', backgroundColor: '#ffffff' }}>
@@ -1130,6 +1250,41 @@ export default function TransitMap({
             }}
           />
 
+          {/* Planned road path status for the selected route */}
+          {selectedRouteObj && selectedRouteObj.geometry?.status !== 'ok' && (
+            <div
+              role="status"
+              style={{
+                position: 'absolute',
+                top: '12px',
+                right: '12px',
+                maxWidth: '320px',
+                zIndex: 1000,
+                backgroundColor: '#ffffff',
+                border: '1px solid var(--color-hairline-strong)',
+                padding: '8px 12px',
+                fontSize: '12px',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+              }}
+            >
+              {!selectedRouteObj.geometry || selectedRouteObj.geometry.status === 'unavailable' ? (
+                <>
+                  <strong>Road path unavailable.</strong>{' '}
+                  {selectedRouteObj.geometry?.reason === 'Fewer than two located stops'
+                    ? 'Too few stops on this route have a known location.'
+                    : selectedRouteObj.geometry?.reason || 'No road path has been computed for this route.'}
+                </>
+              ) : (
+                <>
+                  <strong>Partial road path.</strong> Drawn through{' '}
+                  {selectedRouteObj.stops.length - (selectedRouteObj.geometry.excludedStops?.length ?? 0)} of{' '}
+                  {selectedRouteObj.stops.length} stops
+                  {selectedRouteObj.geometry.excludedStops?.length ? '; the others have no verified location yet.' : '.'}
+                </>
+              )}
+            </div>
+          )}
+
           {/* Uber/Ola Style Floating Re-center Pill Button: appears when user panned away */}
           {!isAutoFollowing && selectedVehicleLocation && (
             <div
@@ -1289,19 +1444,16 @@ export default function TransitMap({
                 <th>Seq</th>
                 <th>Stop Code</th>
                 <th>Pickup Location Name</th>
-                <th>Est. Arrival</th>
-                <th>Landmark / Corridor</th>
-                <th>Accessibility</th>
+                <th>Scheduled Time</th>
+                <th>Area</th>
+                <th>Location</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              {displayedTableStops.map(({ stop, sequence, arrivalOffsetMinutes }) => {
+              {displayedTableStops.map(({ stop, sequence, scheduledTime }) => {
                 const isSelected = selectedStopId === stop.id;
-                const scheduledTime = computeScheduledTime(
-                  '07:15',
-                  arrivalOffsetMinutes
-                );
+                const hasLocation = isValidCoordinate(stop.latitude, stop.longitude);
 
                 return (
                   <tr
@@ -1315,21 +1467,24 @@ export default function TransitMap({
                     <td style={{ fontWeight: 700 }}>{stop.name}</td>
                     <td>
                       <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--color-primary)' }}>
-                        {scheduledTime}
+                        {scheduledTime || '—'}
                       </span>
                     </td>
-                    <td>{stop.description} ({stop.landmark})</td>
+                    <td>{stop.landmark}</td>
                     <td>
-                      {stop.isAccessible ? (
-                        <span className="badge badge-success">♿ Accessible</span>
+                      {!hasLocation ? (
+                        <span className="badge badge-neutral">Not yet located</span>
+                      ) : stop.coordinateStatus === 'geocoded_unverified' ? (
+                        <span className="badge badge-neutral">Approximate</span>
                       ) : (
-                        <span className="badge badge-neutral">Standard</span>
+                        <span className="badge badge-success">Located</span>
                       )}
                     </td>
                     <td>
                       <button
                         type="button"
                         onClick={() => handleLocateStop(stop)}
+                        disabled={!hasLocation}
                         className="btn btn-outline-dark btn-sm"
                         style={{ fontSize: '10px', padding: '3px 8px', display: 'flex', alignItems: 'center', gap: '4px' }}
                       >

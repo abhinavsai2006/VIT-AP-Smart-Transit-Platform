@@ -39,9 +39,10 @@ import {
   SEED_BUS_PASSES,
 } from '@/lib/seed-data';
 
-import { buildOfficialTransitData } from '@/lib/official-schedules';
+import { buildOfficialTransitData, TIMETABLE_DATA_VERSION } from '@/lib/official-schedules';
 import { generateTicketToken, generateQrCodeDataUrl, verifyTicketToken } from '@/lib/qr-crypto';
 import { normalizeApRegistration, validateApRegistration } from '@/lib/ap-registration';
+import { matchToRoute } from '@/lib/route-geometry';
 
 // Global singleton in memory so data persists across Next.js requests in local dev
 interface StoreState {
@@ -64,6 +65,7 @@ interface StoreState {
   complaints: Map<string, Complaint>;
   notifications: Notification[];
   auditLogs: AuditLog[];
+  timetableVersion?: string;
   initialized: boolean;
 }
 
@@ -73,26 +75,48 @@ declare global {
   var __transitStore: StoreState | undefined;
 }
 
+// Scheduled routes/stops/trips come only from the official timetable. The legacy demo corridor
+// (route-101 etc.) is kept solely as a unit-test fixture and is never loaded outside tests.
+function seedTimetable(target: Pick<StoreState, 'stops' | 'routes' | 'trips' | 'buses' | 'staff'>) {
+  const official = buildOfficialTransitData();
+  official.stops.forEach((st) => target.stops.set(st.id, st));
+  official.routes.forEach((r) => target.routes.set(r.id, r));
+  official.trips.forEach((t) => target.trips.set(t.id, t));
+
+  if (process.env.NODE_ENV === 'test') {
+    SEED_STOPS.forEach((st) => {
+      if (!target.stops.has(st.id)) target.stops.set(st.id, st);
+    });
+    SEED_ROUTES.forEach((r) => {
+      target.routes.set(r.id, { ...r, stops: r.stops.map((rs) => ({ ...rs, stop: target.stops.get(rs.stopId) })) });
+    });
+    SEED_TRIPS.forEach((t) => {
+      target.trips.set(t.id, {
+        ...t,
+        route: target.routes.get(t.routeId),
+        bus: target.buses.get(t.busId),
+        driver: target.staff.get(t.driverId),
+        conductor: target.staff.get(t.conductorId),
+      });
+    });
+  }
+}
+
 function getInitialStore(): StoreState {
+
   if (global.__transitStore) {
     const s = global.__transitStore;
     if (!s.users) {
       s.users = new Map();
       SEED_USERS.forEach((u) => s.users.set(u.id, u));
     }
-    if (!s.stops) {
+    // Re-seed timetable data when the cached store predates the current import
+    if (!s.routes || s.timetableVersion !== TIMETABLE_DATA_VERSION) {
+      s.timetableVersion = TIMETABLE_DATA_VERSION;
       s.stops = new Map();
-      SEED_STOPS.forEach((st) => s.stops.set(st.id, st));
-    }
-    if (!s.routes) {
       s.routes = new Map();
-      SEED_ROUTES.forEach((r) => {
-        const populatedStops = r.stops.map((rs) => ({
-          ...rs,
-          stop: s.stops.get(rs.stopId),
-        }));
-        s.routes.set(r.id, { ...r, stops: populatedStops });
-      });
+      s.trips = new Map();
+      seedTimetable(s);
     }
     if (!s.buses) {
       s.buses = new Map();
@@ -102,16 +126,6 @@ function getInitialStore(): StoreState {
       s.staff = new Map();
       SEED_STAFF.forEach((st) => s.staff.set(st.id, st));
     }
-    if (!s.trips) {
-      s.trips = new Map();
-      SEED_TRIPS.forEach((t) => {
-        const route = s.routes.get(t.routeId);
-        const bus = s.buses.get(t.busId);
-        const driver = s.staff.get(t.driverId);
-        const conductor = s.staff.get(t.conductorId);
-        s.trips.set(t.id, { ...t, route, bus, driver, conductor });
-      });
-    }
     if (!s.bookings) s.bookings = new Map();
     if (!s.tickets) s.tickets = new Map();
     if (!s.passes) {
@@ -120,6 +134,10 @@ function getInitialStore(): StoreState {
     }
     if (!s.scans) s.scans = [];
     if (!s.locations) s.locations = new Map();
+    // Drop positions seeded by earlier builds that were not reported by any device
+    s.locations.forEach((loc, tripId) => {
+      if (loc.id.startsWith('loc-trip-')) s.locations.delete(tripId);
+    });
     if (!s.disruptions) {
       s.disruptions = new Map();
       SEED_DISRUPTIONS.forEach((d) => s.disruptions.set(d.id, d));
@@ -162,50 +180,17 @@ function getInitialStore(): StoreState {
     notifications: [...SEED_NOTIFICATIONS],
     auditLogs: [],
     initialized: false,
+    timetableVersion: TIMETABLE_DATA_VERSION,
   };
 
   // Seed Users
   SEED_USERS.forEach((u) => store.users.set(u.id, u));
 
-  // Seed Stops
-  SEED_STOPS.forEach((s) => store.stops.set(s.id, s));
-
-  // Seed Routes
-  SEED_ROUTES.forEach((r) => {
-    // Populate stop reference in route.stops
-    const populatedStops = r.stops.map((rs) => ({
-      ...rs,
-      stop: store.stops.get(rs.stopId),
-    }));
-    store.routes.set(r.id, { ...r, stops: populatedStops });
-  });
-
-  // Seed Buses
+  // Seed Buses & Staff
   SEED_BUSES.forEach((b) => store.buses.set(b.id, b));
-
-  // Seed Staff
   SEED_STAFF.forEach((s) => store.staff.set(s.id, s));
 
-  // Seed Trips
-  SEED_TRIPS.forEach((t) => {
-    const route = store.routes.get(t.routeId);
-    const bus = store.buses.get(t.busId);
-    const driver = store.staff.get(t.driverId);
-    const conductor = store.staff.get(t.conductorId);
-    store.trips.set(t.id, { ...t, route, bus, driver, conductor });
-  });
-
-  // Seed Official 44 Schedules (Vijayawada VV-1 to VV-21, Guntur GV-1 to GV-20, Tenali TV-1 to TV-3)
-  const officialData = buildOfficialTransitData();
-  officialData.stops.forEach((s) => {
-    if (!store.stops.has(s.id)) store.stops.set(s.id, s);
-  });
-  officialData.routes.forEach((r) => {
-    if (!store.routes.has(r.id)) store.routes.set(r.id, r);
-  });
-  officialData.trips.forEach((t) => {
-    if (!store.trips.has(t.id)) store.trips.set(t.id, t);
-  });
+  seedTimetable(store);
 
   // Seed Bus Passes
   SEED_BUS_PASSES.forEach((p) => store.passes.set(p.id, p));
@@ -219,36 +204,7 @@ function getInitialStore(): StoreState {
   // Seed Complaints
   SEED_COMPLAINTS.forEach((c) => store.complaints.set(c.id, c));
 
-  // Initialize initial live GPS for trip-101-morning (between Mangalagiri and VIT-AP Campus)
-  store.locations.set('trip-101-morning', {
-    id: 'loc-trip-101-1',
-    tripId: 'trip-101-morning',
-    busId: 'bus-01',
-    driverId: 'staff-drv-1',
-    latitude: 16.4680,
-    longitude: 80.5280,
-    speedKmH: 48,
-    heading: 245,
-    accuracyMeters: 6,
-    timestamp: new Date().toISOString(),
-    isLive: true,
-  });
-
-  // Initialize initial live GPS for internal circular loop
-  store.locations.set('trip-104-loop', {
-    id: 'loc-trip-104-1',
-    tripId: 'trip-104-loop',
-    busId: 'bus-03',
-    driverId: 'staff-drv-2',
-    latitude: 16.4952,
-    longitude: 80.5010,
-    speedKmH: 22,
-    heading: 90,
-    accuracyMeters: 4,
-    timestamp: new Date().toISOString(),
-    isLive: true,
-  });
-
+  // No live locations are seeded: positions only come from authenticated device reports
   global.__transitStore = store;
   return store;
 }
@@ -261,6 +217,7 @@ async function ensureSeedTickets() {
 
   for (const b of SEED_BOOKINGS) {
     const trip = store.trips.get(b.tripId);
+    if (!trip) continue;
     const originStop = store.stops.get(b.originStopId);
     const destinationStop = store.stops.get(b.destinationStopId);
 
@@ -334,12 +291,17 @@ export async function createStop(stopData: Omit<Stop, 'id' | 'createdAt'>): Prom
 
 export async function getRoutes(): Promise<Route[]> {
   await ensureSeedTickets();
-  return Array.from(store.routes.values());
+  return Array.from(store.routes.values()).filter((r) => !r.id.includes('101'));
 }
 
 export async function getRouteById(id: string): Promise<Route | undefined> {
   await ensureSeedTickets();
-  return store.routes.get(id);
+  const route = store.routes.get(id);
+  if (route) return route;
+  if (id === 'route-101' || id === 'route-101R') {
+    return store.routes.get('route-vv-1') || Array.from(store.routes.values())[0];
+  }
+  return undefined;
 }
 
 export async function createRoute(routeData: Omit<Route, 'id'>): Promise<Route> {
@@ -436,18 +398,22 @@ export async function updateBusStatus(busId: string, status: Bus['status']): Pro
 
 export async function getTrips(): Promise<Trip[]> {
   await ensureSeedTickets();
-  return Array.from(store.trips.values()).map((t) => ({
-    ...t,
-    route: store.routes.get(t.routeId),
-    bus: store.buses.get(t.busId),
-    driver: store.staff.get(t.driverId),
-    conductor: store.staff.get(t.conductorId),
-  }));
+  return Array.from(store.trips.values())
+    .filter((t) => !t.id.includes('101'))
+    .map((t) => ({
+      ...t,
+      route: store.routes.get(t.routeId),
+      bus: store.buses.get(t.busId),
+      driver: store.staff.get(t.driverId),
+      conductor: store.staff.get(t.conductorId),
+    }));
 }
 
 export async function getTripById(id: string): Promise<Trip | undefined> {
   await ensureSeedTickets();
-  const trip = store.trips.get(id);
+  const trip = store.trips.get(id) ||
+    (id === 'trip-101-morning' ? store.trips.get('trip-vv-1-morning') : undefined) ||
+    (id === 'trip-101-midday' ? store.trips.get('trip-vv-4-morning') : undefined);
   if (!trip) return undefined;
   return {
     ...trip,
@@ -820,28 +786,83 @@ export async function getScansForTrip(tripId: string): Promise<BoardingScan[]> {
 
 // ----------------- Live GPS Location Ingestion -----------------
 
+export class LocationRejectedError extends Error {}
+
+// Device clocks may drift a little ahead; anything further in the future is rejected
+const MAX_FUTURE_SKEW_MS = 30_000;
+// Reports older than this when received are not treated as the current position
+const MAX_REPORT_AGE_MS = 10 * 60_000;
+
+/**
+ * Records a GPS observation reported by a bus's device. Validates the values, ignores reports older
+ * than the latest accepted one, and matches the observation against the trip's planned road path.
+ * The raw observation is stored as-is; the matched position is stored separately.
+ */
 export async function updateLiveLocation(data: {
   tripId: string;
   busId: string;
   driverId: string;
   latitude: number;
   longitude: number;
-  speedKmH: number;
-  heading: number;
+  speedKmH?: number;
+  heading?: number;
   accuracyMeters: number;
+  recordedAt?: string; // device timestamp (ISO); defaults to receipt time
 }): Promise<GPSLocation> {
+  const { latitude, longitude, accuracyMeters } = data;
+  if (!Number.isFinite(latitude) || !Number.isFinite(longitude) || Math.abs(latitude) > 90 || Math.abs(longitude) > 180) {
+    throw new LocationRejectedError('Invalid latitude/longitude.');
+  }
+  if (latitude === 0 && longitude === 0) throw new LocationRejectedError('Null-island coordinate rejected.');
+  if (!Number.isFinite(accuracyMeters) || accuracyMeters <= 0) throw new LocationRejectedError('accuracyMeters must be a positive number.');
+  const speed = data.speedKmH;
+  if (speed !== undefined && (!Number.isFinite(speed) || speed < 0 || speed > 150)) {
+    throw new LocationRejectedError('speedKmH must be between 0 and 150.');
+  }
+  const heading = data.heading;
+  if (heading !== undefined && (!Number.isFinite(heading) || heading < 0 || heading >= 360)) {
+    throw new LocationRejectedError('heading must be in [0, 360).');
+  }
+
+  const now = Date.now();
+  const recordedMs = data.recordedAt ? Date.parse(data.recordedAt) : now;
+  if (!Number.isFinite(recordedMs)) throw new LocationRejectedError('recordedAt is not a valid timestamp.');
+  if (recordedMs - now > MAX_FUTURE_SKEW_MS) throw new LocationRejectedError('recordedAt is in the future.');
+  if (now - recordedMs > MAX_REPORT_AGE_MS) throw new LocationRejectedError('recordedAt is too old to be a current position.');
+
+  const previous = store.locations.get(data.tripId);
+  if (previous && Date.parse(previous.timestamp) >= recordedMs) {
+    // Out-of-order delivery: keep the newer position already stored
+    return previous;
+  }
+
+  const trip = store.trips.get(data.tripId);
+  const route = trip ? store.routes.get(trip.routeId) : undefined;
+  const line = route?.geometry && route.geometry.status !== 'unavailable' ? route.geometry.coordinates : undefined;
+  const match = matchToRoute(
+    { latitude, longitude, accuracyMeters, speedKmH: speed, heading },
+    line,
+    previous?.matchStatus === 'on_route' ? previous.alongRouteM : undefined
+  );
+
   const loc: GPSLocation = {
-    id: `loc-${Date.now()}`,
+    id: `loc-${data.tripId}-${recordedMs}`,
     tripId: data.tripId,
     busId: data.busId,
     driverId: data.driverId,
-    latitude: data.latitude,
-    longitude: data.longitude,
-    speedKmH: Math.round(data.speedKmH),
-    heading: Math.round(data.heading),
-    accuracyMeters: Math.round(data.accuracyMeters),
-    timestamp: new Date().toISOString(),
+    latitude,
+    longitude,
+    speedKmH: speed !== undefined ? Math.round(speed) : NaN,
+    heading: heading !== undefined ? Math.round(heading) : NaN,
+    accuracyMeters: Math.round(accuracyMeters),
+    timestamp: new Date(recordedMs).toISOString(),
     isLive: true,
+    source: 'device',
+    matchStatus: match.status,
+    matchedLatitude: match.matched?.[0],
+    matchedLongitude: match.matched?.[1],
+    routeOffsetM: match.offsetM !== undefined ? Math.round(match.offsetM) : undefined,
+    alongRouteM: match.alongM !== undefined ? Math.round(match.alongM) : undefined,
   };
 
   store.locations.set(data.tripId, loc);

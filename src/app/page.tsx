@@ -63,15 +63,15 @@ export default function HomePage() {
 
         // Set default search stops if available
         if (stopsData.stops && stopsData.stops.length >= 2) {
-          setOriginStopId('stop-vja-rly'); // Vijayawada Railway Station
-          setDestinationStopId('stop-vit-ap-campus'); // VIT-AP Campus
+          setOriginStopId(stopsData.stops.find((s: Stop) => s.id !== 'stop-vit-ap-campus')?.id || '');
+          setDestinationStopId('stop-vit-ap-campus');
         }
 
-        // Fetch live GPS location for map preview
-        const locRes = await fetch('/api/trips/trip-101-morning/location');
-        const locData = await locRes.json();
-        if (locData.location) {
-          setActiveLocations([locData.location]);
+        // Live GPS for map preview: only buses that have actually reported a position
+        const allLocRes = await fetch('/api/locations');
+        if (allLocRes.ok) {
+          const allLocData = await allLocRes.json();
+          setActiveLocations(allLocData.locations || []);
         }
       } catch (err) {
         console.error('Failed to load initial transit data', err);

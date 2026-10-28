@@ -19,7 +19,7 @@ import {
 export default function ConductorPage() {
   const { user } = useAuth();
   const [trips, setTrips] = useState<Trip[]>([]);
-  const [selectedTripId, setSelectedTripId] = useState<string>('trip-101-morning');
+  const [selectedTripId, setSelectedTripId] = useState<string>('');
   const [isScannerOpen, setIsScannerOpen] = useState(false);
   const [scanHistory, setScanHistory] = useState<BoardingScan[]>([]);
   const [loading, setLoading] = useState(true);
@@ -267,7 +267,7 @@ export default function ConductorPage() {
         <QrScannerModal
           isOpen={isScannerOpen}
           onClose={() => setIsScannerOpen(false)}
-          tripId={selectedTrip?.id || 'trip-101-morning'}
+          tripId={selectedTrip?.id || ''}
           staffId={user.employeeId || 'CND-201'}
           onScanComplete={handleScanCompleted}
         />

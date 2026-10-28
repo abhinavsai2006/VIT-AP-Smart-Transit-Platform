@@ -201,7 +201,9 @@ export default function StopsPage() {
                   {selectedStop?.name}
                 </h2>
                 <div style={{ fontSize: '12px', color: 'var(--color-on-dark-soft)', marginTop: '4px' }}>
-                  Coordinates: {selectedStop?.latitude.toFixed(5)}° N, {selectedStop?.longitude.toFixed(5)}° E
+                  {selectedStop && Number.isFinite(selectedStop.latitude) && Number.isFinite(selectedStop.longitude)
+                    ? <>Coordinates: {selectedStop.latitude.toFixed(5)}° N, {selectedStop.longitude.toFixed(5)}° E{selectedStop.coordinateStatus === 'geocoded_unverified' ? ' (approximate, unverified)' : ''}</>
+                    : 'Location not yet verified'}
                 </div>
               </div>
 
@@ -209,7 +211,8 @@ export default function StopsPage() {
                 <TransitMap
                   stops={stops}
                   routes={routes}
-                  center={selectedStop ? [selectedStop.latitude, selectedStop.longitude] : undefined}
+                  selectedStopId={selectedStop?.id}
+                  center={selectedStop && Number.isFinite(selectedStop.latitude) ? [selectedStop.latitude, selectedStop.longitude] : undefined}
                   zoom={14}
                   height="340px"
                 />
