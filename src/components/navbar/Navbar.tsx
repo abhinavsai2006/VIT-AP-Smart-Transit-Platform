@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useAuth } from '@/lib/auth/auth-context';
+import TransitBrandLogo from '@/components/brand/TransitBrandLogo';
 import {
   Bus,
   MapPin,
@@ -64,19 +65,7 @@ export default function Navbar() {
           {/* Logo & University Identity */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
             <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', color: 'var(--color-ink)' }}>
-              <div
-                style={{
-                  backgroundColor: 'var(--color-primary)',
-                  color: '#ffffff',
-                  width: '36px',
-                  height: '36px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                <Bus size={20} strokeWidth={2.5} />
-              </div>
+              <TransitBrandLogo size={38} />
               <div>
                 <div style={{ fontSize: '15px', fontWeight: 700, letterSpacing: '0.5px', lineHeight: 1.1 }}>
                   VIT-AP SMART TRANSIT

@@ -3,9 +3,9 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Bus, Trip, Complaint, EventRequest, MaintenanceRecord, ServiceDisruption } from '@/types/transit';
+import TransitBrandLogo from '@/components/brand/TransitBrandLogo';
 import {
   Shield,
-  Bus as BusIcon,
   Calendar,
   AlertTriangle,
   Wrench,
@@ -228,7 +228,7 @@ export default function AdminOverviewPage() {
           {/* Fleet Module */}
           <Link href="/admin/fleet" className="card" style={{ padding: '24px', backgroundColor: '#ffffff', color: 'var(--color-ink)', transition: 'transform 0.1s ease' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
-              <BusIcon size={24} color="var(--color-primary)" />
+              <TransitBrandLogo size={28} variant="outline" />
               <span className="badge badge-neutral">{buses.length} Vehicles</span>
             </div>
             <h3 style={{ fontSize: '16px', fontWeight: 700, marginBottom: '6px' }}>Fleet Registry & AP Registration</h3>

@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Bus, Phone, ShieldCheck, MapPin } from 'lucide-react';
+import TransitBrandLogo from '@/components/brand/TransitBrandLogo';
 
 export default function Footer() {
   return (
@@ -27,19 +28,7 @@ export default function Footer() {
           {/* Col 1: University Identity */}
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
-              <div
-                style={{
-                  backgroundColor: 'var(--color-primary)',
-                  color: '#ffffff',
-                  width: '32px',
-                  height: '32px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                <Bus size={18} />
-              </div>
+              <TransitBrandLogo size={32} />
               <span style={{ fontSize: '15px', fontWeight: 700, letterSpacing: '0.5px' }}>
                 VIT-AP SMART TRANSIT
               </span>

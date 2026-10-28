@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useAuth } from '@/lib/auth/auth-context';
 import { BusPass, Route } from '@/types/transit';
+import TransitBrandLogo from '@/components/brand/TransitBrandLogo';
 import {
   Printer,
   Download,
@@ -13,7 +14,6 @@ import {
   MapPin,
   Clock,
   Compass,
-  Bus as BusIcon,
   Phone,
   ArrowRight,
   User,
@@ -144,14 +144,13 @@ export default function BusPassPage() {
               style={{
                 width: '64px',
                 height: '64px',
-                backgroundColor: '#f1f5f9',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 margin: '0 auto 16px auto',
               }}
             >
-              <BusIcon size={32} color="var(--color-muted)" />
+              <TransitBrandLogo size={56} variant="outline" />
             </div>
             <h2 style={{ fontSize: '20px', fontWeight: 700, color: 'var(--color-ink)', marginBottom: '8px' }}>
               No Active Bus Pass Found
